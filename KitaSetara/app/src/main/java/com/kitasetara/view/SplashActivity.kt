@@ -1,9 +1,9 @@
-package com.kitasetara.ui
+package com.kitasetara.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.kitasetara.R
+import android.os.Handler
 import com.kitasetara.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
@@ -14,11 +14,9 @@ class SplashActivity : AppCompatActivity() {
         _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.ivSplash.alpha = 0f //make the logo initially invisible
-        binding.ivSplash.animate().setDuration(3000).alpha(1f).withEndAction {
+        Handler().postDelayed({
             startActivity(Intent(this,MainActivity::class.java))
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
             finish()
-        }
+        }, 3000)
     }
 }

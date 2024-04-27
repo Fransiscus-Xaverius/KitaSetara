@@ -1,4 +1,4 @@
-package com.kitasetara.ui
+package com.kitasetara.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
