@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/et_regis_name"
         android:layout_width="249dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,43 +40,43 @@
         android:inputType="text"
         android:padding="16dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText2"
+        app:layout_constraintBottom_toTopOf="@+id/et_regis_username"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/et_regis_password"
         android:layout_width="249dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="Password"
-        android:inputType="text"
+        android:inputType="text|textPassword"
         android:padding="16dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText4"
+        app:layout_constraintBottom_toTopOf="@+id/et_regis_conf"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="@+id/guideline18" />
 
     <EditText
-        android:id="@+id/editTextText4"
+        android:id="@+id/et_regis_conf"
         android:layout_width="249dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="Confirm Password"
-        android:inputType="text"
+        android:inputType="text|textPassword"
         android:padding="16dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText5"
+        app:layout_constraintBottom_toTopOf="@+id/et_regis_email"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="@+id/guideline18" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/et_regis_username"
         android:layout_width="249dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -86,12 +86,12 @@
         android:inputType="text"
         android:padding="16dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintBottom_toTopOf="@+id/et_regis_password"
         app:layout_constraintEnd_toStartOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="@+id/guideline18" />
 
     <EditText
-        android:id="@+id/editTextText5"
+        android:id="@+id/et_regis_email"
         android:layout_width="249dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

@@ -51,7 +51,7 @@
         android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="Password"
-        android:inputType="text"
+        android:inputType="text|textPassword"
         android:padding="16dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"

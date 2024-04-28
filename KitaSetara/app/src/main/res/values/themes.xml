@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.KitaSetara" parent="Base.Theme.KitaSetara" />
+
+<!--    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">-->
+<!--        <item name="android:color"></item>-->
+<!--    </style>-->
 </resources>

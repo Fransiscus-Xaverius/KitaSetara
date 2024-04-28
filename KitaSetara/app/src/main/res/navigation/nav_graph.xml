@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -23,4 +26,44 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.kitasetara.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/coursesFragment"
+        android:name="com.kitasetara.view.CoursesFragment"
+        android:label="fragment_courses"
+        tools:layout="@layout/fragment_courses" />
+    <action
+        android:id="@+id/action_global_coursesFragment"
+        app:destination="@id/coursesFragment" />
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment" />
+    <fragment
+        android:id="@+id/discussFragment"
+        android:name="com.kitasetara.view.DiscussFragment"
+        android:label="fragment_discuss"
+        tools:layout="@layout/fragment_discuss" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.kitasetara.view.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.kitasetara.view.LeaderboardFragment"
+        android:label="fragment_leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
+    <action
+        android:id="@+id/action_global_discussFragment"
+        app:destination="@id/discussFragment" />
+    <action
+        android:id="@+id/action_global_leaderboardFragment"
+        app:destination="@id/leaderboardFragment" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment" />
 </navigation>
