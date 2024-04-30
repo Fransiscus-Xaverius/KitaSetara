@@ -13,7 +13,7 @@
         android:theme="@style/Theme.KitaSetara"
         tools:targetApi="31">
         <activity
-            android:name=".view.SplashActivity"
+            android:name="id.ac.istts.kitasetara.view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name="id.ac.istts.kitasetara.view.MainActivity"
             android:exported="true" />
     </application>
 

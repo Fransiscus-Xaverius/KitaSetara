@@ -1,4 +1,4 @@
-package com.kitasetara.model
+package id.ac.istts.kitasetara.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

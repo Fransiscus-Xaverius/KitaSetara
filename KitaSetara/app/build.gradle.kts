@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.kitasetara"
+    namespace = "id.ac.istts.kitasetara"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.kitasetara"
+        applicationId = "id.ac.istts.kitasetara"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

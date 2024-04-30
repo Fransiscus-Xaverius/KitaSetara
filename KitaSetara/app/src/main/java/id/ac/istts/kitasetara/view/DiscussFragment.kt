@@ -1,4 +1,4 @@
-package com.kitasetara.view
+package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,15 +10,15 @@ import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.kitasetara.R
-import com.kitasetara.databinding.FragmentDiscussBinding
+import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.databinding.FragmentDiscussBinding
 
 class DiscussFragment : Fragment() {
     private var _binding : FragmentDiscussBinding? = null
     private val binding get() = _binding!!
     private lateinit var searchBar:SearchView
     private lateinit var sortBtn:ImageButton
-    private lateinit var discussRV:RecyclerView
+    private lateinit var discussRV: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

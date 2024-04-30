@@ -1,4 +1,4 @@
-package com.kitasetara
+package id.kitasetara
 
 import org.junit.Test
 

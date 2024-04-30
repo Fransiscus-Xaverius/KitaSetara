@@ -1,10 +1,10 @@
-package com.kitasetara.view
+package id.ac.istts.kitasetara.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.kitasetara.databinding.ActivitySplashBinding
+import id.ac.istts.kitasetara.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
     private var _binding : ActivitySplashBinding? = null
@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler().postDelayed({
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, 3000)
     }

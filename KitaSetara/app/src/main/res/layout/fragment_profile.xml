@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ProfileFragment">
+    tools:context="id.ac.istts.kitasetara.view.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -16,14 +16,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        app:labelVisibilityMode="labeled"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:itemIconTint="@color/orange_base"
         app:itemTextColor="@color/orange_base"
-        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

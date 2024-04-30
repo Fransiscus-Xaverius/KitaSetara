@@ -1,24 +1,24 @@
-package com.kitasetara.view
+package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
-import com.kitasetara.R
-import com.kitasetara.databinding.FragmentHomeBinding
+import androidx.navigation.fragment.findNavController
+import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.databinding.FragmentLeaderboardBinding
 
-class HomeFragment : Fragment() {
+class LeaderboardFragment : Fragment() {
 
-    private var _binding : FragmentHomeBinding? = null
+    private var _binding : FragmentLeaderboardBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentLeaderboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -28,27 +28,28 @@ class HomeFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.bottom_home-> {
-                    view.findNavController().navigate(R.id.action_global_homeFragment)
+                    findNavController().navigate(R.id.action_global_homeFragment)
                     true
                 }
                 R.id.bottom_course-> {
-                    view.findNavController().navigate(R.id.action_global_coursesFragment)
+                    findNavController().navigate(R.id.action_global_coursesFragment)
                     true
                 }
                 R.id.bottom_leaderboard-> {
-                    view.findNavController().navigate(R.id.action_global_leaderboardFragment)
+                    findNavController().navigate(R.id.action_global_leaderboardFragment)
                     true
                 }
                 R.id.bottom_discuss-> {
-                    view.findNavController().navigate(R.id.action_global_discussFragment)
+                    findNavController().navigate(R.id.action_global_discussFragment)
                     true
                 }
                 R.id.bottom_profile-> {
-                    view.findNavController().navigate(R.id.action_global_profileFragment)
+                    findNavController().navigate(R.id.action_global_profileFragment)
                     true
                 }
                 else -> false
             }
         }
+        binding.bottomNavigation.menu.findItem(R.id.bottom_leaderboard).isChecked = true
     }
 }

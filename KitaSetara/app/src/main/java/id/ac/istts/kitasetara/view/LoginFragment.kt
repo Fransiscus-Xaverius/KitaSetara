@@ -1,4 +1,4 @@
-package com.kitasetara.view
+package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +12,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.kitasetara.R
-import com.kitasetara.databinding.FragmentLoginBinding
-import com.kitasetara.model.User
+import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.databinding.FragmentLoginBinding
+import id.ac.istts.kitasetara.model.User
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.kitasetara.view.LoginFragment"
+        android:name="id.ac.istts.kitasetara.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.kitasetara.view.RegisterFragment"
+        android:name="id.ac.istts.kitasetara.view.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -28,12 +28,12 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.kitasetara.view.HomeFragment"
+        android:name="id.ac.istts.kitasetara.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/coursesFragment"
-        android:name="com.kitasetara.view.CoursesFragment"
+        android:name="id.ac.istts.kitasetara.view.CoursesFragment"
         android:label="fragment_courses"
         tools:layout="@layout/fragment_courses" />
     <action
@@ -44,17 +44,17 @@
         app:destination="@id/homeFragment" />
     <fragment
         android:id="@+id/discussFragment"
-        android:name="com.kitasetara.view.DiscussFragment"
+        android:name="id.ac.istts.kitasetara.view.DiscussFragment"
         android:label="fragment_discuss"
         tools:layout="@layout/fragment_discuss" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kitasetara.view.ProfileFragment"
+        android:name="id.ac.istts.kitasetara.view.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/leaderboardFragment"
-        android:name="com.kitasetara.view.LeaderboardFragment"
+        android:name="id.ac.istts.kitasetara.view.LeaderboardFragment"
         android:label="fragment_leaderboard"
         tools:layout="@layout/fragment_leaderboard" />
     <action

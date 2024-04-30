@@ -1,4 +1,4 @@
-package com.kitasetara.view
+package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +12,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.kitasetara.R
-import com.kitasetara.databinding.FragmentRegisterBinding
-import com.kitasetara.model.User
+import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.databinding.FragmentRegisterBinding
+import id.ac.istts.kitasetara.model.User
 import android.util.Patterns
 
 class RegisterFragment : Fragment() {
