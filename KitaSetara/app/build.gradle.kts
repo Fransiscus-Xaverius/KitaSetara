@@ -21,15 +21,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        val properties = Properties()
-//        val apiKey : String
-//
-//        val localPropertiesFile = project.rootProject.file("local.properties")
-//
-//        properties.load(localPropertiesFile.inputStream())
-//        apiKey = properties.getProperty("API_KEY")
-//
-//        buildConfigField("string","\"$apiKey\"","")
+        val properties = Properties()
+        val clientId : String
+
+        val localPropertiesFile = project.rootProject.file("local.properties")
+
+        properties.load(localPropertiesFile.inputStream())
+        clientId = properties.getProperty("CLIENT_ID")
+
+        buildConfigField("String","CLIENT_ID",clientId)
     }
 
     buildTypes {
@@ -52,7 +52,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
-//        buildConfig = true
+        buildConfig = true
     }
 }
 
@@ -64,8 +64,11 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-auth")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.android.gms:play-services-auth:21.1.0")
 }

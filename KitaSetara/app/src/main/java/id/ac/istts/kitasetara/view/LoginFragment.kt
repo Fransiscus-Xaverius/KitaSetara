@@ -1,22 +1,38 @@
 package id.ac.istts.kitasetara.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import id.ac.istts.kitasetara.BuildConfig
+import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentLoginBinding
 import id.ac.istts.kitasetara.model.User
 
 class LoginFragment : Fragment() {
+    companion object {
+        private const val RC_SIGN_IN = 9001
+    }
+
+    private lateinit var auth: FirebaseAuth
+
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -34,7 +50,20 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            //user has logged in already, navigate to home fragment right away
+            view.findNavController().navigate(R.id.action_global_homeFragment)
+        }
         //handle onclick
+
+        binding.signInButton.setOnClickListener {
+            signIn()
+        }
+
         binding.btnLogin.setOnClickListener {
             //validate inputs
             val username = binding.etLoginUsername.text.toString()
@@ -49,6 +78,44 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun signIn(){
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.CLIENT_ID)
+            .requestEmail()
+            .build()
+
+        val googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                Toast.makeText(requireActivity(), "Google sign in failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    Toast.makeText(requireActivity(), "Signed in as ${user?.displayName}", Toast.LENGTH_SHORT).show()
+                    //redirect to home activity
+                    findNavController().navigate(R.id.action_global_homeFragment)
+                } else {
+                    Toast.makeText(requireActivity(), "Authentication failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
     private fun loginUser(view: View, username : String, password:String){
         databaseReference.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -58,6 +125,8 @@ class LoginFragment : Fragment() {
 
                         if (userData != null && userData.password == password){
                             //login successful
+                            //set currentuser
+                            Helper.currentUser = userData.name
                             Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT)
                                 .show()
                             userSnapshot.ref.child("loggedIn").setValue(true)

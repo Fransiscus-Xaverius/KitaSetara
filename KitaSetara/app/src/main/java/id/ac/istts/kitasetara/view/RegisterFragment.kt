@@ -38,14 +38,14 @@ class RegisterFragment : Fragment() {
         val pattern = Patterns.EMAIL_ADDRESS
         return pattern.matcher(email).matches()
     }
-    private fun signupUser(view: View, username: String, password: String, email: String) {
+    private fun signupUser(view: View, username: String, name : String,password: String, email: String) {
         databaseReference.orderByChild("username").equalTo(username)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (!snapshot.exists()) {
                         //there is no user with given username yet in the DB
                         val id = databaseReference.push().key //create unique id for new user
-                        val userData = User(id, username, password, email, false)
+                        val userData = User(id, username,name ,password, email, false)
                         //child() is filled with id!! because the id will always be unique
                         databaseReference.child(id!!).setValue(userData)
                         Toast.makeText(context, "Register success!!", Toast.LENGTH_SHORT).show()
@@ -78,7 +78,7 @@ class RegisterFragment : Fragment() {
                 if (pass == conf) {
                     //validate email format
                     if (isValidEmail(email)){
-                        signupUser(view,username,pass,email)
+                        signupUser(view,username,name,pass,email)
                     }else{
                         Toast.makeText(context, "Incorrect email format!", Toast.LENGTH_SHORT)
                             .show()
