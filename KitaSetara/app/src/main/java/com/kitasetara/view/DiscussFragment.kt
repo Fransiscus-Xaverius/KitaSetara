@@ -5,13 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.kitasetara.R
 import com.kitasetara.databinding.FragmentDiscussBinding
 
 class DiscussFragment : Fragment() {
     private var _binding : FragmentDiscussBinding? = null
     private val binding get() = _binding!!
+    private lateinit var searchBar:SearchView
+    private lateinit var sortBtn:ImageButton
+    private lateinit var discussRV:RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,7 +30,15 @@ class DiscussFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //handle onclick
+        //handle discussion onclick
+        searchBar = binding.searchViewDiscuss
+        sortBtn = binding.sortDiscussBtn
+        discussRV = binding.discussRV
+        sortBtn.setOnClickListener{
+
+        }
+
+        //handle bottom menu onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.bottom_home-> {
