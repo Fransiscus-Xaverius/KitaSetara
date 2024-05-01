@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_login_register"
     tools:context="id.ac.istts.kitasetara.view.RegisterFragment">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline21"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintStart_toStartOf="@+id/guideline22"

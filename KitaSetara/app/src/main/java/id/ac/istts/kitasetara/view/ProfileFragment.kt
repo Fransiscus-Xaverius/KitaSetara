@@ -46,23 +46,23 @@ class ProfileFragment : Fragment() {
         val auth = Firebase.auth
         val user = auth.currentUser
 
-        if (user != null) {//display user name
-            val userName = user.displayName
-            binding.tvWelcome.text = "Welcome, " + userName
-        } else {
-            // user has logged in using other method
-            binding.tvWelcome.text = "Welcome ${Helper.currentUser}"
-        }
+//        if (user != null) {//display user name
+//            val userName = user.displayName
+//            binding.tvWelcome.text = "Welcome, " + userName
+//        } else {
+//            // user has logged in using other method
+//            binding.tvWelcome.text = "Welcome ${Helper.currentUser}"
+//        }
 
-        binding.btnLogout.setOnClickListener {
-            if (Helper.currentUser != ""){//sign out
-                Helper.currentUser = ""
-                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-            }else{
-                signOutAndStartSignInActivity()
-            }
-
-        }
+//        binding.btnLogout.setOnClickListener {
+//            if (Helper.currentUser != ""){//sign out
+//                Helper.currentUser = ""
+//                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+//            }else{
+//                signOutAndStartSignInActivity()
+//            }
+//
+//        }
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.bottom_home-> {

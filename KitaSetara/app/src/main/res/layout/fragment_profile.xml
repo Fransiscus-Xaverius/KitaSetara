@@ -8,16 +8,48 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/tv_welcome"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:text="Profile"
-        android:textSize="24sp"
+        android:background="@color/orange_base"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/photo_profile"
+            android:padding="5dp"
+            app:shapeAppearanceOverlay="@style/Circular"
+            app:strokeColor="@color/white"
+            app:strokeWidth="4dp"
+            tools:src="@drawable/quiz_logo" />
+
+        <TextView
+            android:id="@+id/txtUsernameProfile"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/txtEmailProfile"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -34,15 +66,202 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
 
-    <Button
-        android:id="@+id/btn_logout"
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="151dp"
-        android:text="LOGOUT"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="30dp"
+        android:text="Account Info"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+        tools:layout_editor_absoluteY="254dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="371dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="296dp">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/baseline_person_24" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/pencil" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="361dp">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:padding="6dp"
+            android:src="@drawable/at_sign" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Username"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/pencil" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="426dp">
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/mail_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Email"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/pencil" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="492dp">
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:src="@drawable/lock_logo" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="558dp">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:src="@drawable/logout_logo" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
