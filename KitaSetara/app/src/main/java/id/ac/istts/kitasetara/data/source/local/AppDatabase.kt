@@ -2,11 +2,12 @@ package id.ac.istts.kitasetara.data.source.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.model.course.Course
 import id.ac.istts.kitasetara.model.course.Module
 
 
-@Database(entities = [Course::class, Module::class], version = 1)
+@Database(entities = [Course::class, Module::class, Content::class], version = 1)
 abstract class AppDatabase:RoomDatabase() {
 
     abstract fun courseDao(): CourseDao
