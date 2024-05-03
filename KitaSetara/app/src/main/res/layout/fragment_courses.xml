@@ -29,7 +29,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/background_courses_name"
+        android:background="@drawable/rounded_corner_with_background"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/textView5"

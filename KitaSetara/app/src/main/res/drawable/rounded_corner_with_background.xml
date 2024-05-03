@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="#FFFFFF"/> <!-- Change the color as per your requirement -->
-    <corners android:radius="30dp"/> <!-- Change the radius as per your requirement -->
+    <solid android:color="#FF8A00"/> <!-- Change the color as per your requirement -->
+    <corners android:radius="24dp"/> <!-- Change the radius as per your requirement -->
     <stroke android:color="#FFA500" android:width="3dp"/> <!-- This adds the orange border -->
 </shape>
