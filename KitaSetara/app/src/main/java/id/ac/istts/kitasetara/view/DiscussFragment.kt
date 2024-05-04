@@ -5,13 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.JsonWriter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
 import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.adapters.postAdapter
 import id.ac.istts.kitasetara.databinding.FragmentDiscussBinding
+import id.ac.istts.kitasetara.model.forum.Post
+import id.ac.istts.kitasetara.services.API
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.Date
 
 class DiscussFragment : Fragment() {
     private var _binding : FragmentDiscussBinding? = null
@@ -19,6 +32,8 @@ class DiscussFragment : Fragment() {
     private lateinit var searchBar:SearchView
     private lateinit var sortBtn:ImageButton
     private lateinit var discussRV: RecyclerView
+    private val ioScope = CoroutineScope(Dispatchers.IO)
+    private val mainScope = CoroutineScope(Dispatchers.Main)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +49,45 @@ class DiscussFragment : Fragment() {
         searchBar = binding.searchViewDiscuss
         sortBtn = binding.sortDiscussBtn
         discussRV = binding.discussRV
+
+        val moshi = Moshi.Builder()
+            .add(Date::class.java, object : JsonAdapter<Date>() {
+                @FromJson
+                override fun fromJson(reader: JsonReader): Date? {
+                    return if (reader.peek() != JsonReader.Token.NULL) {
+                        Date(reader.nextLong())
+                    } else {
+                        reader.nextNull<Any>()
+                        null
+                    }
+                }
+
+                @ToJson
+                override fun toJson(writer: JsonWriter, value: Date?) {
+                    value?.let { writer.value(it.time) }
+                }
+            })
+            .build()
+
+        val postJsonAdapter: JsonAdapter<Post> = moshi.adapter(Post::class.java)
+
+        discussRV.layoutManager = LinearLayoutManager(requireContext(),
+            LinearLayoutManager.VERTICAL, false)
+
+        val posts = ArrayList<Post>()
+        val postAdapter = postAdapter(posts)
+
+        ioScope.launch { //access ke API
+            posts.clear()
+            val tempPosts = API.retrofitService.getAllPosts()
+            mainScope.launch { //untuk update tampilan
+                posts.addAll(tempPosts)
+                postAdapter.notifyDataSetChanged()
+            }
+        }
+
+        discussRV.adapter = postAdapter
+
         sortBtn.setOnClickListener{
 
         }

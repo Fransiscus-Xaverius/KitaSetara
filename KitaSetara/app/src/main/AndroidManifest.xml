@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KitaSetara"
         tools:targetApi="31"
-        android:name=".KitaSetaraApplication">
+        android:name=".KitaSetaraApplication"
+        android:usesCleartextTraffic="true"> <!-- Remove this when changing to a domain name later. -Frans -->
         <activity
             android:name="id.ac.istts.kitasetara.view.SplashActivity"
             android:exported="true"

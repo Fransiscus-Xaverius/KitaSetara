@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -24,7 +23,7 @@ import id.ac.istts.kitasetara.BuildConfig
 import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentLoginBinding
-import id.ac.istts.kitasetara.model.User
+import id.ac.istts.kitasetara.model.forum.User
 
 class LoginFragment : Fragment() {
     companion object {

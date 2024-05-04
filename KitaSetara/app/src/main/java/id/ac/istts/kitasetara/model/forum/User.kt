@@ -1,4 +1,4 @@
-package id.ac.istts.kitasetara.model
+package id.ac.istts.kitasetara.model.forum
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

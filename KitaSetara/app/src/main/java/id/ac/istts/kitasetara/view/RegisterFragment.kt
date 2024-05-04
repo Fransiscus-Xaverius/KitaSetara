@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentRegisterBinding
-import id.ac.istts.kitasetara.model.User
+import id.ac.istts.kitasetara.model.forum.User
 import android.util.Patterns
 
 class RegisterFragment : Fragment() {
