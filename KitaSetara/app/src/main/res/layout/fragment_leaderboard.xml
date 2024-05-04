@@ -133,16 +133,12 @@
                     android:textSize="16sp" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imageView16"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/photo_profile"
-                    android:padding="5dp"
+                    android:id="@+id/imageView8"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="8dp"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/Circular"
-                    app:strokeColor="@color/white"
-                    app:strokeWidth="4dp"
                     tools:src="@drawable/quiz_logo" />
 
                 <TextView

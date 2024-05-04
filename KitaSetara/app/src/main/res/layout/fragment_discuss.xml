@@ -26,36 +26,80 @@
         android:id="@+id/searchViewDiscuss"
         android:layout_width="319dp"
         android:layout_height="39dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="74dp"
-        android:background="@drawable/rounded_corner_with_background"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/background_search_view"
         android:padding="7dp"
         android:paddingTop="5dp"
         android:paddingEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/discussRV"
+        app:layout_constraintEnd_toStartOf="@+id/sortDiscussBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/sortDiscussBtn"
-        android:layout_width="40dp"
+        android:layout_width="55dp"
         android:layout_height="40dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/rounded_button"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/background_search_view"
         android:src="@drawable/baseline_sort_24"
+        app:layout_constraintBottom_toTopOf="@+id/discussRV"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchViewDiscuss"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/discussRV"
-        android:layout_width="0dp"
-        android:layout_height="550dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="567dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchViewDiscuss" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="570dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_leaderboard"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="7dp"
+            android:layout_weight="1"
+            android:src="@drawable/pencil_black" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Compose"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
