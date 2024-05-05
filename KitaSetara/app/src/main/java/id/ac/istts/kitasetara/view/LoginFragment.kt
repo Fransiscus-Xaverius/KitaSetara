@@ -42,7 +42,9 @@ class LoginFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding =  FragmentLoginBinding.inflate(inflater, container, false)
+        //get firebaseDatabase instance
         firebaseDatabase = FirebaseDatabase.getInstance()
+        //make database table with the name "users"
         databaseReference = firebaseDatabase.reference.child("users")
         return binding.root
     }
@@ -60,7 +62,7 @@ class LoginFragment : Fragment() {
         //handle onclick
 
         binding.signInButton.setOnClickListener {
-            signIn()
+            signIn() //login with google
         }
 
         binding.btnLogin.setOnClickListener {
@@ -125,7 +127,7 @@ class LoginFragment : Fragment() {
                         if (userData != null && userData.password == password){
                             //login successful
                             //set currentuser
-                            Helper.currentUser = userData.name
+                            Helper.currentUser = userData
                             Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT)
                                 .show()
                             userSnapshot.ref.child("loggedIn").setValue(true)

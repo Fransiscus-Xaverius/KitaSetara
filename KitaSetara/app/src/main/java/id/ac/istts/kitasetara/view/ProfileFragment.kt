@@ -1,28 +1,52 @@
 package id.ac.istts.kitasetara.view
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import id.ac.istts.kitasetara.BuildConfig
 import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentProfileBinding
+import java.util.UUID
 
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
+    private val storage = FirebaseStorage.getInstance() //get firebase storage instance
+    private val firebaseDatabase = FirebaseDatabase.getInstance() //get firebase db instance
+    val auth = Firebase.auth
+    val user = auth.currentUser //get current user that has logged in with google
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,30 +63,149 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
+    //launcher for gallery intent
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia() //with contracts, there will be a return of Uri
+    ) { uri : Uri? ->
+        if (uri != null){
+            //display image to imageview
+            binding.profileImage.setImageURI(uri)
+            //save to firebase
+            saveToFirebaseStorage(uri)
+        }
+    }
 
+    private fun saveToFirebaseStorage(uri:Uri){
+        val imageName = UUID.randomUUID().toString() //random name using UUID for image name
+        val storageRef = storage.reference.child("images/$imageName")
+        binding.progressBar.visibility = View.VISIBLE
+        Toast.makeText(requireActivity(),"Updating...(May take a few seconds)",Toast.LENGTH_LONG).show()
+        storageRef.putFile(uri)
+            .addOnSuccessListener { taskSnapshot ->
+                // Image uploaded successfully, get the URL of the uploaded image to be stored in realtime DB
+                storageRef.downloadUrl.addOnSuccessListener { imageUrl ->
+                    // Image URL retrieved, now save it to Firebase realtime DB
+                    binding.progressBar.visibility = View.GONE
+                    saveToDatabase(imageUrl.toString())
+
+                }.addOnFailureListener { exception ->
+                    // Handle unexpected error
+                    Toast.makeText(requireActivity(),"ERROR OCCURED",Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                //handle unexpected error
+                Toast.makeText(requireActivity(),"ERROR OCCURED",Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun saveToDatabase(imageUrl : String){
+        //show loading indicator while trying to save new image
+
+        //get current user id
+        var uid : String = ""
+//        Log.d("TAG", "Helper.currentUser: ${Helper.currentUser}")
+//        Log.d("TAG", "user: $user")
+        if (Helper.currentUser != null){
+            uid = Helper.currentUser!!.id!!
+        }else{
+            //login with google
+            uid = user!!.uid
+        }
+        // Reference to the "users" node in the Realtime Database
+        val usersRef = firebaseDatabase.reference.child("users")
+        // Reference to the specific user's node using their user ID
+        val userRef = usersRef.child(uid)
+        // Update the "imageUrl" attribute of the user node with the new image URL
+        userRef.child("imageUrl").setValue(imageUrl)
+            .addOnSuccessListener {
+                // Image URL updated in Realtime Database successfully
+                Toast.makeText(requireActivity(),"Profile successfully updated!",Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors
+                Toast.makeText(requireActivity(),"Error when saving to database!",Toast.LENGTH_SHORT).show()
+            }
+    }
+    private fun startGallery(){
+        //access gallery without needing to request permission beforehand, image only
+        launcherIntentGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //handle onclick
-        val auth = Firebase.auth
-        val user = auth.currentUser
 
-//        if (user != null) {//display user name
-//            val userName = user.displayName
-//            binding.tvWelcome.text = "Welcome, " + userName
-//        } else {
-//            // user has logged in using other method
-//            binding.tvWelcome.text = "Welcome ${Helper.currentUser}"
-//        }
 
-//        binding.btnLogout.setOnClickListener {
-//            if (Helper.currentUser != ""){//sign out
-//                Helper.currentUser = ""
-//                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-//            }else{
-//                signOutAndStartSignInActivity()
-//            }
-//
-//        }
+        if (user != null) {//display user name if log in with google
+            val userName = user.displayName
+            binding.txtUsernameProfile.text = "Welcome, " + userName
+            val uri = user.photoUrl
+            Picasso.get().load(uri).into(binding.profileImage, object : Callback {
+                override fun onSuccess() {
+                    // Image loaded successfully, hide loading indicator
+                    binding.progressBar.visibility = View.GONE
+                }
+
+                override fun onError(e: Exception?) {
+                    // Error loading image, hide loading indicator
+                    binding.progressBar.visibility = View.GONE
+                }
+            })
+        } else {
+            // user has logged in using other method
+            binding.txtUsernameProfile.text = "Welcome ${Helper.currentUser!!.name}"
+            // check whether user has a profile picture
+            if (Helper.currentUser!!.imageUrl != ""){
+                //load imageUrl stored in firebase by using Glide
+                binding.progressBar.visibility = View.VISIBLE
+                Glide.with(requireContext())
+                    .load(Helper.currentUser!!.imageUrl)
+                    .error(R.drawable.default_profile)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onResourceReady(
+                            resource: Drawable,
+                            model: Any,
+                            target: com.bumptech.glide.request.target.Target<Drawable>?,
+                            dataSource: DataSource,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            binding.progressBar.visibility = View.GONE
+                            return false
+                        }
+
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            // Hide loading indicator if loading fails
+                            binding.progressBar.visibility = View.GONE
+                            return false
+                        }
+                    })
+                    .into(binding.profileImage)
+
+            }
+        }
+
+
+        binding.profileImage.setOnClickListener{
+            //using photopicker to access gallery images
+            // check whether user logged in with google or not
+            // if user logged in with google, he/she cant change the profile pic
+            if (Helper.currentUser!= null){
+                startGallery()
+            }
+        }
+        binding.tvLogout.setOnClickListener {
+            if (Helper.currentUser != null) {//sign out
+                Helper.currentUser = null
+                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            } else {
+                signOutAndStartSignInActivity()
+            }
+        }
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.bottom_home-> {

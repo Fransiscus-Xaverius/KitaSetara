@@ -8,50 +8,72 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
+        android:layout_width="412dp"
+        android:layout_height="221dp"
         android:background="@color/orange_base"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView4"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="5dp"
-            app:shapeAppearanceOverlay="@style/Circular"
-            app:strokeColor="@color/white"
-            app:strokeWidth="4dp"
-            tools:src="@drawable/quiz_logo" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/default_profile"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtUsernameProfile"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
         <TextView
             android:id="@+id/txtEmailProfile"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="81dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="81dp"
             android:gravity="center_horizontal"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtUsernameProfile" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -72,42 +94,32 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="264dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="248dp"
         android:text="Account Info"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="371dp" />
-
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linear_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="78dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:src="@drawable/baseline_person_24" />
 
@@ -123,41 +135,41 @@
                 android:layout_gravity="top"
                 android:layout_weight="1"
                 android:text="Name"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView14"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:padding="10dp"
             android:src="@drawable/pencil" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linear_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="78dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/linear_name">
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:padding="6dp"
             android:src="@drawable/at_sign" />
@@ -173,41 +185,41 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Username"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView13"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:padding="10dp"
             android:src="@drawable/pencil" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/linear_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="78dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        app:layout_constraintTop_toBottomOf="@+id/linear_username">
 
         <ImageView
             android:id="@+id/imageView9"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:src="@drawable/mail_logo" />
 
@@ -222,42 +234,42 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Email"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView12"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:padding="10dp"
             android:src="@drawable/pencil" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout7"
-        android:layout_width="315dp"
+        android:id="@+id/linear_password"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="200dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+        app:layout_constraintTop_toBottomOf="@+id/linear_email">
 
         <ImageView
             android:id="@+id/imageView10"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:padding="5dp"
             android:src="@drawable/lock_logo" />
@@ -267,37 +279,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change Password"
-            android:textSize="18sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout8"
-        android:layout_width="315dp"
+        android:id="@+id/linear_logout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="263dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+        app:layout_constraintTop_toBottomOf="@+id/linear_password">
 
         <ImageView
             android:id="@+id/imageView11"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:padding="5dp"
             android:src="@drawable/logout_logo" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/tv_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log Out"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
