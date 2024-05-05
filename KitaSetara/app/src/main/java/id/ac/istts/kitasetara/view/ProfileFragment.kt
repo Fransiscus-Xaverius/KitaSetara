@@ -104,8 +104,7 @@ class ProfileFragment : Fragment() {
 
         //get current user id
         var uid : String = ""
-//        Log.d("TAG", "Helper.currentUser: ${Helper.currentUser}")
-//        Log.d("TAG", "user: $user")
+
         if (Helper.currentUser != null){
             uid = Helper.currentUser!!.id!!
         }else{
@@ -139,6 +138,9 @@ class ProfileFragment : Fragment() {
         if (user != null) {//display user name if log in with google
             val userName = user.displayName
             binding.txtUsernameProfile.text = "Welcome, " + userName
+            binding.tvEmail.text = user.email
+            binding.tvName.text = userName
+            binding.tvUsername.text = userName
             val uri = user.photoUrl
             Picasso.get().load(uri).into(binding.profileImage, object : Callback {
                 override fun onSuccess() {
@@ -153,7 +155,11 @@ class ProfileFragment : Fragment() {
             })
         } else {
             // user has logged in using other method
-            binding.txtUsernameProfile.text = "Welcome ${Helper.currentUser!!.name}"
+            binding.txtUsernameProfile.text = "Welcome, ${Helper.currentUser!!.name}"
+            binding.tvUsername.text = Helper.currentUser!!.username
+            binding.tvEmail.text = Helper.currentUser!!.email
+            binding.tvName.text = Helper.currentUser!!.name
+            binding.progressBar.visibility = View.GONE
             // check whether user has a profile picture
             if (Helper.currentUser!!.imageUrl != ""){
                 //load imageUrl stored in firebase by using Glide
@@ -202,7 +208,7 @@ class ProfileFragment : Fragment() {
             if (Helper.currentUser != null) {//sign out
                 Helper.currentUser = null
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-            } else {
+            } else {//sign out for user that has logged in with google
                 signOutAndStartSignInActivity()
             }
         }

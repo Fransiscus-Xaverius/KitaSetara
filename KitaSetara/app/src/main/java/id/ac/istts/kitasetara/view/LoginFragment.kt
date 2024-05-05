@@ -77,6 +77,12 @@ class LoginFragment : Fragment() {
         binding.tvCreateAcc.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+        binding.tvForgot.setOnClickListener {
+            //handle forgot password
+            //redirect to reset password fragment
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+        }
     }
 
     private fun signIn(){

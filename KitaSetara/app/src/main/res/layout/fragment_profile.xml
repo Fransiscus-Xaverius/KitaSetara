@@ -47,22 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-        <TextView
-            android:id="@+id/txtEmailProfile"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="81dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="81dp"
-            android:gravity="center_horizontal"
-            android:text="TextView"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtUsernameProfile" />
-
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -139,7 +123,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/tv_name"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -148,8 +132,8 @@
 
         <ImageView
             android:id="@+id/imageView14"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
             android:src="@drawable/pencil" />
     </LinearLayout>
@@ -189,7 +173,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tv_username"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -198,8 +182,8 @@
 
         <ImageView
             android:id="@+id/imageView13"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
             android:src="@drawable/pencil" />
     </LinearLayout>
@@ -238,7 +222,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tv_email"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -247,8 +231,8 @@
 
         <ImageView
             android:id="@+id/imageView12"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
             android:src="@drawable/pencil" />
     </LinearLayout>
