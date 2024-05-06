@@ -5,6 +5,10 @@ import android.content.Context
 import androidx.room.Room
 import id.ac.istts.kitasetara.data.DefaultCoursesRepository
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
+import id.ac.istts.kitasetara.model.course.Course
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class KitaSetaraApplication:Application() {
 
@@ -23,5 +27,6 @@ class KitaSetaraApplication:Application() {
 
             coursesRepository = DefaultCoursesRepository(roomDb)
         }
+
     }
 }
