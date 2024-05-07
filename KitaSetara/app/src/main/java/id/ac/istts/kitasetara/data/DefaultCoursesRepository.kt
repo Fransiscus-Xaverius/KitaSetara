@@ -13,7 +13,7 @@ class DefaultCoursesRepository(
 
         //insert course data, later will be replaced using firebase
         val coursesList:List<Course> = arrayListOf(
-            Course(1, "Testing Course", "Description of testing course"),
+            Course(1, "Testing Course", "Description of testing course Description of testing course Description of testing course Description of testing course v vDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing course"),
             Course(2, "Testing Course 2", "Description of second testing course"),
             Course(3, "Testing Course 3", "Description of third testing course"),
             Course(4, "Testing Course 4", "Description of fourth course"),
@@ -31,6 +31,10 @@ class DefaultCoursesRepository(
 
     suspend fun getAllCourseModule(idCourse:Int):List<Module>{
         return  localDataSource.moduleDao().getAllModulesByCourseId(idCourse)
+    }
+
+    suspend fun insertCourses(courses:List<Course>){
+        localDataSource.courseDao().insertMany(courses)
     }
 
     suspend fun getModule(idModule:Int):Module{

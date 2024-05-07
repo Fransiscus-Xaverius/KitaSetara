@@ -1,62 +1,57 @@
 package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.navArgs
 import id.ac.istts.kitasetara.R
-import id.ac.istts.kitasetara.adapters.CoursesAdapter
-import id.ac.istts.kitasetara.databinding.FragmentCoursesBinding
+import id.ac.istts.kitasetara.databinding.FragmentDetailCourseBinding
 import id.ac.istts.kitasetara.model.course.Course
-import id.ac.istts.kitasetara.viewModel.CoursesFragmentViewModel
+import id.ac.istts.kitasetara.viewModel.DetailCourseFragmentViewModel
 
 
-class CoursesFragment : Fragment() {
-    private var _binding : FragmentCoursesBinding? = null
+class DetailCourseFragment : Fragment() {
+    private var _binding:FragmentDetailCourseBinding? = null
     private val binding get() = _binding!!
 
-    val viewModel:CoursesFragmentViewModel by viewModels<CoursesFragmentViewModel>()
+    val viewModel:DetailCourseFragmentViewModel by viewModels<DetailCourseFragmentViewModel>()
+    val navArgs:DetailCourseFragmentArgs by navArgs<DetailCourseFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentCoursesBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailCourseBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val idCourse = navArgs.idCourse.toInt()
+//        Log.d("ID", idCourse.toString())
 
-        val courses = ArrayList<Course>()
+        viewModel.getCourse(idCourse)
 
-        val courseAdapter= CoursesAdapter(courses){
-            course ->
-            val action = CoursesFragmentDirections.actionCoursesFragmentToDetailCourseFragment(course.id.toString())
-            findNavController().navigate(action)
-//            Toast.makeText(requireContext(), "Will be redirected to ${course.name}'s detail", Toast.LENGTH_SHORT).show()
+//        val selectedCourse = viewModel.course
+//        Log.d("course name", selectedCourse.value!!.name)
+
+        val courseObserver: Observer<Course> = Observer{
+            binding.txtCourseTitle.text = it.name
+            binding.txtCourseDescription.text = it.description
         }
+        viewModel.course.observe(viewLifecycleOwner, courseObserver)
 
 
-        val coursesObserver:Observer<List<Course>> = Observer{
-            courses.clear()
-            courses.addAll(it)
-            courseAdapter.notifyDataSetChanged()
+        binding.ibBackDetailCourse.setOnClickListener{
+            requireActivity().supportFragmentManager.popBackStack()
         }
-        viewModel.courses.observe(viewLifecycleOwner, coursesObserver)
-        viewModel.getCourses()
-
-        binding.rvCoursesCourses.adapter = courseAdapter
-        binding.rvCoursesCourses.layoutManager = GridLayoutManager(requireContext(), 2)
-
 
         //handle onclick
         binding.bottomNavigation.setOnItemSelectedListener {

@@ -38,7 +38,14 @@
         android:id="@+id/coursesFragment"
         android:name="id.ac.istts.kitasetara.view.CoursesFragment"
         android:label="fragment_courses"
-        tools:layout="@layout/fragment_courses" />
+        tools:layout="@layout/fragment_courses" >
+        <action
+            android:id="@+id/action_coursesFragment_to_detailCourseFragment"
+            app:destination="@id/detailCourseFragment2" >
+            <argument
+                android:name="idCourse" />
+        </action>
+    </fragment>
     <action
         android:id="@+id/action_global_coursesFragment"
         app:destination="@id/coursesFragment" />
@@ -95,6 +102,14 @@
             app:destination="@id/resetPasswordFragment" />
         <argument
             android:name="email"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCourseFragment2"
+        android:name="id.ac.istts.kitasetara.view.DetailCourseFragment"
+        android:label="DetailCourseFragment"
+        tools:layout="@layout/fragment_detail_course">
+        <argument android:name="idCourse"
             app:argType="string" />
     </fragment>
 </navigation>
