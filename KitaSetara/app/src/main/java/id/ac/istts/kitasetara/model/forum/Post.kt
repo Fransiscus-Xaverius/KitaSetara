@@ -13,4 +13,5 @@ data class Post(
     val authorId:String? = null,
     val author:String? = null,
     val date:Date? = null,
+    val lastComment:Comment? = null,
 )

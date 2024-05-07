@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
 data class Comment(
-    val id:String? = null,
-    val content:String? = null,
-    val author:String? = null,
+    val id_comment:String? = null,
+    val comment:String? = null,
+    val username:String? = null,
 )

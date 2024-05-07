@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/postTItleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -36,7 +36,7 @@
             app:srcCompat="@drawable/message_bubble" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/commentAmountTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,7 +52,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/postAuthorTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -67,7 +67,7 @@
             app:srcCompat="@drawable/dot_transparent" />
 
         <TextView
-            android:id="@+id/textView25"
+            android:id="@+id/postedDateTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -81,7 +81,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/lastCommentAuthorTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -90,7 +90,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/lastCommentTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -98,7 +98,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/lastActivityDateTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"

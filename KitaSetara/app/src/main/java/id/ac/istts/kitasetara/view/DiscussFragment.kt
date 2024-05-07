@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +33,7 @@ class DiscussFragment : Fragment() {
     private lateinit var searchBar:SearchView
     private lateinit var sortBtn:ImageButton
     private lateinit var discussRV: RecyclerView
+    private lateinit var composeBtn: LinearLayout
     private val ioScope = CoroutineScope(Dispatchers.IO)
     private val mainScope = CoroutineScope(Dispatchers.Main)
     override fun onCreateView(
@@ -49,7 +51,7 @@ class DiscussFragment : Fragment() {
         searchBar = binding.searchViewDiscuss
         sortBtn = binding.sortDiscussBtn
         discussRV = binding.discussRV
-
+        composeBtn = binding.ComposeBtn
         val moshi = Moshi.Builder()
             .add(Date::class.java, object : JsonAdapter<Date>() {
                 @FromJson
@@ -87,6 +89,10 @@ class DiscussFragment : Fragment() {
         }
 
         discussRV.adapter = postAdapter
+
+        composeBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_global_newPostFragment)
+        }
 
         sortBtn.setOnClickListener{
 

@@ -112,4 +112,9 @@
         <argument android:name="idCourse"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="id.ac.istts.kitasetara.view.NewPostFragment"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post" /><action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment"/>
 </navigation>

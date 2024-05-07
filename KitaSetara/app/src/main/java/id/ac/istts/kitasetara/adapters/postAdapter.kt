@@ -13,13 +13,16 @@ class postAdapter(
 ): RecyclerView.Adapter<postAdapter.ViewHolder>(){
 
     class ViewHolder(val row: View):RecyclerView.ViewHolder(row){
-        val titleTv: TextView = row.findViewById(R.id.title_tv_post)
-        val authorTv:TextView = row.findViewById(R.id.author_tv_post)
-        val lastComment:TextView = row.findViewById(R.id.last_comment_tv_post)
+        val titleTv: TextView = row.findViewById(R.id.postTItleTV)
+        val authorTv:TextView = row.findViewById(R.id.postAuthorTV)
+        val lastCommentTv:TextView = row.findViewById(R.id.lastCommentTV)
+        val commentCountTv:TextView = row.findViewById(R.id.commentAmountTV)
+        val postedDateTv:TextView = row.findViewById(R.id.postedDateTV)
+        val lastCommentAuthorTv:TextView = row.findViewById(R.id.lastCommentAuthorTV)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postAdapter.ViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate(
-            R.layout.post_list_item, parent, false)
+            R.layout.list_discuss, parent, false)
         return ViewHolder(layout)
     }
 
@@ -27,7 +30,8 @@ class postAdapter(
         val post = data[position]
         holder.titleTv.text = post.title
         holder.authorTv.text = post.author
-//        holder.lastComment.text = post.date.toString()
+        holder.lastCommentTv.text = post.lastComment?.comment
+        holder.lastCommentAuthorTv.text = post.lastComment?.username
     }
 
     override fun getItemCount(): Int {
