@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="221dp"
         android:background="@color/orange_base"
         android:gravity="center_horizontal|center_vertical"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -30,21 +30,22 @@
             android:src="@drawable/default_profile"
             app:civ_border_color="#FFFFFF"
             app:civ_border_width="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline27"
+            app:layout_constraintStart_toStartOf="@+id/guideline25"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Circular" />
 
         <TextView
             android:id="@+id/txtUsernameProfile"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_18ssp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline29"
+            app:layout_constraintStart_toStartOf="@+id/guideline28"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
         <ProgressBar
@@ -56,6 +57,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="156dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="156dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="81dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="81dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,7 +111,7 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="248dp"
         android:text="Account Info"
-        android:textSize="18sp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +148,7 @@
                 android:layout_gravity="top"
                 android:layout_weight="1"
                 android:text="Name"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -127,7 +156,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <ImageView
@@ -169,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Username"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -177,7 +206,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <ImageView
@@ -218,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Email"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
             <TextView
@@ -226,7 +255,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <ImageView
@@ -243,7 +272,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="200dp"
+        android:layout_marginEnd="165dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -263,7 +292,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Change Password"
-            android:textSize="14sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -273,7 +302,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="263dp"
+        android:layout_marginEnd="249dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -293,7 +322,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log Out"
-            android:textSize="14sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold" />
     </LinearLayout>
 
