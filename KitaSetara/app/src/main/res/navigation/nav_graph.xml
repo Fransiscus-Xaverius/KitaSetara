@@ -117,4 +117,9 @@
         android:name="id.ac.istts.kitasetara.view.NewPostFragment"
         android:label="fragment_new_post"
         tools:layout="@layout/fragment_new_post" /><action android:id="@+id/action_global_newPostFragment" app:destination="@id/newPostFragment"/>
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="id.ac.istts.kitasetara.view.PostDetailsFragment"
+        android:label="fragment_post_details"
+        tools:layout="@layout/fragment_post_details" /><action android:id="@+id/action_global_postDetailsFragment" app:destination="@id/postDetailsFragment"/>
 </navigation>
