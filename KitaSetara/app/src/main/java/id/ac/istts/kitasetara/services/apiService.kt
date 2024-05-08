@@ -10,10 +10,12 @@ import com.squareup.moshi.ToJson
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import id.ac.istts.kitasetara.model.forum.Comment
 import id.ac.istts.kitasetara.model.forum.Post
+import id.ac.istts.kitasetara.model.forum.newPost
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.Date
 
@@ -31,6 +33,9 @@ public interface apiService {
 
     @GET("posts/comments") //Get all comments of post from API
     suspend fun getAllComments(@Body id_post: String, type:Int): List<Comment>
+
+    @POST("post") //Send new post to API
+    suspend fun createPost(@Body newPost: newPost): Post
 
     //COMMENTS ==============================================================================================
 
