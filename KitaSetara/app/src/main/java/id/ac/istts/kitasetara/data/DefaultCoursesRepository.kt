@@ -9,20 +9,6 @@ class DefaultCoursesRepository(
     private val localDataSource:AppDatabase
 ) {
     suspend fun getAllCourses():List<Course> {
-        localDataSource.courseDao().clearCourses()
-
-        //insert course data, later will be replaced using firebase
-        val coursesList:List<Course> = arrayListOf(
-            Course(1, "Testing Course", "Description of testing course Description of testing course Description of testing course Description of testing course v vDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing " +
-                    " Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course course"),
-            Course(2, "Testing Course 2", "Description of second testing course"),
-            Course(3, "Testing Course 3", "Description of third testing course"),
-            Course(4, "Testing Course 4", "Description of fourth course"),
-            Course(5, "Testing Course 5", "Description of fifth testing course"),
-            Course(6, "Testing Course 6", "Description of sixth testing course")
-        )
-        localDataSource.courseDao().insertMany(coursesList)
-
         return localDataSource.courseDao().getAll()
     }
 
@@ -41,6 +27,11 @@ class DefaultCoursesRepository(
             Module(4, "Introduction Course 2", "Description of module", "2"),
             Module(5, "Course 2 Scope", "Description of module 2", "2"),
             Module(6, "Why Course 2", "Description of module 3", "2"),
+            Module(7, "Course 2 Scope", "Description of module 2", "1"),
+            Module(8, "Why Course 2", "Description of module 3", "1"),
+            Module(9, "Course 2 Scope", "Description of module 2", "2"),
+            Module(10, "Why Course 2", "Description of module 3", "2"),
+            Module(11, "Course 2 Scope", "Description of module 2", "2"),
         )
         localDataSource.moduleDao().insertMany(modulesList)
 
@@ -49,6 +40,10 @@ class DefaultCoursesRepository(
 
     suspend fun insertCourses(courses:List<Course>){
         localDataSource.courseDao().insertMany(courses)
+    }
+
+    suspend fun clearAllCourses(){
+        localDataSource.courseDao().clearCourses()
     }
 
     suspend fun getModule(idModule:Int):Module{

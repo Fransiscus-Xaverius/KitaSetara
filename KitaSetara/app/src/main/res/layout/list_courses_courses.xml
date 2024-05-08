@@ -30,9 +30,11 @@
     <TextView
         android:id="@+id/txtDetailCourses"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:padding="3dp"
         android:text="TextView" />
 </LinearLayout>

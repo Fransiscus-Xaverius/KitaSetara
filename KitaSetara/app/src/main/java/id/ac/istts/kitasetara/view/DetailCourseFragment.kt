@@ -68,8 +68,11 @@ class DetailCourseFragment : Fragment() {
         viewModel.getCourseModules(idCourse)
 
         binding.rvModule.adapter = modulesAdapter
-        binding.rvModule.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvModule.layoutManager = layoutManager
         binding.rvModule.addItemDecoration(MarginItemDecoration(20))
+
+
 
         binding.ibBackDetailCourse.setOnClickListener{
             requireActivity().supportFragmentManager.popBackStack()
