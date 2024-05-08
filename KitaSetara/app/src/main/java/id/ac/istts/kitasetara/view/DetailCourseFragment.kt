@@ -10,9 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import id.ac.istts.kitasetara.MarginItemDecoration
 import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.adapters.ModulesAdapter
 import id.ac.istts.kitasetara.databinding.FragmentDetailCourseBinding
 import id.ac.istts.kitasetara.model.course.Course
+import id.ac.istts.kitasetara.model.course.Module
 import id.ac.istts.kitasetara.viewModel.DetailCourseFragmentViewModel
 
 
@@ -48,6 +52,24 @@ class DetailCourseFragment : Fragment() {
         }
         viewModel.course.observe(viewLifecycleOwner, courseObserver)
 
+        var modules = ArrayList<Module>()
+
+        val modulesAdapter = ModulesAdapter(modules){
+            module ->
+
+        }
+
+        val modulesObserver:Observer<List<Module>> = Observer{
+            modules.clear()
+            modules.addAll(it)
+            modulesAdapter.notifyDataSetChanged()
+        }
+        viewModel.modules.observe(viewLifecycleOwner, modulesObserver)
+        viewModel.getCourseModules(idCourse)
+
+        binding.rvModule.adapter = modulesAdapter
+        binding.rvModule.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvModule.addItemDecoration(MarginItemDecoration(20))
 
         binding.ibBackDetailCourse.setOnClickListener{
             requireActivity().supportFragmentManager.popBackStack()

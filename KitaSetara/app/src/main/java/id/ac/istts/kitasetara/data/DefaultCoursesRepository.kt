@@ -13,7 +13,8 @@ class DefaultCoursesRepository(
 
         //insert course data, later will be replaced using firebase
         val coursesList:List<Course> = arrayListOf(
-            Course(1, "Testing Course", "Description of testing course Description of testing course Description of testing course Description of testing course v vDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing course"),
+            Course(1, "Testing Course", "Description of testing course Description of testing course Description of testing course Description of testing course v vDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing courseDescription of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing " +
+                    " Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course Description of testing course course"),
             Course(2, "Testing Course 2", "Description of second testing course"),
             Course(3, "Testing Course 3", "Description of third testing course"),
             Course(4, "Testing Course 4", "Description of fourth course"),
@@ -30,6 +31,19 @@ class DefaultCoursesRepository(
     }
 
     suspend fun getAllCourseModule(idCourse:Int):List<Module>{
+
+        localDataSource.moduleDao().clearModules()
+
+        val modulesList:List<Module> = arrayListOf(
+            Module(1, "Introduction", "Description of module", "1"),
+            Module(2, "What is equality?", "Description of module 2", "1"),
+            Module(3, "Why equality?", "Description of module 3", "1"),
+            Module(4, "Introduction Course 2", "Description of module", "2"),
+            Module(5, "Course 2 Scope", "Description of module 2", "2"),
+            Module(6, "Why Course 2", "Description of module 3", "2"),
+        )
+        localDataSource.moduleDao().insertMany(modulesList)
+
         return  localDataSource.moduleDao().getAllModulesByCourseId(idCourse)
     }
 
