@@ -97,7 +97,16 @@ class DiscussFragment : Fragment() {
         sortBtn.setOnClickListener{
 
         }
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                
+                return false
+            }
+        })
         //handle bottom menu onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
