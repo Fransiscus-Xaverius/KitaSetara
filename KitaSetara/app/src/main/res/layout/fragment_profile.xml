@@ -121,7 +121,7 @@
         android:id="@+id/linear_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="78dp"
         android:orientation="horizontal"
@@ -171,7 +171,7 @@
         android:id="@+id/linear_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="78dp"
         android:orientation="horizontal"
@@ -221,7 +221,7 @@
         android:id="@+id/linear_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="78dp"
         android:orientation="horizontal"
@@ -270,9 +270,9 @@
         android:id="@+id/linear_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="165dp"
+        android:layout_marginEnd="192dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -300,9 +300,9 @@
         android:id="@+id/linear_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="249dp"
+        android:layout_marginEnd="264dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -325,5 +325,12 @@
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="43dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
