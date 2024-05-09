@@ -45,18 +45,20 @@ class DetailCourseFragment : Fragment() {
 
 //        val selectedCourse = viewModel.course
 //        Log.d("course name", selectedCourse.value!!.name)
-
+        var courseName = ""
         val courseObserver: Observer<Course> = Observer{
             binding.txtCourseTitle.text = it.name
             binding.txtCourseDescription.text = it.description
+            courseName = it.name
         }
         viewModel.course.observe(viewLifecycleOwner, courseObserver)
 
         var modules = ArrayList<Module>()
 
         val modulesAdapter = ModulesAdapter(modules){
-            module ->
-
+            module,pos ->
+            val action = DetailCourseFragmentDirections.actionDetailCourseFragment2ToDetailModuleFragment(module.id.toString(), pos, courseName)
+            findNavController().navigate(action)
         }
 
         val modulesObserver:Observer<List<Module>> = Observer{

@@ -111,6 +111,9 @@
         tools:layout="@layout/fragment_detail_course">
         <argument android:name="idCourse"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailCourseFragment2_to_detailModuleFragment"
+            app:destination="@id/detailModuleFragment" />
     </fragment>
     <fragment
         android:id="@+id/newPostFragment"
@@ -122,4 +125,21 @@
         android:name="id.ac.istts.kitasetara.view.PostDetailsFragment"
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details" /><action android:id="@+id/action_global_postDetailsFragment" app:destination="@id/postDetailsFragment"/>
+
+    <fragment
+        android:id="@+id/detailModuleFragment"
+        android:name="id.ac.istts.kitasetara.view.DetailModuleFragment"
+        android:label="DetailModuleFragment"
+        tools:layout="@layout/fragment_detail_module">
+        <argument
+            android:name="idModule"
+            app:argType="string" />
+        <argument
+            android:name="moduleNumber"
+            app:argType="integer" />
+        <argument
+            android:name="courseName"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

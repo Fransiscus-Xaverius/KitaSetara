@@ -17,24 +17,6 @@ class DefaultCoursesRepository(
     }
 
     suspend fun getAllCourseModule(idCourse:Int):List<Module>{
-
-        localDataSource.moduleDao().clearModules()
-
-        val modulesList:List<Module> = arrayListOf(
-            Module(1, "Introduction", "Description of module", "1"),
-            Module(2, "What is equality?", "Description of module 2", "1"),
-            Module(3, "Why equality?", "Description of module 3", "1"),
-            Module(4, "Introduction Course 2", "Description of module", "2"),
-            Module(5, "Course 2 Scope", "Description of module 2", "2"),
-            Module(6, "Why Course 2", "Description of module 3", "2"),
-            Module(7, "Course 2 Scope", "Description of module 2", "1"),
-            Module(8, "Why Course 2", "Description of module 3", "1"),
-            Module(9, "Course 2 Scope", "Description of module 2", "2"),
-            Module(10, "Why Course 2", "Description of module 3", "2"),
-            Module(11, "Course 2 Scope", "Description of module 2", "2"),
-        )
-        localDataSource.moduleDao().insertMany(modulesList)
-
         return  localDataSource.moduleDao().getAllModulesByCourseId(idCourse)
     }
 
@@ -54,8 +36,24 @@ class DefaultCoursesRepository(
         return  localDataSource.contentDao().getAllContentByModuleId(idModule)
     }
 
+    suspend fun insertModules(modules:List<Module>){
+        localDataSource.moduleDao().insertMany(modules)
+    }
+
+    suspend fun clearModules(){
+        localDataSource.moduleDao().clearModules()
+    }
+
     suspend fun getContent(idContent:Int):Content{
         return  localDataSource.contentDao().getContent(idContent)
+    }
+
+    suspend fun insertContents(contents:List<Content>){
+        localDataSource.contentDao().insertMany(contents)
+    }
+
+    suspend fun clearContents(){
+        localDataSource.contentDao().clearContents()
     }
 
 }

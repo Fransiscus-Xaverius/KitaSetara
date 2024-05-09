@@ -16,7 +16,9 @@ import id.ac.istts.kitasetara.data.DefaultQuotesRepository
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
 
 import id.ac.istts.kitasetara.data.source.remote.QuoteService
+import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.model.course.Course
+import id.ac.istts.kitasetara.model.course.Module
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +46,30 @@ class KitaSetaraApplication:Application() {
                     var coursesRepository = KitaSetaraApplication.coursesRepository
                     coursesRepository.clearAllCourses()
                     coursesRepository.insertCourses(courses)
+                }
+            }
+        })
+
+        loadModule(object: ModulesCallback{
+            override fun onModulesReceived(modules: List<Module>) {
+                Log.d("MODULES", modules.toString())
+                ioScope.launch {
+                    //Update modules data at room
+                    var coursesRepository = KitaSetaraApplication.coursesRepository
+                    coursesRepository.clearModules()
+                    coursesRepository.insertModules(modules)
+                }
+            }
+        })
+
+        loadContent(object : ContentsCallback{
+            override fun onContentsReceived(contents: List<Content>) {
+                Log.d("MODULES", contents.toString())
+                ioScope.launch {
+                    //Update modules data at room
+                    var coursesRepository = KitaSetaraApplication.coursesRepository
+                    coursesRepository.clearContents()
+                    coursesRepository.insertContents(contents)
                 }
             }
         })
@@ -102,8 +128,70 @@ class KitaSetaraApplication:Application() {
         return courses
     }
 
+    fun loadModule(callback: ModulesCallback):ArrayList<Module>{
+        var modules = ArrayList<Module>()
+        databaseReference = FirebaseDatabase.getInstance().getReference("modules")
+        databaseReference.get().addOnCompleteListener{
+                task ->
+            if (task.isSuccessful) {
+                val dataSnapshot = task.result
+                for (moduleSnapshot in dataSnapshot.children) {
+                    if(moduleSnapshot.child("id").getValue(String::class.java) != null){
+                        val moduleId = moduleSnapshot.child("id").getValue(String::class.java)
+                        val moduleName = moduleSnapshot.child("name").getValue(String::class.java)
+                        val moduleDescription = moduleSnapshot.child("description").getValue(String::class.java)
+                        val courseId = moduleSnapshot.child("course_id").getValue(String::class.java)
+
+                        val module = Module(moduleId!!.toInt(), moduleName?:"", moduleDescription?:"", courseId?:"")
+                        modules.add(module)
+                    }
+                }
+                //memanggil callback function setelah proses selesai
+                callback.onModulesReceived(modules)
+            } else {
+                Log.w("FETCH ERROR", "Can't fetch modules from firebase")
+            }
+        }
+        return modules
+    }
+
+    fun loadContent(callback: ContentsCallback):ArrayList<Content>{
+        var contents = ArrayList<Content>()
+        databaseReference = FirebaseDatabase.getInstance().getReference("module_content")
+        databaseReference.get().addOnCompleteListener{
+                task ->
+            if (task.isSuccessful) {
+                val dataSnapshot = task.result
+                for (moduleContentSnapshot in dataSnapshot.children) {
+                    if(moduleContentSnapshot.child("id").getValue(String::class.java) != null && moduleContentSnapshot.child("module_id").getValue(String::class.java) != null){
+                        val contentId = moduleContentSnapshot.child("id").getValue(String::class.java)
+                        val contentName = moduleContentSnapshot.child("name").getValue(String::class.java)
+                        val contentText = moduleContentSnapshot.child("content").getValue(String::class.java)
+                        val moduleId = moduleContentSnapshot.child("module_id").getValue(String::class.java)
+
+                        val content = Content(contentId!!.toInt(), contentName?:"", contentText?:"", moduleId!!.toInt())
+                        contents.add(content)
+                    }
+                }
+                //memanggil callback function setelah proses selesai
+                callback.onContentsReceived(contents)
+            } else {
+                Log.w("FETCH ERROR", "Can't fetch contents from firebase")
+            }
+        }
+        return contents
+    }
+
     //Interface for load course callback
     interface CoursesCallback {
         fun onCoursesReceived(courses: List<Course>)
+    }
+
+    interface ModulesCallback {
+        fun onModulesReceived(modules: List<Module>)
+    }
+
+    interface ContentsCallback{
+        fun onContentsReceived(contents: List<Content>)
     }
 }

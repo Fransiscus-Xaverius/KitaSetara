@@ -12,7 +12,7 @@ import id.ac.istts.kitasetara.model.course.Module
 
 class ModulesAdapter(
     val data:ArrayList<Module>,
-    val onClickListener:((Module)->Unit)?=null
+    val onClickListener:((Module, Int)->Unit)?=null
 ):RecyclerView.Adapter<ModulesAdapter.ViewHolder>() {
     class ViewHolder(val row:View):RecyclerView.ViewHolder(row){
         val txtNumber:TextView = row.findViewById(R.id.tvModuleItemNumber)
@@ -33,8 +33,15 @@ class ModulesAdapter(
         holder.txtName.text = module.name
         holder.txtNumber.text = "Module "+(position+1)
 
+        //Saving status for modules that finished still not done yet
+        if(position == 0){
+            holder.statusIcon.setImageResource(R.drawable.circle_play_icon)
+        }else{
+            holder.statusIcon.setImageResource(R.drawable.locked_icon)
+        }
+
         holder.itemLayout.setOnClickListener {
-            onClickListener?.invoke(module)
+            onClickListener?.invoke(module, holder.adapterPosition+1)
         }
     }
 
