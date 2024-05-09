@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentNewPostBinding
 import id.ac.istts.kitasetara.model.forum.newPost
@@ -42,7 +43,10 @@ class NewPostFragment : Fragment() {
         postContent = binding.postContentMT
         postBtn = binding.postButton
         auth = FirebaseAuth.getInstance()
-        val author = auth.currentUser?.displayName.toString() //this returns NULL. Needs to be fixed later -Frans
+        var author = auth.currentUser?.displayName.toString() //this returns NULL. Needs to be fixed later -Frans
+        if(author.isNullOrBlank()){
+            author = Helper.currentUser?.name.toString()
+        }
         postBtn.setOnClickListener {
             Toast.makeText(context, "Creating post... ${author}", Toast.LENGTH_SHORT).show()
             if(postTitle.text.toString().isNotEmpty() && postContent.text.toString().isNotEmpty()){
@@ -52,7 +56,11 @@ class NewPostFragment : Fragment() {
                         val post = newPost(postTitle.text.toString(), postContent.text.toString(), author)
                         val response = API.retrofitService.createPost(post)
                         withContext(Dispatchers.Main) {
+                            //Reset the form, and move to another intent
                             Toast.makeText(context, "Post created successfully", Toast.LENGTH_SHORT).show()
+                            postTitle.text.clear()
+                            postContent.text.clear()
+                            val action = NewPostFragmentDirections.actionGlobalPostDetailsFragment()
                         }
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
