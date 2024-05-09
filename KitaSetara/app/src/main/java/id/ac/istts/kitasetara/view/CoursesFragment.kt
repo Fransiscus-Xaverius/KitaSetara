@@ -22,7 +22,7 @@ class CoursesFragment : Fragment() {
     private var _binding : FragmentCoursesBinding? = null
     private val binding get() = _binding!!
 
-    val viewModel:CoursesFragmentViewModel by viewModels<CoursesFragmentViewModel>()
+    val viewModel: CoursesFragmentViewModel by viewModels<CoursesFragmentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

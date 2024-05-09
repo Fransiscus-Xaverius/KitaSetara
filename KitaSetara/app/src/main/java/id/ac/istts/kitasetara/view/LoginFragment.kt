@@ -58,7 +58,10 @@ class LoginFragment : Fragment() {
         if (currentUser != null) {
             //user has logged in already, navigate to home fragment right away
             view.findNavController().navigate(R.id.action_global_homeFragment)
+        }else{
+
         }
+
         //handle onclick
 
         binding.signInButton.setOnClickListener {

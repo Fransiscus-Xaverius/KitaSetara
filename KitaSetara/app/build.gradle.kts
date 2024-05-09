@@ -79,6 +79,9 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.6.1")
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.fragment:fragment-ktx:1.7.0")
+    implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     // Retrofit & Moshi dependencies
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -94,7 +97,6 @@ dependencies {
     //library to load images
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.squareup.picasso:picasso:2.8")
-
     implementation("com.intuit.sdp:sdp-android:1.1.1")
 
 // For SSP, use this:

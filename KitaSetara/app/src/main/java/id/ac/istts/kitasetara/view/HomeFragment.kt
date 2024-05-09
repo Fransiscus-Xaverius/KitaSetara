@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentHomeBinding
@@ -33,13 +34,20 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.progressBarQuote.visibility = View.VISIBLE
         //still not success
         viewModel.quote.observe(viewLifecycleOwner){
-            Toast.makeText(requireActivity(),it.quoteText,Toast.LENGTH_SHORT).show()
-            Log.d("QUOTES",it.quoteText)
+            if (it.isSuccess){
+                val quote = it.getOrNull()
+                binding.tvQuotetext.text = quote!!.quoteText
+                binding.tvAuthor.text = quote.quoteAuthor
+                binding.progressBarQuote.visibility = View.GONE
+            }
+
+//            Log.d("QUOTES",it.toString())
         }
 
+        viewModel.getQuotes()
         //handle onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
