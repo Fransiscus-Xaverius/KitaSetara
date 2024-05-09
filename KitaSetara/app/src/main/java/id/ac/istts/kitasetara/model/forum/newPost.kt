@@ -6,5 +6,6 @@ import com.squareup.moshi.JsonClass
 data class newPost(
     val title: String,
     val content: String,
-    val authorName: String
+    val authorName: String,
+    val uid: String
 )
