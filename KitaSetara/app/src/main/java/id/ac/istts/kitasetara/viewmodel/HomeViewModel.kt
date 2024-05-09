@@ -11,16 +11,16 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     private val quotesRepository = KitaSetaraApplication.quotesRepository
-    private val _quote = MutableLiveData<Quote>()
+    private val _quote = MutableLiveData<Result<Quote>>()
     private val ioScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
     //getter
-    val quote: LiveData<Quote>
+    val quote: LiveData<Result<Quote>>
         get() = _quote
 
-    fun getQuote() { //berfungsi untuk refresh/isi data di RV
+    fun getQuotes() { //berfungsi untuk refresh/isi data di RV
         ioScope.launch {//panggil getallposts dari repository
-            _quote.postValue(quotesRepository.getSingleQuote())
+            _quote.postValue(quotesRepository.getRandomQuote())
         }
     }
 }
