@@ -43,9 +43,12 @@ class NewPostFragment : Fragment() {
         postContent = binding.postContentMT
         postBtn = binding.postButton
         auth = FirebaseAuth.getInstance()
-        var author = auth.currentUser?.displayName.toString() //this returns NULL. Needs to be fixed later -Frans
+        var author = auth.currentUser?.displayName //this returns NULL. Needs to be fixed later -Frans
         if(author.isNullOrBlank()){
             author = Helper.currentUser?.name.toString()
+            Toast.makeText(context, "Author: ${author}", Toast.LENGTH_SHORT).show()
+        }else{
+            author = author.toString() //safe call for this because type is nullable
         }
         postBtn.setOnClickListener {
             Toast.makeText(context, "Creating post... ${author}", Toast.LENGTH_SHORT).show()
