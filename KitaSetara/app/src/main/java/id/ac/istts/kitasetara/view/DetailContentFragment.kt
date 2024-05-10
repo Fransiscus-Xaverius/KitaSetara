@@ -1,21 +1,21 @@
 package id.ac.istts.kitasetara.view
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentDetailContentBinding
 import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.viewmodel.DetailContentViewModel
+
 
 class DetailContentFragment : Fragment() {
     private var _binding :FragmentDetailContentBinding?=null
@@ -80,7 +80,9 @@ class DetailContentFragment : Fragment() {
         }
 
         binding.ivContentExit.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)
+            val destinationId = destination.destination.id
+            findNavController().popBackStack(destinationId, false)
         }
     }
 
