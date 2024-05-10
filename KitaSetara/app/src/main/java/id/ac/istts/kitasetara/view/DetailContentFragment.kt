@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentDetailContentBinding
 import id.ac.istts.kitasetara.model.course.Content
@@ -74,12 +75,17 @@ class DetailContentFragment : Fragment() {
                 val targetId = contentList[nextNum-1].id
                 val action = DetailContentFragmentDirections.actionDetailContentFragmentSelf(targetId.toString(), currentContentNumber+1, maxContentNumber, contentList)
                 findNavController().navigate(action)
-            }else{
-
+            }else{//content terakhir
+                Snackbar.make(requireContext(), view, "Module Finished !", Snackbar.LENGTH_SHORT).show()
+                //arahkan kembali ke course detail
+                val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)
+                val destinationId = destination.destination.id
+                findNavController().popBackStack(destinationId, true)
             }
         }
 
         binding.ivContentExit.setOnClickListener {
+            //arahkan kembali ke module detail
             val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)
             val destinationId = destination.destination.id
             findNavController().popBackStack(destinationId, false)
