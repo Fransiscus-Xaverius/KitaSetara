@@ -40,7 +40,7 @@ class ContentsAdapter(
         }
 
         holder.itemLayout.setOnClickListener {
-            onClickListener?.invoke(content, holder.adapterPosition, data.size)
+            onClickListener?.invoke(content, holder.adapterPosition+1, data.size)
         }
 
     }

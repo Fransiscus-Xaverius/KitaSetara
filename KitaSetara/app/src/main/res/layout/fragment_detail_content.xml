@@ -125,9 +125,20 @@
             app:layout_constraintStart_toStartOf="@id/guideline47"
             app:layout_constraintTop_toTopOf="@+id/guideline45" />
 
-        <Button
-            android:id="@+id/btnContentNext"
+<!--        <Button-->
+<!--            android:id="@+id/btnContentNext"-->
 
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:text="Next"-->
+<!--            app:icon="@drawable/arrow_right_white"-->
+<!--            app:iconGravity="textEnd"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/guideline46"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline44"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline45" />-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContentNext"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="Next"
@@ -136,6 +147,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline46"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
             app:layout_constraintTop_toTopOf="@+id/guideline45" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline46"
