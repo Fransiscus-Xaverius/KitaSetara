@@ -1,10 +1,9 @@
-package id.ac.istts.kitasetara.viewModel
+package id.ac.istts.kitasetara.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.ac.istts.kitasetara.KitaSetaraApplication
-import id.ac.istts.kitasetara.data.DefaultCoursesRepository
 import id.ac.istts.kitasetara.model.course.Course
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

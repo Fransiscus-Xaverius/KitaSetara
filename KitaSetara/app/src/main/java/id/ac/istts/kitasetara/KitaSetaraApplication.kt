@@ -13,6 +13,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import id.ac.istts.kitasetara.data.DefaultCoursesRepository
 import id.ac.istts.kitasetara.data.DefaultQuotesRepository
+import id.ac.istts.kitasetara.data.TermsRepository
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
 
 import id.ac.istts.kitasetara.data.source.remote.QuoteService
@@ -78,6 +79,7 @@ class KitaSetaraApplication:Application() {
     companion object {
         lateinit var coursesRepository: DefaultCoursesRepository
         lateinit var quotesRepository: DefaultQuotesRepository
+        lateinit var termsRepository: TermsRepository
         fun initRepository(context: Context) {
             //create room local database with the name of "kitasetara"
             val roomDb = Room.databaseBuilder(
@@ -94,6 +96,7 @@ class KitaSetaraApplication:Application() {
                 .baseUrl("https://quote-garden.onrender.com/api/v3/").build()
             quotesRepository = DefaultQuotesRepository(retrofitQuotes.create(QuoteService::class.java))
             coursesRepository = DefaultCoursesRepository(roomDb)
+            termsRepository = TermsRepository(FirebaseDatabase.getInstance(),roomDb)
         }
 
     }

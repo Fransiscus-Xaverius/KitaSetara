@@ -5,17 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.adapters.ContentsAdapter
 import id.ac.istts.kitasetara.databinding.FragmentDetailModuleBinding
 import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.model.course.Module
-import id.ac.istts.kitasetara.viewModel.DetailModuleViewModel
+import id.ac.istts.kitasetara.viewmodel.DetailModuleViewModel
 
 
 class DetailModuleFragment : Fragment() {

@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 //to handle CRUD of remote data from API
 interface QuoteService {
-    //request ke API, kembalian berbentuk quoteResult
+    //request to API, returning QuoteResult
     @GET("quotes")
     suspend fun getAllQuotes(@Query("genre") genre:String="equality") : Response<QuoteResult>
 }

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange_base">#FF8A00</color>
     <color name="grayborder">#DEDDDD</color>
     <color name="blue">#459DE4</color>
-    <color name="red">#FF0000</color>
 </resources>

@@ -1,7 +1,6 @@
 package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,7 @@ import id.ac.istts.kitasetara.adapters.ModulesAdapter
 import id.ac.istts.kitasetara.databinding.FragmentDetailCourseBinding
 import id.ac.istts.kitasetara.model.course.Course
 import id.ac.istts.kitasetara.model.course.Module
-import id.ac.istts.kitasetara.viewModel.DetailCourseFragmentViewModel
+import id.ac.istts.kitasetara.viewmodel.DetailCourseFragmentViewModel
 
 
 class DetailCourseFragment : Fragment() {

@@ -63,14 +63,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="156dp" />
+            app:layout_constraintGuide_end="255dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.620438" />
+            app:layout_constraintGuide_begin="255dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline28"
@@ -156,7 +156,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
         <ImageView
@@ -181,11 +181,10 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginRight="15dp"
-            android:padding="6dp"
-            android:src="@drawable/at_sign" />
+            android:src="@drawable/baseline_alternate_email_24" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -206,7 +205,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
         <ImageView
@@ -231,10 +230,10 @@
 
         <ImageView
             android:id="@+id/imageView9"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginRight="15dp"
-            android:src="@drawable/mail_logo" />
+            android:src="@drawable/baseline_mail_outline_24" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -255,7 +254,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
         <ImageView
@@ -267,55 +266,25 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linear_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="192dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_email">
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginRight="15dp"
-            android:padding="5dp"
-            android:src="@drawable/lock_logo" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change Password"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/linear_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="264dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_password">
+        app:layout_constraintTop_toBottomOf="@+id/linear_email">
 
         <ImageView
             android:id="@+id/imageView11"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginRight="15dp"
-            android:padding="5dp"
-            android:src="@drawable/logout_logo" />
+            android:src="@drawable/baseline_logout_24" />
 
         <TextView
             android:id="@+id/tv_logout"

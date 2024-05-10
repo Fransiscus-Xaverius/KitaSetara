@@ -1,20 +1,15 @@
 package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentHomeBinding
 import id.ac.istts.kitasetara.viewmodel.HomeViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 
 class HomeFragment : Fragment() {
@@ -22,11 +17,12 @@ class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel : HomeViewModel by viewModels<HomeViewModel>()
-    val ioScope = CoroutineScope(Dispatchers.IO)
+//    private val termViewModel : TermViewModel by viewModels<TermViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,11 +39,20 @@ class HomeFragment : Fragment() {
                 binding.tvAuthor.text = quote.quoteAuthor
                 binding.progressBarQuote.visibility = View.GONE
             }
-
-//            Log.d("QUOTES",it.toString())
+        }
+        viewModel.getQuotes()
+        viewModel.terms.observe(viewLifecycleOwner){
+            //update ui with random term from list of terms
+            val randomTerm = it.randomOrNull()
+            if (randomTerm != null){
+                binding.tvTerms.text = randomTerm.term
+                binding.tvTermMeaning.text = randomTerm.meaning
+            }else{
+                binding.tvTerms.text = getString(R.string.no_terms)
+            }
         }
 
-        viewModel.getQuotes()
+
         //handle onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
