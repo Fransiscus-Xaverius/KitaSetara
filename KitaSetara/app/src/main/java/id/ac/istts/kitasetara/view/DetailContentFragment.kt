@@ -84,6 +84,7 @@ class DetailContentFragment : Fragment() {
             }
         }
 
+        //test
         binding.ivContentExit.setOnClickListener {
             //arahkan kembali ke module detail
             val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)
