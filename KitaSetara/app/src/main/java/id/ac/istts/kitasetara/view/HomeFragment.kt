@@ -33,17 +33,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.progressBarQuote.visibility = View.VISIBLE
-        //daily quotes
-        viewModel.quote.observe(viewLifecycleOwner) {
-            if (it.isSuccess) {
-                val quote = it.getOrNull()
-                binding.tvQuotetext.text = quote!!.quoteText
-                binding.tvAuthor.text = quote.quoteAuthor
-                binding.progressBarQuote.visibility = View.GONE
-            }
-        }
+        //daily quotes from ROOM
         viewModel.getQuotes()
+        viewModel.quotes.observe(viewLifecycleOwner) {
+            val quote = it.randomOrNull() //get one random quote to be displayed
+            binding.tvQuotetext.text = quote!!.quoteText
+            binding.tvAuthor.text = quote.quoteAuthor
+        }
+
         //daily terms
         viewModel.terms.observe(viewLifecycleOwner) {
             //update ui with random term from list of terms

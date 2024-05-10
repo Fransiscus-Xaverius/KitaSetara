@@ -1,17 +1,24 @@
 package id.ac.istts.kitasetara.data
 
+import androidx.lifecycle.LiveData
+import id.ac.istts.kitasetara.data.source.local.AppDatabase
 import id.ac.istts.kitasetara.data.source.remote.QuoteService
 import id.ac.istts.kitasetara.model.quotes.Quote
+import id.ac.istts.kitasetara.model.quotes.QuoteEntity
 
 //sementara remote aja sourcenya
 class DefaultQuotesRepository(
-    private val remoteDataSource: QuoteService //terima data dari QuoteService
+    private val remoteDataSource: QuoteService, //terima data dari QuoteService
+    private val localDataSource : AppDatabase
 ) {
     suspend fun getAllQuotes(genre: String = "equality"): Result<List<Quote>> {
         return try {
             val response = remoteDataSource.getAllQuotes(genre)
             if (response.isSuccessful) {
                 val quotes = response.body()?.data ?: emptyList()
+                localDataSource.quoteDao().insertQuotes(quotes.map {
+                    it.toEntity()
+                })
                 Result.success(quotes)
             } else {
                 Result.failure(Exception("Failed to fetch quotes"))
@@ -27,7 +34,9 @@ class DefaultQuotesRepository(
                 val quotes = response.body()?.data ?: emptyList() //cek data response tidak null
                 if (quotes.isNotEmpty()) {
                     val randomQuote = quotes.random()
+                    localDataSource.quoteDao().insertRandomQuote(randomQuote.toEntity())
                     Result.success(randomQuote)
+                    //insert to local
                 }else {
                     Result.failure(Exception("No quotes found"))
                 }
@@ -39,5 +48,8 @@ class DefaultQuotesRepository(
         }
     }
 
-
+    //function to get quotes from ROOM/local
+    suspend fun getQuotesFromLocal() : List<QuoteEntity>{
+        return localDataSource.quoteDao().getAllQuotes()
+    }
 }
