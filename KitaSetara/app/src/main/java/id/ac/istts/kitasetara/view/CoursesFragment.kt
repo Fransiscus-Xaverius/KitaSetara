@@ -20,12 +20,12 @@ class CoursesFragment : Fragment() {
     private var _binding : FragmentCoursesBinding? = null
     private val binding get() = _binding!!
 
-    val viewModel: CoursesFragmentViewModel by viewModels<CoursesFragmentViewModel>()
+    private val viewModel: CoursesFragmentViewModel by viewModels<CoursesFragmentViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentCoursesBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,7 +40,6 @@ class CoursesFragment : Fragment() {
             course ->
             val action = CoursesFragmentDirections.actionCoursesFragmentToDetailCourseFragment(course.id.toString())
             findNavController().navigate(action)
-//            Toast.makeText(requireContext(), "Will be redirected to ${course.name}'s detail", Toast.LENGTH_SHORT).show()
         }
 
 

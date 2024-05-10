@@ -36,7 +36,7 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/cl_quotes"
         android:layout_width="@dimen/_270sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_marginTop="18dp"
@@ -123,15 +123,15 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
         app:layout_constraintStart_toStartOf="@id/guideline33"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_quotes" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/cl_term"
         android:layout_width="@dimen/_270sdp"
         android:layout_height="135dp"
         android:layout_marginTop="19dp"
         android:background="@drawable/rounded_corner"
-        android:backgroundTint="@color/orange_base"
+        android:backgroundTint="@android:color/holo_orange_light"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/textView22">
@@ -203,7 +203,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
         app:layout_constraintStart_toStartOf="@id/guideline33"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_term" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline33"
@@ -228,5 +228,91 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.04"
         app:layout_constraintGuide_begin="1dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_recent1"
+        android:layout_width="163dp"
+        android:layout_height="131dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/orange_base"
+        app:layout_constraintEnd_toStartOf="@+id/cl_recent2"
+        app:layout_constraintStart_toStartOf="@id/guideline33"
+        app:layout_constraintTop_toBottomOf="@+id/textView23">
+
+        <TextView
+            android:id="@+id/tv_recentcourse1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_recent2"
+        android:layout_width="163dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/orange_base"
+        app:layout_constraintEnd_toEndOf="@id/guideline41"
+        app:layout_constraintTop_toBottomOf="@+id/textView23">
+
+        <TextView
+            android:id="@+id/tv_recentcourse2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_desc1"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="19dp"
+        android:alpha="0.5"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_desc2"
+        app:layout_constraintStart_toStartOf="@id/guideline33"
+        app:layout_constraintTop_toBottomOf="@+id/cl_recent1" />
+
+    <TextView
+        android:id="@+id/tv_desc2"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="3dp"
+        android:alpha="0.5"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="TextView"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline41"
+        app:layout_constraintTop_toBottomOf="@+id/cl_recent2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

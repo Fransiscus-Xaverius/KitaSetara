@@ -164,5 +164,8 @@
             android:name="contentsList"
             app:argType="id.ac.istts.kitasetara.model.course.Content[]" />
     </fragment>
+    <action
+        android:id="@+id/action_global_detailCourseFragment2"
+        app:destination="@id/detailCourseFragment2" />
 
 </navigation>
