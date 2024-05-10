@@ -13,7 +13,7 @@ import id.ac.istts.kitasetara.model.course.Content
 
 class ContentsAdapter(
     val data:ArrayList<Content>,
-    val onClickListener: ((Content)->Unit)?=null,
+    val onClickListener: ((Content, Int, Int)->Unit)?=null,
 ):RecyclerView.Adapter<ContentsAdapter.ViewHolder>(){
     class ViewHolder(val row:View):RecyclerView.ViewHolder(row) {
         val txtTitle:TextView = row.findViewById(R.id.tvContentItemName)
@@ -40,7 +40,7 @@ class ContentsAdapter(
         }
 
         holder.itemLayout.setOnClickListener {
-            onClickListener?.invoke(content)
+            onClickListener?.invoke(content, holder.adapterPosition, data.size)
         }
 
     }

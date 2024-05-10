@@ -12,10 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.istts.kitasetara.R
-import id.ac.istts.kitasetara.adapters.postAdapter
 import id.ac.istts.kitasetara.model.forum.Comment
-import id.ac.istts.kitasetara.viewModel.DiscussFragmentViewModel
-import kotlin.math.log
+import id.ac.istts.kitasetara.viewmodel.DiscussFragmentViewModel
 
 
 class PostDetailsFragment : Fragment() {

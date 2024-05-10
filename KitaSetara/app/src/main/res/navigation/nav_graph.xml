@@ -140,6 +140,29 @@
         <argument
             android:name="courseName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailModuleFragment_to_detailContentFragment"
+            app:destination="@id/detailContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailContentFragment"
+        android:name="id.ac.istts.kitasetara.view.DetailContentFragment"
+        android:label="DetailContentFragment"
+        tools:layout="@layout/fragment_detail_content">
+        <argument
+            android:name="idContent"
+            app:argType="string" />
+        <argument
+            android:name="currentContentNumber"
+            app:argType="integer" />
+        <argument android:name="maxContentNumber"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailContentFragment_self"
+            app:destination="@id/detailContentFragment" />
+        <argument
+            android:name="contentsList"
+            app:argType="id.ac.istts.kitasetara.model.course.Content[]" />
     </fragment>
 
 </navigation>

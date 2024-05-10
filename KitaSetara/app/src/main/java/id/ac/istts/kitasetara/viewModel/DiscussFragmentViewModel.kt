@@ -1,4 +1,4 @@
-package id.ac.istts.kitasetara.viewModel
+package id.ac.istts.kitasetara.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

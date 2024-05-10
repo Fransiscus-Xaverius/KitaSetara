@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.ac.istts.kitasetara.adapters.ContentsAdapter
@@ -38,8 +39,9 @@ class DetailModuleFragment : Fragment() {
         val moduleNumber = navArgs.moduleNumber
         val moduleContents = ArrayList<Content>()
         val contentsAdapter = ContentsAdapter(moduleContents){
-            content ->
-
+            content,pos,max ->
+            val action = DetailModuleFragmentDirections.actionDetailModuleFragmentToDetailContentFragment(content.id.toString(), pos, max, moduleContents.toTypedArray())
+            findNavController().navigate(action)
         }
 
         viewModel.getModule(idModule)
