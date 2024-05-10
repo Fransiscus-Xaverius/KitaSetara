@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="27dp"
-            app:layout_constraintGuide_percent="0.04" />
+            app:layout_constraintGuide_percent="0.02" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline42"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="0dp"
-            app:layout_constraintGuide_percent="0.09" />
+            app:layout_constraintGuide_percent="0.07" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline43"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="31dp"
-            app:layout_constraintGuide_percent="0.90" />
+            app:layout_constraintGuide_percent="0.94" />
 
         <TextView
             android:id="@+id/tvContentTitle"
@@ -76,6 +76,7 @@
             android:layout_height="0dp"
             android:fillViewport="true"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:scrollbarStyle="outsideOverlay"
             app:layout_constraintBottom_toTopOf="@+id/guideline45"
             app:layout_constraintEnd_toStartOf="@+id/guideline44"
@@ -86,6 +87,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:orientation="vertical">
 
                 <TextView
@@ -94,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="Understand It"
                     android:textSize="@dimen/_16ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:textStyle="bold" />
 
                 <TextView
