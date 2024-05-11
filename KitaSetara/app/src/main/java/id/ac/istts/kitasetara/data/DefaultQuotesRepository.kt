@@ -34,9 +34,9 @@ class DefaultQuotesRepository(
                 val quotes = response.body()?.data ?: emptyList() //cek data response tidak null
                 if (quotes.isNotEmpty()) {
                     val randomQuote = quotes.random()
+                    //insert to local
                     localDataSource.quoteDao().insertRandomQuote(randomQuote.toEntity())
                     Result.success(randomQuote)
-                    //insert to local
                 }else {
                     Result.failure(Exception("No quotes found"))
                 }
@@ -49,7 +49,7 @@ class DefaultQuotesRepository(
     }
 
     //function to get quotes from ROOM/local
-    suspend fun getQuotesFromLocal() : List<QuoteEntity>{
+    fun getQuotesFromLocal() : LiveData<List<QuoteEntity>>{
         return localDataSource.quoteDao().getAllQuotes()
     }
 }

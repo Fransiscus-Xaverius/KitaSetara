@@ -167,5 +167,13 @@
     <action
         android:id="@+id/action_global_detailCourseFragment2"
         app:destination="@id/detailCourseFragment2" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="id.ac.istts.kitasetara.view.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" />
+    <action
+        android:id="@+id/action_global_termsFragment"
+        app:destination="@id/termsFragment" />
 
 </navigation>

@@ -13,7 +13,6 @@ class CoursesFragmentViewModel:ViewModel() {
     private val coursesRepository = KitaSetaraApplication.coursesRepository
     private val _courses = MutableLiveData<List<Course>>(listOf())
     private val ioScope:CoroutineScope = CoroutineScope(Dispatchers.IO)
-
     val courses:LiveData<List<Course>>
         get() =_courses
 

@@ -11,7 +11,7 @@ import id.ac.istts.kitasetara.model.quotes.QuoteEntity
 @Dao
 interface QuoteDao {
     @Query("SELECT * FROM quotes")
-    suspend fun getAllQuotes(): List<QuoteEntity>
+    fun getAllQuotes(): LiveData<List<QuoteEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuotes(quotes: List<QuoteEntity>)

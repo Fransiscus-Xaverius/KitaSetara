@@ -14,10 +14,8 @@ class DetailContentViewModel: ViewModel() {
     private val coursesRepository:DefaultCoursesRepository = KitaSetaraApplication.coursesRepository
     private val _content = MutableLiveData<Content>()
     private val ioScope:CoroutineScope = CoroutineScope(Dispatchers.IO)
-
     val content:LiveData<Content>
         get() = _content
-
     fun getContent(idContent:Int){
         ioScope.launch {
             _content.postValue(coursesRepository.getContent(idContent))

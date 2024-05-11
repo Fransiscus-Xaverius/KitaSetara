@@ -34,11 +34,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //daily quotes from ROOM
-        viewModel.getQuotes()
         viewModel.quotes.observe(viewLifecycleOwner) {
             val quote = it.randomOrNull() //get one random quote to be displayed
-            binding.tvQuotetext.text = quote!!.quoteText
-            binding.tvAuthor.text = quote.quoteAuthor
+            if (quote != null){
+                binding.tvQuotetext.text = quote.quoteText
+                binding.tvAuthor.text = quote.quoteAuthor
+            }
         }
 
         //daily terms
@@ -65,6 +66,12 @@ class HomeFragment : Fragment() {
                 binding.tvDesc2.text = recentCourses[1].description
             }
         }
+
+        //terms
+        binding.clTerm.setOnClickListener{
+            findNavController().navigate(R.id.action_global_termsFragment)
+        }
+
 
         binding.clRecent1.setOnClickListener {
             if (recentCourses.isNotEmpty()){
