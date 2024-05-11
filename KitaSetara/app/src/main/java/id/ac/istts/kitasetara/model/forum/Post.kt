@@ -7,7 +7,7 @@ import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class Post(
-    val id:String? = null,
+    val id_post:String? = null,
     val title:String? = null,
     val content:String? = null,
     val authorId:String? = null,

@@ -31,13 +31,16 @@ public interface apiService {
     @GET("post/{id}") //Get a post by id from API
     suspend fun getPostById(@Path("id") id: String): Post
 
-    @GET("post/comments") //Get all comments of post from API
-    suspend fun getAllComments(@Body id_post: String): List<Comment>
+    @GET("post/comments/{id}") //Get all comments of post from API
+    suspend fun getAllComments(@Path("id") id: String): List<Comment>
 
     @POST("post") //Send new post to API
     suspend fun createPost(@Body newPost: newPost): Post
 
     //COMMENTS ==============================================================================================
+
+    @POST("comment") //Send new comment to API
+    suspend fun createComment(@Body comment: Comment): Comment
 
 }
 

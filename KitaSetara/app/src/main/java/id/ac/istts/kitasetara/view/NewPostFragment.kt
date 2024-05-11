@@ -11,8 +11,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import id.ac.istts.kitasetara.Helper
+import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentNewPostBinding
 import id.ac.istts.kitasetara.model.forum.newPost
 import id.ac.istts.kitasetara.services.API
@@ -69,9 +71,10 @@ class NewPostFragment : Fragment() {
                             postContent.text.clear()
                             Log.d("API RESPONSE", response.toString())
                             model.selectPost(response) // Update the selected post in the shared ViewModel
-                            Log.d("NewPostFragment", "Post ID: ${response.id}")
-                            val action = NewPostFragmentDirections.actionGlobalPostDetailsFragment()
-                            view.findNavController().navigate(action)
+                            Log.d("NewPostFragment", "Post ID: ${response.id_post}")
+                            MainActivity.postID = response.id_post
+                            val action = findNavController().navigate(R.id.action_global_postDetailsFragment)
+
                         }
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {

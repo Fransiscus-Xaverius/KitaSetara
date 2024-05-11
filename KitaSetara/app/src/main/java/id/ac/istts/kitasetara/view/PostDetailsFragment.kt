@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.model.forum.Comment
+import id.ac.istts.kitasetara.model.forum.Post
 import id.ac.istts.kitasetara.viewmodel.DiscussFragmentViewModel
 
 
@@ -36,14 +37,27 @@ class PostDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val postID = MainActivity.postID
         //ISSUE -> VIEWMODEL DOES NOT SEND DATA TO THIS FRAGMENT FROM NEWPOSTFRAGMENT. -Frans
         Log.d("PostDetailsFragment", model.selectedPost.value.toString())
-        model.getPostDetails()
         var postTitle = ""
         var postContent = ""
         var postAuthor = ""
         var postDate = ""
         var postComments = ArrayList<Comment>()
+
+        authorUsernameTV = view.findViewById(R.id.authorUsernameTv)
+        postTitleTV = view.findViewById(R.id.postTitleTv)
+        postContentTV = view.findViewById(R.id.postContentTv)
+        postCommentsTV = view.findViewById(R.id.postCommentsRV)
+        commentPostEt = view.findViewById(R.id.commentPostEt)
+        commentPostBtn = view.findViewById(R.id.sendCommentBtn)
+        authorUsernameTV.text = postAuthor
+        postTitleTV.text = postTitle
+        postContentTV.text = postContent
+
+        model.selectPost(Post(postID.toString(), "", "", "", "", null, null))
+        model.getPostDetails()
         model.selectedPost.observe(viewLifecycleOwner) {
 
             //Debugging purposes.
@@ -56,26 +70,25 @@ class PostDetailsFragment : Fragment() {
             postContent = it.content.toString()
             postAuthor = it.author.toString()
             postDate = it.date.toString()
+
+            authorUsernameTV.text = postAuthor
+            postTitleTV.text = postTitle
+            postContentTV.text = postContent
+
         }
-        model.getPostDetails()
+
         model.comments.observe(viewLifecycleOwner) {
             postComments = it as? ArrayList<Comment> ?: ArrayList()
         }
 
-        authorUsernameTV = view.findViewById(R.id.authorUsernameTv)
-        postTitleTV = view.findViewById(R.id.postTitleTv)
-        postContentTV = view.findViewById(R.id.postContentTv)
-        postCommentsTV = view.findViewById(R.id.postCommentsRV)
-        commentPostEt = view.findViewById(R.id.commentPostEt)
-        commentPostBtn = view.findViewById(R.id.sendCommentBtn)
+//        postCommentsTV.adapter = CommentAdapter(postComments)
 
-
-
-        authorUsernameTV.text = postAuthor
-        postTitleTV.text = postTitle
-        postContentTV.text = postContent
-//        postCommentsTV.adapter = commentAdapter(postComments)
-
+        commentPostBtn.setOnClickListener{
+//            val inputComment: String = commentPostEt.text.toString()
+//            if(inputComment.isNotEmpty()){
+//                model.createComment(Comment("", postID.toString(), inputComment, "", ""))
+//            }
+        }
 
     }
 }

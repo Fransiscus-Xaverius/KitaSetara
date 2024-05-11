@@ -77,7 +77,7 @@ class DiscussFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
 
         val posts = ArrayList<Post>()
-        val postAdapter = postAdapter(posts)
+        val postAdapter = postAdapter(posts, requireContext())
 
         ioScope.launch { //access ke API
             posts.clear()

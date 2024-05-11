@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentHomeBinding
 import id.ac.istts.kitasetara.model.course.Course
+import id.ac.istts.kitasetara.view.HomeFragmentDirections
 import id.ac.istts.kitasetara.viewmodel.CoursesFragmentViewModel
 import id.ac.istts.kitasetara.viewmodel.HomeViewModel
 
