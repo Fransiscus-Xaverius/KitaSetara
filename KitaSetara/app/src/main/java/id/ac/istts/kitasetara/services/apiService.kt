@@ -10,6 +10,7 @@ import com.squareup.moshi.ToJson
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import id.ac.istts.kitasetara.model.forum.Comment
 import id.ac.istts.kitasetara.model.forum.Post
+import id.ac.istts.kitasetara.model.forum.newComment
 import id.ac.istts.kitasetara.model.forum.newPost
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -17,7 +18,10 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 public interface apiService {
 
@@ -40,7 +44,7 @@ public interface apiService {
     //COMMENTS ==============================================================================================
 
     @POST("comment") //Send new comment to API
-    suspend fun createComment(@Body comment: Comment): Comment
+    suspend fun createComment(@Body comment: newComment): Comment
 
 }
 
@@ -48,25 +52,28 @@ public interface apiService {
 data class ErrorResponse(
     val msg:String
 )
+class DateAdapter : JsonAdapter<Long>() {
+    @FromJson
+    override fun fromJson(reader: JsonReader): Long? {
+        val dateString = reader.nextString()
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        format.timeZone = TimeZone.getTimeZone("UTC")
+        val date = format.parse(dateString)
+        return date?.time
+    }
+
+    @ToJson
+    override fun toJson(writer: JsonWriter, value: Long?) {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        format.timeZone = TimeZone.getTimeZone("UTC")
+        val dateString = format.format(Date(value ?: 0L))
+        writer.value(dateString)
+    }
+}
 
 object API{
     val moshi = Moshi.Builder()
-        .add(Date::class.java, object : JsonAdapter<Date>() {
-            @FromJson
-            override fun fromJson(reader: JsonReader): Date? {
-                return if (reader.peek() != JsonReader.Token.NULL) {
-                    Date(reader.nextLong())
-                } else {
-                    reader.nextNull<Any>()
-                    null
-                }
-            }
-
-            @ToJson
-            override fun toJson(writer: JsonWriter, value: Date?) {
-                value?.let { writer.value(it.time) }
-            }
-        })
+        .add(Date::class.java, DateAdapter())
         .build()
 
     val retrofit = Retrofit.Builder()

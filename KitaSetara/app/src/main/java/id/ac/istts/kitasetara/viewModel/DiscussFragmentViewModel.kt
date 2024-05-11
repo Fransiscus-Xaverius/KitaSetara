@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.ac.istts.kitasetara.model.forum.Comment
 import id.ac.istts.kitasetara.model.forum.Post
+import id.ac.istts.kitasetara.model.forum.newComment
 import id.ac.istts.kitasetara.services.API
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +42,7 @@ class DiscussFragmentViewModel : ViewModel() {
         }
     }
 
-    fun createComment(comment: Comment) {
+    fun createComment(comment: newComment) {
         ioScope.launch {
             withContext(Dispatchers.IO) {
                 API.retrofitService.createComment(comment)

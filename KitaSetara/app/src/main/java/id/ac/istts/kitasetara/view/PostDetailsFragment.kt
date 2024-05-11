@@ -9,13 +9,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.adapters.CommentAdapter
 import id.ac.istts.kitasetara.model.forum.Comment
 import id.ac.istts.kitasetara.model.forum.Post
+import id.ac.istts.kitasetara.model.forum.newComment
 import id.ac.istts.kitasetara.viewmodel.DiscussFragmentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +36,7 @@ class PostDetailsFragment : Fragment() {
     private lateinit var commentPostEt:EditText
     private lateinit var commentPostBtn:Button
     private val mainScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +56,17 @@ class PostDetailsFragment : Fragment() {
         var postDate = ""
         var postComments = ArrayList<Comment>()
 
+        auth = FirebaseAuth.getInstance()
+        var author = auth.currentUser?.displayName //this returns NULL. Needs to be fixed later -Frans
+        var uid = auth.currentUser?.uid.toString()
+        if(author.isNullOrBlank()){
+            author = Helper.currentUser?.name.toString()
+            uid = Helper.currentUser?.id.toString()
+            Toast.makeText(context, "Author: ${author}", Toast.LENGTH_SHORT).show()
+        }else{
+            author = author.toString() //safe call for this because type is nullable
+        }
+
         authorUsernameTV = view.findViewById(R.id.authorUsernameTv)
         postTitleTV = view.findViewById(R.id.postTitleTv)
         postContentTV = view.findViewById(R.id.postContentTv)
@@ -61,6 +77,7 @@ class PostDetailsFragment : Fragment() {
         postTitleTV.text = postTitle
         postContentTV.text = postContent
 
+
         model.selectPost(Post(postID.toString(), "", "", "", "", null, null))
         model.getPostDetails()
         model.selectedPost.observe(viewLifecycleOwner) {
@@ -69,12 +86,12 @@ class PostDetailsFragment : Fragment() {
             Log.d("PostDetailsFragment", "Post Title: ${it.title.toString()}")
             Log.d("PostDetailsFragment", "Post Content: ${it.content.toString()}")
             Log.d("PostDetailsFragment", "Post Author: ${it.author.toString()}")
-            Log.d("PostDetailsFragment", "Post Date: ${it.date.toString()}")
+            Log.d("PostDetailsFragment", "Post Date: ${it.createdAt.toString()}")
 
             postTitle = it.title.toString()
             postContent = it.content.toString()
             postAuthor = it.author.toString()
-            postDate = it.date.toString()
+            postDate = it.createdAt.toString()
 
             authorUsernameTV.text = postAuthor
             postTitleTV.text = postTitle
@@ -83,12 +100,14 @@ class PostDetailsFragment : Fragment() {
         }
 
         model.comments.observe(viewLifecycleOwner) {
-            postComments = it as? ArrayList<Comment> ?: ArrayList()
-            Log.d("PostDetailsFragment", "Comments: ${postComments.toString()}")
+            postComments.clear()
+            postComments.addAll(it)
+//            Log.d("PostDetailsFragment", "Comments: ${postComments.toString()}")
             mainScope.launch {
                 val commentAdapter = CommentAdapter(postComments)
                 postCommentsRV.adapter = commentAdapter
                 commentAdapter.notifyDataSetChanged()
+//                Log.d("PostDetailsFragment", "Comments Changed: ${postComments.toString()}")
             }
         }
 
@@ -97,12 +116,26 @@ class PostDetailsFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
 
 
-        commentPostBtn.setOnClickListener{
-//            val inputComment: String = commentPostEt.text.toString()
-//            if(inputComment.isNotEmpty()){
-//                model.createComment(Comment("", postID.toString(), inputComment, "", ""))
-//            }
+        commentPostBtn.setOnClickListener {
+            val inputComment: String = commentPostEt.text.toString()
+            if(inputComment.isNotEmpty()){
+                mainScope.launch {
+                    model.createComment(newComment(postID.toString(), uid ,inputComment))
+                    commentPostEt.text.clear()
+                    //Refresh the comments
+                    model.getPostDetails()
+                    model.comments.observe(viewLifecycleOwner) { comments ->
+                        postComments.clear()
+                        postComments.addAll(comments)
+                        Log.d("PostDetailsFragment", "Comments Changed: ${postComments.toString()}")
+                        val commentAdapter = CommentAdapter(postComments)
+                        postCommentsRV.adapter = commentAdapter
+                        commentAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
         }
+
 
     }
 }
