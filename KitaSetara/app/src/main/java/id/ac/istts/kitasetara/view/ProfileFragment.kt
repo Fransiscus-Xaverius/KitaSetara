@@ -1,17 +1,15 @@
 package id.ac.istts.kitasetara.view
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
+import android.app.Dialog
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
@@ -25,11 +23,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import id.ac.istts.kitasetara.BuildConfig
@@ -43,14 +39,15 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var dialog : Dialog
     private val storage = FirebaseStorage.getInstance() //get firebase storage instance
     private val firebaseDatabase = FirebaseDatabase.getInstance() //get firebase db instance
-    val auth = Firebase.auth
-    val user = auth.currentUser //get current user that has logged in with google
+    private val auth = Firebase.auth
+    private val user = auth.currentUser //get current user that has logged in with google
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         //init auth and gso
         mAuth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -81,19 +78,19 @@ class ProfileFragment : Fragment() {
         binding.progressBar.visibility = View.VISIBLE
         Toast.makeText(requireActivity(),"Updating...(May take a few seconds)",Toast.LENGTH_LONG).show()
         storageRef.putFile(uri)
-            .addOnSuccessListener { taskSnapshot ->
+            .addOnSuccessListener { _ ->
                 // Image uploaded successfully, get the URL of the uploaded image to be stored in realtime DB
                 storageRef.downloadUrl.addOnSuccessListener { imageUrl ->
                     // Image URL retrieved, now save it to Firebase realtime DB
                     binding.progressBar.visibility = View.GONE
                     saveToDatabase(imageUrl.toString())
 
-                }.addOnFailureListener { exception ->
+                }.addOnFailureListener { _ ->
                     // Handle unexpected error
                     Toast.makeText(requireActivity(),"ERROR OCCURED",Toast.LENGTH_SHORT).show()
                 }
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener { _ ->
                 //handle unexpected error
                 Toast.makeText(requireActivity(),"ERROR OCCURED",Toast.LENGTH_SHORT).show()
             }
@@ -103,13 +100,13 @@ class ProfileFragment : Fragment() {
         //show loading indicator while trying to save new image
 
         //get current user id
-        var uid : String = ""
+        var uid  = ""
 
-        if (Helper.currentUser != null){
-            uid = Helper.currentUser!!.id!!
+        uid = if (Helper.currentUser != null){
+            Helper.currentUser!!.id!!
         }else{
             //login with google
-            uid = user!!.uid
+            user!!.uid
         }
         // Reference to the "users" node in the Realtime Database
         val usersRef = firebaseDatabase.reference.child("users")
@@ -121,7 +118,7 @@ class ProfileFragment : Fragment() {
                 // Image URL updated in Realtime Database successfully
                 Toast.makeText(requireActivity(),"Profile successfully updated!",Toast.LENGTH_SHORT).show()
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener { _ ->
                 // Handle any errors
                 Toast.makeText(requireActivity(),"Error when saving to database!",Toast.LENGTH_SHORT).show()
             }
@@ -133,7 +130,30 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //handle onclick
+        //setup dialog box
+        dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.custom_logout_dialog)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
+        dialog.setCancelable(false) //the dialog wont close if user click anywhere outside the box
 
+        val btnLogout = dialog.findViewById<Button>(R.id.btn_dialog_logout)
+        val btnCancel = dialog.findViewById<Button>(R.id.btn_dialog_cancel)
+
+        btnLogout.setOnClickListener {
+            if (Helper.currentUser != null) {//sign out
+                Helper.currentUser = null
+                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            } else {//sign out for user that has logged in with google
+                signOutAndStartSignInActivity()
+            }
+            Toast.makeText(requireActivity(),"Logout success!",Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
 
         if (user != null) {//display user name if log in with google
             val userName = user.displayName
@@ -171,7 +191,7 @@ class ProfileFragment : Fragment() {
                         override fun onResourceReady(
                             resource: Drawable,
                             model: Any,
-                            target: com.bumptech.glide.request.target.Target<Drawable>?,
+                            target: Target<Drawable>?,
                             dataSource: DataSource,
                             isFirstResource: Boolean
                         ): Boolean {
@@ -205,12 +225,7 @@ class ProfileFragment : Fragment() {
             }
         }
         binding.tvLogout.setOnClickListener {
-            if (Helper.currentUser != null) {//sign out
-                Helper.currentUser = null
-                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-            } else {//sign out for user that has logged in with google
-                signOutAndStartSignInActivity()
-            }
+            dialog.show()
         }
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){

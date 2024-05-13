@@ -102,5 +102,4 @@ dependencies {
 // For SSP, use this:
     implementation ("com.intuit.ssp:ssp-android:1.1.1")
 
-
 }

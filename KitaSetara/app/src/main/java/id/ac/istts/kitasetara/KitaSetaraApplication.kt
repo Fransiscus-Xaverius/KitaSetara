@@ -13,6 +13,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import id.ac.istts.kitasetara.data.DefaultCoursesRepository
 import id.ac.istts.kitasetara.data.DefaultQuotesRepository
+import id.ac.istts.kitasetara.data.QuestionsRepository
 import id.ac.istts.kitasetara.data.TermsRepository
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
 
@@ -80,13 +81,14 @@ class KitaSetaraApplication:Application() {
         lateinit var coursesRepository: DefaultCoursesRepository
         lateinit var quotesRepository: DefaultQuotesRepository
         lateinit var termsRepository: TermsRepository
+        lateinit var questionRepository : QuestionsRepository
         fun initRepository(context: Context) {
             //create room local database with the name of "kitasetara"
             val roomDb = Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
                 "kitasetara"
-            ).build()
+            ).allowMainThreadQueries().build()
 
             //init moshi
             val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -97,6 +99,7 @@ class KitaSetaraApplication:Application() {
             quotesRepository = DefaultQuotesRepository(retrofitQuotes.create(QuoteService::class.java),roomDb)
             coursesRepository = DefaultCoursesRepository(roomDb)
             termsRepository = TermsRepository(FirebaseDatabase.getInstance(),roomDb)
+            questionRepository = QuestionsRepository(FirebaseDatabase.getInstance(),roomDb)
         }
 
     }

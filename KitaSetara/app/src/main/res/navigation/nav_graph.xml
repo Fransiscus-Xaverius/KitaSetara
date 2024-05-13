@@ -175,5 +175,13 @@
     <action
         android:id="@+id/action_global_termsFragment"
         app:destination="@id/termsFragment" />
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="id.ac.istts.kitasetara.view.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
+    <action
+        android:id="@+id/action_global_quizFragment"
+        app:destination="@id/quizFragment" />
 
 </navigation>

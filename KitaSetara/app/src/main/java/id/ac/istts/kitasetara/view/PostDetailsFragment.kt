@@ -70,9 +70,9 @@ class PostDetailsFragment : Fragment() {
         authorUsernameTV = view.findViewById(R.id.authorUsernameTv)
         postTitleTV = view.findViewById(R.id.postTitleTv)
         postContentTV = view.findViewById(R.id.postContentTv)
-        postCommentsRV = view.findViewById(R.id.postCommentsRV)
-        commentPostEt = view.findViewById(R.id.commentPostEt)
-        commentPostBtn = view.findViewById(R.id.sendCommentBtn)
+        postCommentsRV = view.findViewById(R.id.rv_post_comment)
+        commentPostEt = view.findViewById(R.id.et_post_comment)
+        commentPostBtn = view.findViewById(R.id.btn_send_comment)
         authorUsernameTV.text = postAuthor
         postTitleTV.text = postTitle
         postContentTV.text = postContent
