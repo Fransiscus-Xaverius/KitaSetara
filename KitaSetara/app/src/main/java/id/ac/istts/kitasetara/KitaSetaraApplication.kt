@@ -97,7 +97,7 @@ class KitaSetaraApplication:Application() {
             val retrofitQuotes = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
                 .baseUrl("https://quote-garden.onrender.com/api/v3/").build()
             quotesRepository = DefaultQuotesRepository(retrofitQuotes.create(QuoteService::class.java),roomDb)
-            coursesRepository = DefaultCoursesRepository(roomDb)
+            coursesRepository = DefaultCoursesRepository(FirebaseDatabase.getInstance(),roomDb)
             termsRepository = TermsRepository(FirebaseDatabase.getInstance(),roomDb)
             questionRepository = QuestionsRepository(FirebaseDatabase.getInstance(),roomDb)
         }

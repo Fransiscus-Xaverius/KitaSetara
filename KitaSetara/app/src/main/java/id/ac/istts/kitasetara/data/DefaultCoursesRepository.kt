@@ -1,11 +1,31 @@
 package id.ac.istts.kitasetara.data
 
+import android.util.Log
+import android.widget.Toast
+import androidx.navigation.findNavController
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
+import id.ac.istts.kitasetara.Helper
+import id.ac.istts.kitasetara.KitaSetaraApplication
+import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
 import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.model.course.Course
+import id.ac.istts.kitasetara.model.course.FinishedContent
 import id.ac.istts.kitasetara.model.course.Module
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class DefaultCoursesRepository(
+    private val firebaseDatabase:FirebaseDatabase,
     private val localDataSource:AppDatabase
 ) {
     fun getAllCourses():List<Course> {
@@ -55,4 +75,88 @@ class DefaultCoursesRepository(
     fun clearContents(){
         localDataSource.contentDao().clearContents()
     }
+
+    suspend fun getFinishedContents():List<FinishedContent>{
+        return localDataSource.finishedContentDao().getAllFinishedContents()
+    }
+
+    suspend fun fetchDataFromFirebaseAndInsertToRoom() {
+        val data = fetchFinishedContentDataFromFirebase()
+        withContext(Dispatchers.IO) {
+            // Insert data into Room database
+            localDataSource.finishedContentDao().clearFinishedContents()
+            localDataSource.finishedContentDao().insertMany(data)
+        }
+    }
+
+    suspend fun fetchFinishedContentDataFromFirebase(): List<FinishedContent> {
+        return withContext(Dispatchers.IO) {
+            val database = FirebaseDatabase.getInstance()
+            val firebaseReference = database.getReference("finished_contents") // Replace "your_node" with your actual node
+
+            try {
+                val dataSnapshot = firebaseReference.get().await()
+                val dataList = mutableListOf<FinishedContent>()
+
+                for (snapshot in dataSnapshot.children){
+                    val id = snapshot.child("id").getValue(Long::class.java)
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val idCon = snapshot.child("idContent").getValue(String::class.java)
+
+                    if(id != null && username != null && username == Helper.currentUser!!.username && idCon != null){
+                        Log.d("C", id.toString())
+                        dataList.add(FinishedContent(id.toInt(), idCon?:"", username?:""))
+                    }
+                }
+                dataList
+            } catch (e: Exception) {
+                // Handle exceptions
+                e.printStackTrace()
+                emptyList() // or throw an exception if needed
+            }
+        }
+    }
+
+    suspend fun saveFinishedContent(idContent: Int){
+        var databaseReference:DatabaseReference = firebaseDatabase.getReference("finished_contents")
+
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var dataAlreadyExist = false
+                var lastId = 0
+
+                for (snapshot in dataSnapshot.children){
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val idCon = snapshot.child("idContent").getValue(String::class.java)
+
+                    Log.d("CEK", "${username} - ${idCon} - ${username == Helper.currentUser?.username && idCon == idContent.toString()}")
+                    if(username == Helper.currentUser?.username && idCon == idContent.toString()){
+                        dataAlreadyExist = true
+                    }
+
+                    val id = snapshot.child("id").getValue(Long::class.java)
+                    if(id != null){
+                        lastId = id.toInt()
+                    }
+                }
+
+                //insert data finished content baru
+                if(!dataAlreadyExist){
+                    val id = databaseReference.push().key //create unique id untuk record baru
+                    val finishedContent = FinishedContent(lastId+1, idContent.toString(), Helper.currentUser!!.username)
+                    //insert data ke dalam unique id yang telah dibuat
+                    databaseReference.child(id!!).setValue(finishedContent)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //handle error
+                Log.e("FINISHED CONTENT", "Database Error : ${error.message}")
+            }
+        })
+
+    }
+
+
 }

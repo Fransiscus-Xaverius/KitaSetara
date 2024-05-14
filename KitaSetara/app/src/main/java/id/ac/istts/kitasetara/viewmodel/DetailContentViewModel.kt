@@ -21,4 +21,11 @@ class DetailContentViewModel: ViewModel() {
             _content.postValue(coursesRepository.getContent(idContent))
         }
     }
+
+    fun saveFinishedContent(idContent: Int){
+        ioScope.launch {
+            coursesRepository.saveFinishedContent(idContent)
+        }
+    }
+
 }

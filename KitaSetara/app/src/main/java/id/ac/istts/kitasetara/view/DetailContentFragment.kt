@@ -57,13 +57,15 @@ class DetailContentFragment : Fragment() {
             binding.btnContentNext.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.circle_play_icon))
         }
 
+        //mark this content as finished
+        if(currentContentNumber != 1){
+            viewModel.saveFinishedContent(idContent)
+        }
+
         binding.btnContentPrev.setOnClickListener {
-//            Log.d("TEST", "Hello")
-//            Log.d("current", currentContentNumber.toString())
             if(currentContentNumber > 1){//cek jika bukan content page yang pertama
                 val prevNum = currentContentNumber-1
                 val targetId = contentList[prevNum-1].id //-1 untuk menyesuaikan index
-//                Log.d("Target", targetId.toString())
                 val action = DetailContentFragmentDirections.actionDetailContentFragmentSelf(targetId.toString(), currentContentNumber-1, maxContentNumber, contentList)
                 findNavController().navigate(action)
             }
@@ -84,8 +86,10 @@ class DetailContentFragment : Fragment() {
             }
         }
 
-        //test
         binding.ivContentExit.setOnClickListener {
+            if(currentContentNumber == maxContentNumber){
+                Snackbar.make(requireContext(), view, "Module Finished !", Snackbar.LENGTH_SHORT).show()
+            }
             //arahkan kembali ke module detail
             val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)
             val destinationId = destination.destination.id
