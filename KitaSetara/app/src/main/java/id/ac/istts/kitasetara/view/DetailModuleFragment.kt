@@ -60,7 +60,7 @@ class DetailModuleFragment : Fragment() {
                 }
             }
             if(open || pos == 1){
-                val action = DetailModuleFragmentDirections.actionDetailModuleFragmentToDetailContentFragment(content.id.toString(), pos, max, moduleContents.toTypedArray())
+                val action = DetailModuleFragmentDirections.actionDetailModuleFragmentToDetailContentFragment(content.id.toString(), pos, max, moduleContents.toTypedArray(), idModule.toString())
                 findNavController().navigate(action)
             }else{
                 Snackbar.make(requireContext(), view, "Please Complete Previous Content First", Snackbar.LENGTH_SHORT).show()
@@ -91,7 +91,7 @@ class DetailModuleFragment : Fragment() {
         binding.spinner.visibility = View.VISIBLE
         binding.rvContent.visibility = View.INVISIBLE
         CoroutineScope(Dispatchers.Main).launch {
-            coursesRepository.fetchDataFromFirebaseAndInsertToRoom()
+            coursesRepository.fetchFinishedContentDataFromFirebaseAndInsertToRoom()
             // Fetch data from Room after insertion is complete
             val newData = withContext(Dispatchers.IO) {
                 coursesRepository.getFinishedContents()

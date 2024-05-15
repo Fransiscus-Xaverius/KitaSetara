@@ -1,26 +1,19 @@
 package id.ac.istts.kitasetara.data
 
 import android.util.Log
-import android.widget.Toast
-import androidx.navigation.findNavController
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.getValue
 import id.ac.istts.kitasetara.Helper
-import id.ac.istts.kitasetara.KitaSetaraApplication
-import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
 import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.model.course.Course
 import id.ac.istts.kitasetara.model.course.FinishedContent
+import id.ac.istts.kitasetara.model.course.FinishedModule
 import id.ac.istts.kitasetara.model.course.Module
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -80,7 +73,7 @@ class DefaultCoursesRepository(
         return localDataSource.finishedContentDao().getAllFinishedContents()
     }
 
-    suspend fun fetchDataFromFirebaseAndInsertToRoom() {
+    suspend fun fetchFinishedContentDataFromFirebaseAndInsertToRoom() {
         val data = fetchFinishedContentDataFromFirebase()
         withContext(Dispatchers.IO) {
             // Insert data into Room database
@@ -92,7 +85,7 @@ class DefaultCoursesRepository(
     suspend fun fetchFinishedContentDataFromFirebase(): List<FinishedContent> {
         return withContext(Dispatchers.IO) {
             val database = FirebaseDatabase.getInstance()
-            val firebaseReference = database.getReference("finished_contents") // Replace "your_node" with your actual node
+            val firebaseReference = database.getReference("finished_contents")
 
             try {
                 val dataSnapshot = firebaseReference.get().await()
@@ -104,7 +97,7 @@ class DefaultCoursesRepository(
                     val idCon = snapshot.child("idContent").getValue(String::class.java)
 
                     if(id != null && username != null && username == Helper.currentUser!!.username && idCon != null){
-                        Log.d("C", id.toString())
+//                        Log.d("C", id.toString())
                         dataList.add(FinishedContent(id.toInt(), idCon?:"", username?:""))
                     }
                 }
@@ -129,7 +122,7 @@ class DefaultCoursesRepository(
                     val username = snapshot.child("username").getValue(String::class.java)
                     val idCon = snapshot.child("idContent").getValue(String::class.java)
 
-                    Log.d("CEK", "${username} - ${idCon} - ${username == Helper.currentUser?.username && idCon == idContent.toString()}")
+//                    Log.d("CEK", "${username} - ${idCon} - ${username == Helper.currentUser?.username && idCon == idContent.toString()}")
                     if(username == Helper.currentUser?.username && idCon == idContent.toString()){
                         dataAlreadyExist = true
                     }
@@ -153,6 +146,89 @@ class DefaultCoursesRepository(
             override fun onCancelled(error: DatabaseError) {
                 //handle error
                 Log.e("FINISHED CONTENT", "Database Error : ${error.message}")
+            }
+        })
+
+    }
+
+    suspend fun getFinishedModules():List<FinishedModule>{
+        return localDataSource.finishedModuleDao().getAllFinishedModules()
+    }
+
+    suspend fun fetchFinishedModuleDataFromFirebaseAndInsertToRoom() {
+        val data = fetchFinishedModuleDataFromFirebase()
+        withContext(Dispatchers.IO) {
+            // Insert data into Room database
+            localDataSource.finishedModuleDao().clearFinishedModules()
+            localDataSource.finishedModuleDao().insertMany(data)
+        }
+    }
+
+
+    suspend fun fetchFinishedModuleDataFromFirebase(): List<FinishedModule> {
+        return withContext(Dispatchers.IO) {
+            val database = FirebaseDatabase.getInstance()
+            val firebaseReference = database.getReference("finished_modules")
+
+            try {
+                val dataSnapshot = firebaseReference.get().await()
+                val dataList = mutableListOf<FinishedModule>()
+
+                for (snapshot in dataSnapshot.children){
+                    val id = snapshot.child("id").getValue(Long::class.java)
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val idModule = snapshot.child("idModule").getValue(String::class.java)
+
+                    if(id != null && username != null && username == Helper.currentUser!!.username && idModule != null){
+                        dataList.add(FinishedModule(id.toInt(), idModule?:"", username?:""))
+                    }
+                }
+                dataList
+            } catch (e: Exception) {
+                // Handle exceptions
+                e.printStackTrace()
+                emptyList() // or throw an exception if needed
+            }
+        }
+    }
+
+
+    suspend fun saveFinishedModule(idModule: Int){
+        var databaseReference:DatabaseReference = firebaseDatabase.getReference("finished_modules")
+
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var dataAlreadyExist = false
+                var lastId = 0
+
+                for (snapshot in dataSnapshot.children){
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val idModule = snapshot.child("idModule").getValue(String::class.java)
+
+                    Log.d("CEK", "${username} - ${idModule} - ${username == Helper.currentUser?.username && idModule == idModule.toString()}")
+                    if(username == Helper.currentUser?.username && idModule == idModule.toString()){
+                        dataAlreadyExist = true
+                    }
+
+                    val id = snapshot.child("id").getValue(Long::class.java)
+                    if(id != null){
+                        lastId = id.toInt()
+                    }
+                }
+
+                //insert data finished module yang baru
+                if(!dataAlreadyExist){
+                    val id = databaseReference.push().key //create unique id untuk record baru
+                    val finishedModule = FinishedModule(lastId+1, idModule.toString(), Helper.currentUser!!.username)
+                    //insert data ke dalam unique id yang telah dibuat
+                    databaseReference.child(id!!).setValue(finishedModule)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //handle error
+                Log.e("FINISHED MODULE", "Database Error : ${error.message}")
             }
         })
 

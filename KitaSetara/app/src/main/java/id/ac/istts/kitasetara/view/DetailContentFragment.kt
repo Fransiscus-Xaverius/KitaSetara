@@ -37,6 +37,7 @@ class DetailContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val idContent = navArgs.idContent.toInt()
+        val idModule = navArgs.idModule
         val currentContentNumber = navArgs.currentContentNumber;
         val maxContentNumber = navArgs.maxContentNumber
         val contentList = navArgs.contentsList
@@ -62,11 +63,16 @@ class DetailContentFragment : Fragment() {
             viewModel.saveFinishedContent(idContent)
         }
 
+        //mark module as finished if the last content already accessed
+        if(currentContentNumber == maxContentNumber){
+            viewModel.saveFinishedModule(idModule.toInt())
+        }
+
         binding.btnContentPrev.setOnClickListener {
             if(currentContentNumber > 1){//cek jika bukan content page yang pertama
                 val prevNum = currentContentNumber-1
                 val targetId = contentList[prevNum-1].id //-1 untuk menyesuaikan index
-                val action = DetailContentFragmentDirections.actionDetailContentFragmentSelf(targetId.toString(), currentContentNumber-1, maxContentNumber, contentList)
+                val action = DetailContentFragmentDirections.actionDetailContentFragmentSelf(targetId.toString(), currentContentNumber-1, maxContentNumber, contentList, idModule)
                 findNavController().navigate(action)
             }
         }
@@ -75,20 +81,25 @@ class DetailContentFragment : Fragment() {
             if(currentContentNumber < maxContentNumber){//cek jika bukan content page yang terakhir
                 val nextNum = currentContentNumber+1
                 val targetId = contentList[nextNum-1].id
-                val action = DetailContentFragmentDirections.actionDetailContentFragmentSelf(targetId.toString(), currentContentNumber+1, maxContentNumber, contentList)
+                val action = DetailContentFragmentDirections.actionDetailContentFragmentSelf(targetId.toString(), currentContentNumber+1, maxContentNumber, contentList, idModule)
                 findNavController().navigate(action)
             }else{//content terakhir
                 Snackbar.make(requireContext(), view, "Module Finished !", Snackbar.LENGTH_SHORT).show()
+                //mark module as finished and save the data in firebase
+                viewModel.saveFinishedModule(idModule.toInt())
+
                 //arahkan kembali ke course detail
                 val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)
                 val destinationId = destination.destination.id
-                findNavController().popBackStack(destinationId, true)
+                findNavController().popBackStack(destinationId, true)//inclusive artinya detailModuleFragment ikut dipop
             }
         }
 
         binding.ivContentExit.setOnClickListener {
             if(currentContentNumber == maxContentNumber){
                 Snackbar.make(requireContext(), view, "Module Finished !", Snackbar.LENGTH_SHORT).show()
+                //mark module as finished and save the data in firebase
+                viewModel.saveFinishedModule(idModule.toInt())
             }
             //arahkan kembali ke module detail
             val destination: NavBackStackEntry = findNavController().getBackStackEntry(R.id.detailModuleFragment)

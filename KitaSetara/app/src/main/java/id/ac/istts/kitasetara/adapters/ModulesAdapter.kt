@@ -7,11 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
+import id.ac.istts.kitasetara.model.course.FinishedModule
 import id.ac.istts.kitasetara.model.course.Module
 
 class ModulesAdapter(
     val data:ArrayList<Module>,
+    val finishedData:ArrayList<FinishedModule>,
     val onClickListener:((Module, Int)->Unit)?=null
 ):RecyclerView.Adapter<ModulesAdapter.ViewHolder>() {
     class ViewHolder(val row:View):RecyclerView.ViewHolder(row){
@@ -33,8 +36,9 @@ class ModulesAdapter(
         holder.txtName.text = module.name
         holder.txtNumber.text = "Module "+(position+1)
 
-        //Saving status for modules that finished still not done yet
-        if(position == 0){
+        //Display icon status for modules that unlocked and locked
+        //Module that is unlocked is the module that has it's previous module mark as finished
+        if(position == 0 || moduleFinished(position-1)){
             holder.statusIcon.setImageResource(R.drawable.circle_play_icon)
         }else{
             holder.statusIcon.setImageResource(R.drawable.locked_icon)
@@ -47,5 +51,15 @@ class ModulesAdapter(
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+
+    fun moduleFinished(dataPosition: Int):Boolean{
+        for (item in finishedData){
+            if(data[dataPosition].id.toString() == item.idModule && Helper.currentUser!!.username == item.username){
+                return true
+            }
+        }
+        return false
     }
 }

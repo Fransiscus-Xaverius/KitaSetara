@@ -28,4 +28,10 @@ class DetailContentViewModel: ViewModel() {
         }
     }
 
+    fun saveFinishedModule(idModule: Int){
+        ioScope.launch {
+            coursesRepository.saveFinishedModule(idModule)
+        }
+    }
+
 }

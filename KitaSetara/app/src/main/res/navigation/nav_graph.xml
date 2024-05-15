@@ -163,6 +163,9 @@
         <argument
             android:name="contentsList"
             app:argType="id.ac.istts.kitasetara.model.course.Content[]" />
+        <argument
+            android:name="idModule"
+            app:argType="string" />
     </fragment>
     <action
         android:id="@+id/action_global_detailCourseFragment2"

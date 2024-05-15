@@ -1,6 +1,7 @@
 package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,23 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import id.ac.istts.kitasetara.Helper
+import id.ac.istts.kitasetara.KitaSetaraApplication
 import id.ac.istts.kitasetara.MarginItemDecoration
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.adapters.ModulesAdapter
+import id.ac.istts.kitasetara.data.DefaultCoursesRepository
 import id.ac.istts.kitasetara.databinding.FragmentDetailCourseBinding
 import id.ac.istts.kitasetara.model.course.Course
+import id.ac.istts.kitasetara.model.course.FinishedContent
+import id.ac.istts.kitasetara.model.course.FinishedModule
 import id.ac.istts.kitasetara.model.course.Module
 import id.ac.istts.kitasetara.viewmodel.DetailCourseFragmentViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class DetailCourseFragment : Fragment() {
@@ -39,6 +50,7 @@ class DetailCourseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val idCourse = navArgs.idCourse.toInt()
 //        Log.d("ID", idCourse.toString())
+        val finishedModules = ArrayList<FinishedModule>()
 
         viewModel.getCourse(idCourse)
 
@@ -54,10 +66,15 @@ class DetailCourseFragment : Fragment() {
 
         var modules = ArrayList<Module>()
 
-        val modulesAdapter = ModulesAdapter(modules){
+        val modulesAdapter = ModulesAdapter(modules, finishedModules){
             module,pos ->
-            val action = DetailCourseFragmentDirections.actionDetailCourseFragment2ToDetailModuleFragment(module.id.toString(), pos, courseName)
-            findNavController().navigate(action)
+            if(pos == 1 || moduleFinished(modules, finishedModules, pos-2)){//-2 karena pos adalah urutan modul yang start dari 1
+                val action = DetailCourseFragmentDirections.actionDetailCourseFragment2ToDetailModuleFragment(module.id.toString(), pos, courseName)
+                findNavController().navigate(action)
+            }else{
+                Snackbar.make(requireContext(), view, "Please Complete Previous Module First!", Snackbar.LENGTH_SHORT).show()
+            }
+
         }
 
         val modulesObserver:Observer<List<Module>> = Observer{
@@ -73,7 +90,25 @@ class DetailCourseFragment : Fragment() {
         binding.rvModule.layoutManager = layoutManager
         binding.rvModule.addItemDecoration(MarginItemDecoration(20))
 
+        //load module progress
+        val coursesRepository: DefaultCoursesRepository = KitaSetaraApplication.coursesRepository
+        binding.spinnerModule.visibility = View.VISIBLE
+        binding.rvModule.visibility = View.INVISIBLE
+        CoroutineScope(Dispatchers.Main).launch {
+            coursesRepository.fetchFinishedModuleDataFromFirebaseAndInsertToRoom()
+            // Fetch data from Room after insertion is complete
+            val newData = withContext(Dispatchers.IO) {
+                coursesRepository.getFinishedModules()
+            }
+//            Log.d("Tes0", newData.toString())
+            finishedModules.clear()
+            finishedModules.addAll(newData)
+            modulesAdapter.notifyDataSetChanged()
 
+            // Hide spinner
+            binding.spinnerModule.visibility = View.GONE
+            binding.rvModule.visibility = View.VISIBLE
+        }
 
         binding.ibBackDetailCourse.setOnClickListener{
             requireActivity().supportFragmentManager.popBackStack()
@@ -106,5 +141,14 @@ class DetailCourseFragment : Fragment() {
             }
         }
         binding.bottomNavigation.menu.findItem(R.id.bottom_course).isChecked = true
+    }
+
+    fun moduleFinished(data:List<Module>, finishedData:List<FinishedModule>, dataPosition: Int):Boolean{
+        for (item in finishedData){
+            if(data[dataPosition].id.toString() == item.idModule && Helper.currentUser!!.username == item.username){
+                return true
+            }
+        }
+        return false
     }
 }
