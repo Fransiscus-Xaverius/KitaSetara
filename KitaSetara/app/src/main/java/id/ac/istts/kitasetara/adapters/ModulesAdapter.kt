@@ -38,8 +38,18 @@ class ModulesAdapter(
 
         //Display icon status for modules that unlocked and locked
         //Module that is unlocked is the module that has it's previous module mark as finished
-        if(position == 0 || moduleFinished(position-1)){
-            holder.statusIcon.setImageResource(R.drawable.circle_play_icon)
+        if(position == 0){//first module always unlocked but can be finished or not finished
+            if(moduleFinished(position)){//finished module status
+                holder.statusIcon.setImageResource(R.drawable.check)
+            }else{
+                holder.statusIcon.setImageResource(R.drawable.circle_play_icon)
+            }
+        }else if(moduleFinished(position-1)){//if previous module finished, this module unlocked
+            if(moduleFinished(position)){//finished module status
+                holder.statusIcon.setImageResource(R.drawable.check)
+            }else{
+                holder.statusIcon.setImageResource(R.drawable.circle_play_icon)
+            }
         }else{
             holder.statusIcon.setImageResource(R.drawable.locked_icon)
         }

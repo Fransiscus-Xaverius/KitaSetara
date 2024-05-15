@@ -205,7 +205,7 @@ class DefaultCoursesRepository(
                     val username = snapshot.child("username").getValue(String::class.java)
                     val idModule = snapshot.child("idModule").getValue(String::class.java)
 
-                    Log.d("CEK", "${username} - ${idModule} - ${username == Helper.currentUser?.username && idModule == idModule.toString()}")
+//                    Log.d("CEK", "${username} - ${idModule} - ${username == Helper.currentUser?.username && idModule == idModule.toString()}")
                     if(username == Helper.currentUser?.username && idModule == idModule.toString()){
                         dataAlreadyExist = true
                     }
