@@ -24,16 +24,17 @@
             android:src="@drawable/arrow_back" />
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linearLayout4"
         android:layout_above="@+id/linearLayout5"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="0dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
@@ -50,7 +51,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:orientation="horizontal">
@@ -99,11 +100,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_post_comment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintHeight_max="610dp" />
+                android:layout_height="match_parent" />
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"

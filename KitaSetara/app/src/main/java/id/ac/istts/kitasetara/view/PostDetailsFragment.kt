@@ -2,7 +2,6 @@ package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +24,7 @@ import id.ac.istts.kitasetara.viewmodel.DiscussFragmentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 
 
 class PostDetailsFragment : Fragment() {
@@ -31,6 +32,7 @@ class PostDetailsFragment : Fragment() {
 
     private lateinit var authorUsernameTV:TextView
     private lateinit var postTitleTV:TextView
+    private lateinit var postDateTV:TextView
     private lateinit var postContentTV:TextView
     private lateinit var postCommentsRV:RecyclerView
     private lateinit var commentPostEt:EditText
@@ -70,6 +72,7 @@ class PostDetailsFragment : Fragment() {
         authorUsernameTV = view.findViewById(R.id.authorUsernameTv)
         postTitleTV = view.findViewById(R.id.postTitleTv)
         postContentTV = view.findViewById(R.id.postContentTv)
+        postDateTV = view.findViewById(R.id.postDateTV)
         postCommentsRV = view.findViewById(R.id.rv_post_comment)
         commentPostEt = view.findViewById(R.id.et_post_comment)
         commentPostBtn = view.findViewById(R.id.btn_send_comment)
@@ -93,19 +96,22 @@ class PostDetailsFragment : Fragment() {
             postAuthor = it.author.toString()
             postDate = it.createdAt.toString()
 
+
             authorUsernameTV.text = postAuthor
             postTitleTV.text = postTitle
             postContentTV.text = postContent
+            postDateTV.text = postDate
 
         }
+
+        val commentAdapter = CommentAdapter(postComments)
+        postCommentsRV.adapter = commentAdapter
 
         model.comments.observe(viewLifecycleOwner) {
             postComments.clear()
             postComments.addAll(it)
 //            Log.d("PostDetailsFragment", "Comments: ${postComments.toString()}")
             mainScope.launch {
-                val commentAdapter = CommentAdapter(postComments)
-                postCommentsRV.adapter = commentAdapter
                 commentAdapter.notifyDataSetChanged()
 //                Log.d("PostDetailsFragment", "Comments Changed: ${postComments.toString()}")
             }
@@ -121,17 +127,21 @@ class PostDetailsFragment : Fragment() {
             if(inputComment.isNotEmpty()){
                 mainScope.launch {
                     model.createComment(newComment(postID.toString(), uid ,inputComment))
+                    postComments.add(Comment(postID.toString(), inputComment ,uid ))
                     commentPostEt.text.clear()
+                    commentAdapter.notifyDataSetChanged()
+
+
                     //Refresh the comments
-                    model.getPostDetails()
-                    model.comments.observe(viewLifecycleOwner) { comments ->
-                        postComments.clear()
-                        postComments.addAll(comments)
-                        Log.d("PostDetailsFragment", "Comments Changed: ${postComments.toString()}")
-                        val commentAdapter = CommentAdapter(postComments)
-                        postCommentsRV.adapter = commentAdapter
-                        commentAdapter.notifyDataSetChanged()
-                    }
+//                    model.getPostDetails()
+//                    model.comments.observe(viewLifecycleOwner) { comments ->
+//                        postComments.clear()
+//                        postComments.addAll(comments)
+//                        Log.d("PostDetailsFragment", "Comments Changed: ${postComments.toString()}")
+//                        val commentAdapter = CommentAdapter(postComments)
+//                        postCommentsRV.adapter = commentAdapter
+//                        commentAdapter.notifyDataSetChanged()
+//                    }
                 }
             }
         }
