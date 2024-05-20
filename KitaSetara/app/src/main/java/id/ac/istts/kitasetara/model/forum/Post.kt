@@ -12,6 +12,7 @@ data class Post(
     val content:String? = null,
     val authorId:String? = null,
     val author:String? = null,
+    val amountOfComments:Int? = 0,
     val createdAt:String? = null,
     val updatedAt:String? = null,
     val lastComment:Comment? = null,

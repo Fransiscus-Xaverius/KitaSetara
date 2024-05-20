@@ -55,10 +55,12 @@ class postAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = data[position]
+        Log.d("COMMENTCOUNT",post.amountOfComments.toString())
         holder.titleTv.text = post.title
         holder.authorTv.text = post.author
         holder.lastCommentTv.text = post.lastComment?.comment
         holder.lastCommentAuthorTv.text = post.lastComment?.username
+        holder.commentCountTv.text = post.amountOfComments?.toString()
     }
 
     override fun getItemCount(): Int {
