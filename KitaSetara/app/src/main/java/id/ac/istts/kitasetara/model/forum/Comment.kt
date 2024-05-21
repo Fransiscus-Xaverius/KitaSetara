@@ -9,4 +9,6 @@ data class Comment(
     val id_comment:String? = null,
     val comment:String? = null,
     val username:String? = null,
+    val createdAt:String? = null,
+
 )

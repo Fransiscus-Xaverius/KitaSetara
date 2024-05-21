@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -24,12 +27,15 @@ import id.ac.istts.kitasetara.viewmodel.DiscussFragmentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 
 class PostDetailsFragment : Fragment() {
     private val model: DiscussFragmentViewModel by viewModels<DiscussFragmentViewModel>()
-
     private lateinit var authorUsernameTV:TextView
     private lateinit var postTitleTV:TextView
     private lateinit var postDateTV:TextView
@@ -37,6 +43,7 @@ class PostDetailsFragment : Fragment() {
     private lateinit var postCommentsRV:RecyclerView
     private lateinit var commentPostEt:EditText
     private lateinit var commentPostBtn:Button
+    private lateinit var goBackButton:ImageButton
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var auth: FirebaseAuth
 
@@ -76,14 +83,17 @@ class PostDetailsFragment : Fragment() {
         postCommentsRV = view.findViewById(R.id.rv_post_comment)
         commentPostEt = view.findViewById(R.id.et_post_comment)
         commentPostBtn = view.findViewById(R.id.btn_send_comment)
+        goBackButton = view.findViewById(R.id.gobackBtn)
         authorUsernameTV.text = postAuthor
         postTitleTV.text = postTitle
         postContentTV.text = postContent
 
-
         model.selectPost(Post(postID.toString(), "", "", "", "", null, null))
         model.getPostDetails()
         model.selectedPost.observe(viewLifecycleOwner) {
+
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            inputFormat.timeZone = TimeZone.getTimeZone("UTC")
 
             //Debugging purposes.
             Log.d("PostDetailsFragment", "Post Title: ${it.title.toString()}")
@@ -95,13 +105,21 @@ class PostDetailsFragment : Fragment() {
             postContent = it.content.toString()
             postAuthor = it.author.toString()
             postDate = it.createdAt.toString()
+            var date = Date()
+            if(postAuthor.isNullOrBlank()){
+                Log.d("PostDetailsFragment", postDate.toString())
+            }
+            else{
+                date = inputFormat.parse(postDate)!!
+            }
 
+            val outputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+            outputFormat.timeZone = TimeZone.getDefault()
 
             authorUsernameTV.text = postAuthor
             postTitleTV.text = postTitle
             postContentTV.text = postContent
-            postDateTV.text = postDate
-
+            postDateTV.text = outputFormat.format(date)
         }
 
         val commentAdapter = CommentAdapter(postComments)
@@ -117,16 +135,18 @@ class PostDetailsFragment : Fragment() {
             }
         }
 
-
         postCommentsRV.layoutManager = LinearLayoutManager(requireContext(),
             LinearLayoutManager.VERTICAL, false)
 
+        goBackButton.setOnClickListener{
+            view.findNavController().navigate(R.id.action_global_discussFragment)
+        }
 
         commentPostBtn.setOnClickListener {
             val inputComment: String = commentPostEt.text.toString()
             if(inputComment.isNotEmpty()){
                 mainScope.launch {
-                    model.createComment(newComment(postID.toString(), uid ,inputComment))
+                    model.createComment(newComment(postID.toString(), uid , author ,inputComment))
                     postComments.add(Comment(postID.toString(), inputComment ,uid ))
                     commentPostEt.text.clear()
                     commentAdapter.notifyDataSetChanged()

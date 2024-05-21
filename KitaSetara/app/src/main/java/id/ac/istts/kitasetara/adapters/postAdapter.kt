@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.model.forum.Post
 import id.ac.istts.kitasetara.view.MainActivity
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class postAdapter(
     val data: ArrayList<Post>,
@@ -56,11 +59,16 @@ class postAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = data[position]
         Log.d("COMMENTCOUNT",post.amountOfComments.toString())
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
         holder.titleTv.text = post.title
         holder.authorTv.text = post.author
         holder.lastCommentTv.text = post.lastComment?.comment
         holder.lastCommentAuthorTv.text = post.lastComment?.username
         holder.commentCountTv.text = post.amountOfComments?.toString()
+        var tempDate = inputFormat.parse(post.createdAt)
+        val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        holder.postedDateTv.text = outputFormat.format(tempDate)
     }
 
     override fun getItemCount(): Int {
