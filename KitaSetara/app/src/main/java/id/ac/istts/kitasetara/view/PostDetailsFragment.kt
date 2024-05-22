@@ -34,7 +34,7 @@ import java.util.Locale
 import java.util.TimeZone
 
 
-class PostDetailsFragment : Fragment() {
+class PostDetailsFragment : Fragment () {
     private val model: DiscussFragmentViewModel by viewModels<DiscussFragmentViewModel>()
     private lateinit var authorUsernameTV:TextView
     private lateinit var postTitleTV:TextView

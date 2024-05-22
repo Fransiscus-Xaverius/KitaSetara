@@ -4,4 +4,8 @@
     <color name="orange_base">#FF8A00</color>
     <color name="grayborder">#DEDDDD</color>
     <color name="blue">#459DE4</color>
+    <color name="leaderboardGold">#FFD700</color>
+    <color name="leaderboardSilver">#C0C0C0</color>
+    <color name="leaderboardBronze">#EBA056</color>
+    <color name="leaderboardLightGray">#EFECEC</color>
 </resources>
