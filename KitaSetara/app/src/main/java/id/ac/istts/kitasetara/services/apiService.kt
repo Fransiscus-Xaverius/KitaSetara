@@ -46,6 +46,9 @@ public interface apiService {
     @POST("comment") //Send new comment to API
     suspend fun createComment(@Body comment: newComment): Comment
 
+    @GET("search/{it}") //Search posts by title from API
+    suspend fun searchPosts(it: String): Collection<Post>
+
 }
 
 @JsonClass(generateAdapter = true)
@@ -77,7 +80,7 @@ object API{
         .build()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://51.79.161.113:3000/api/") //API URL
+        .baseUrl("http://kitasetara.api.fransiscus.dev/api/") //API URL
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
 

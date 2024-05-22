@@ -36,6 +36,7 @@ class DiscussFragment : Fragment() {
     private lateinit var composeBtn: LinearLayout
     private val ioScope = CoroutineScope(Dispatchers.IO)
     private val mainScope = CoroutineScope(Dispatchers.Main)
+    private val originalPosts = ArrayList<Post>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -80,13 +81,17 @@ class DiscussFragment : Fragment() {
         val postAdapter = postAdapter(posts, requireContext())
 
         ioScope.launch { //access ke API
-            posts.clear()
             val tempPosts = API.retrofitService.getAllPosts()
             mainScope.launch { //untuk update tampilan
+                posts.clear()
                 posts.addAll(tempPosts)
+                originalPosts.clear()
+                originalPosts.addAll(tempPosts)
                 postAdapter.notifyDataSetChanged()
             }
         }
+
+
 
         discussRV.adapter = postAdapter
 
@@ -100,13 +105,31 @@ class DiscussFragment : Fragment() {
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    val filteredPosts = originalPosts.filter { post ->
+                        post.title?.contains(query, ignoreCase = true) ?: false
+                    }
+                    mainScope.launch { // Update UI
+                        posts.clear()
+                        posts.addAll(filteredPosts)
+                        postAdapter.notifyDataSetChanged()
+                    }
+                } else {
+                    mainScope.launch { // Update UI
+                        posts.clear()
+                        posts.addAll(originalPosts)
+                        postAdapter.notifyDataSetChanged()
+                    }
+                }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                // You can implement live search here if you want
                 return false
             }
         })
+
         //handle bottom menu onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
