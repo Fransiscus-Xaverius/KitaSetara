@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -31,6 +32,7 @@ class NewPostFragment : Fragment() {
     private lateinit var postTitle: EditText
     private lateinit var postContent:EditText
     private lateinit var postBtn: Button
+    private lateinit var backBtn:ImageButton
     private val ioScope = CoroutineScope(Dispatchers.IO)
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var auth: FirebaseAuth
@@ -46,6 +48,7 @@ class NewPostFragment : Fragment() {
         postTitle = binding.postTitleEt
         postContent = binding.postContentMT
         postBtn = binding.postButton
+        backBtn = binding.backBtn
         auth = FirebaseAuth.getInstance()
         var author = auth.currentUser?.displayName //this returns NULL. Needs to be fixed later -Frans
         var uid = auth.currentUser?.uid.toString()
@@ -55,6 +58,9 @@ class NewPostFragment : Fragment() {
             Toast.makeText(context, "Author: ${author}", Toast.LENGTH_SHORT).show()
         }else{
             author = author.toString() //safe call for this because type is nullable
+        }
+        backBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_global_discussFragment)
         }
         postBtn.setOnClickListener {
             Toast.makeText(context, "Creating post... ${author}", Toast.LENGTH_SHORT).show()

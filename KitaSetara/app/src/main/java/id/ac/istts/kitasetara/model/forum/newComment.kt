@@ -6,6 +6,6 @@ import com.squareup.moshi.JsonClass
 data class newComment(
     val id_post:String,
     val username:String,
-    val displayName: String,
+    val authorName: String,
     val comment:String
 )

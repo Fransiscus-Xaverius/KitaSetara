@@ -146,11 +146,11 @@ class PostDetailsFragment : Fragment() {
             val inputComment: String = commentPostEt.text.toString()
             if(inputComment.isNotEmpty()){
                 mainScope.launch {
-                    model.createComment(newComment(postID.toString(), uid , author ,inputComment))
-                    postComments.add(Comment(postID.toString(), inputComment ,uid ))
+                    val authorname: String = auth.currentUser?.displayName ?: Helper.currentUser?.name.toString()
+                    model.createComment(newComment(postID.toString(), uid , authorname ,inputComment))
+                    postComments.add(Comment(postID.toString(), inputComment, uid, authorname, null))
                     commentPostEt.text.clear()
                     commentAdapter.notifyDataSetChanged()
-
 
                     //Refresh the comments
 //                    model.getPostDetails()

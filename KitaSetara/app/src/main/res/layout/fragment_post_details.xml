@@ -118,11 +118,11 @@
             android:id="@+id/et_post_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_weight="1"
             android:ems="10"
-            android:layout_marginStart="30dp"
-            android:inputType="text"
-            android:text="Name" />
+            android:hint="Write Something!"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/btn_send_comment"

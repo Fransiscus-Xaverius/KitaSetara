@@ -29,7 +29,7 @@ class CommentAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val comment = data[position]
-        holder.commentAuthorTV.text = comment.username
+        holder.commentAuthorTV.text = comment.author
         holder.commentContentTV.text = comment.comment
     }
 

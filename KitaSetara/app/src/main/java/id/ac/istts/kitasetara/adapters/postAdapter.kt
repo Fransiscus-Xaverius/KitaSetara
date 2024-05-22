@@ -64,7 +64,7 @@ class postAdapter(
         holder.titleTv.text = post.title
         holder.authorTv.text = post.author
         holder.lastCommentTv.text = post.lastComment?.comment
-        holder.lastCommentAuthorTv.text = post.lastComment?.username
+        holder.lastCommentAuthorTv.text = post.lastComment?.author
         holder.commentCountTv.text = post.amountOfComments?.toString()
         var tempDate = inputFormat.parse(post.createdAt)
         val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
