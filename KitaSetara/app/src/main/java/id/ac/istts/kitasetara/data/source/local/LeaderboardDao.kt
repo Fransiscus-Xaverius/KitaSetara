@@ -13,6 +13,9 @@ interface LeaderboardDao {
     @Query("SELECT * FROM leaderboards")
     suspend fun getAll():List<Leaderboard>
 
+    @Query("SELECT * FROM leaderboards WHERE userId = :idUser")
+    suspend fun getById(idUser: String):Leaderboard
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMany(leaderboards: List<Leaderboard>)
 

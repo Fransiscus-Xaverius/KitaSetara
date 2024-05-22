@@ -1,6 +1,5 @@
 package id.ac.istts.kitasetara.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,23 +41,29 @@ class LeaderboardsAdapter(
         holder.txtName.text = leaderboard.name
         holder.txtScore.text = leaderboard.score.toString()
 
-        // Load profile picture using Picasso
-        Picasso.get()
-        .load(leaderboard.photoUrl) // url
-        .placeholder(R.drawable.baseline_person_24) // Optional: Placeholder image while loading
-        .error(R.drawable.default_profile) // Optional: Error image if loading fails
-        .into(holder.profilePict)
+        if (leaderboard.photoUrl != null && leaderboard.photoUrl != ""){
+            // Load profile picture using Picasso
+            Picasso.get()
+                .load(leaderboard.photoUrl) // url
+                .placeholder(R.drawable.baseline_person_24) // Optional: Placeholder image while loading
+                .error(R.drawable.default_profile) // Optional: Error image if loading fails
+                .into(holder.profilePict)
+        }else{
+            holder.profilePict.setImageResource(R.drawable.default_profile)
+        }
 
 
-        //set color
+
+        //set place position in leaderboard
         if(position == 0){//1st place
-            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardGold))
+            holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard1st)
+//            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardGold))
         }else if(position == 1){//2nd place
-            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardSilver))
+            holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard2nd)
         }else if(position == 2){//3rd place
-            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardBronze))
+            holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard3nd)
         }else{//4th place and so on
-            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardLightGray))
+            holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboardother)
         }
 
 

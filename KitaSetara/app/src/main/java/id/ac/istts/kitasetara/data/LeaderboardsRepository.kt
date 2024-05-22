@@ -53,4 +53,8 @@ class LeaderboardsRepository (
     suspend fun getLeaderboards():List<Leaderboard>{
         return localDataSource.leaderboardDao().getAll()
     }
+
+    suspend fun getLeaderboardByUserId(id: String):Leaderboard{
+        return localDataSource.leaderboardDao().getById(id)
+    }
 }
