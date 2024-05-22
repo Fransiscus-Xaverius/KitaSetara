@@ -22,7 +22,7 @@ class LeaderboardsAdapter(
         val txtScore = row.findViewById<TextView>(R.id.tvLeaderboardItemScore)
         val profilePict = row.findViewById<ImageView>(R.id.ivLeaderboardItemProfile)
         val itemLayout = row.findViewById<LinearLayout>(R.id.leaderboardItemLayout)
-
+        val medalIcon = row.findViewById<ImageView>(R.id.ivMedal)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -57,11 +57,19 @@ class LeaderboardsAdapter(
         //set place position in leaderboard
         if(position == 0){//1st place
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard1st)
+            holder.medalIcon.visibility = View.VISIBLE
+            holder.txtPosition.visibility = View.GONE
 //            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardGold))
         }else if(position == 1){//2nd place
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard2nd)
+            holder.medalIcon.visibility = View.VISIBLE
+            holder.medalIcon.setImageResource(R.drawable.icon_2nd)
+            holder.txtPosition.visibility = View.GONE
         }else if(position == 2){//3rd place
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard3nd)
+            holder.medalIcon.visibility = View.VISIBLE
+            holder.medalIcon.setImageResource(R.drawable.icon_3rd)
+            holder.txtPosition.visibility = View.GONE
         }else{//4th place and so on
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboardother)
         }

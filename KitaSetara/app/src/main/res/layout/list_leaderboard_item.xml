@@ -23,6 +23,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/ivMedal"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/icon_1st" />
+
         <TextView
             android:id="@+id/tvLeaderboardItemPosition"
             android:layout_width="wrap_content"
