@@ -1,6 +1,7 @@
 package id.ac.istts.kitasetara
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -32,4 +33,6 @@ object Helper {
     fun showSnackbar(view:View,msg:String){
         Snackbar.make(view,msg,Snackbar.LENGTH_SHORT).show()
     }
+
+
 }

@@ -23,21 +23,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         val properties = Properties()
-        val clientId : String
+        val clientId: String
 
         val localPropertiesFile = project.rootProject.file("local.properties")
 
         properties.load(localPropertiesFile.inputStream())
         clientId = properties.getProperty("CLIENT_ID")
 
-        buildConfigField("String","CLIENT_ID",clientId)
+        buildConfigField("String", "CLIENT_ID", clientId)
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            isDebuggable = false 
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -51,7 +51,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
         dataBinding = true
         buildConfig = true
@@ -76,20 +76,20 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.android.gms:play-services-auth:21.1.1")
 
-    implementation ("androidx.room:room-runtime:2.6.1")
-    kapt ("androidx.room:room-compiler:2.6.1")
-    implementation ("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.fragment:fragment-ktx:1.7.0")
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     // Retrofit & Moshi dependencies
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
-    implementation ("com.squareup.moshi:moshi:1.15.0")
-    implementation ("com.squareup.moshi:moshi-kotlin:1.15.0")
-    kapt ("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 
     //circle image view
     implementation("de.hdodenhof:circleimageview:3.1.0")
@@ -99,7 +99,10 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.intuit.sdp:sdp-android:1.1.1")
 
-// For SSP, use this:
-    implementation ("com.intuit.ssp:ssp-android:1.1.1")
+    // For SSP, use this:
+    implementation("com.intuit.ssp:ssp-android:1.1.1")
+
+    //datastore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
 }

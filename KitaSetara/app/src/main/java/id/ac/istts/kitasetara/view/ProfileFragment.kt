@@ -32,6 +32,9 @@ import id.ac.istts.kitasetara.BuildConfig
 import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentProfileBinding
+import id.ac.istts.kitasetara.pref.UserPreference
+import id.ac.istts.kitasetara.pref.dataStore
+import kotlinx.coroutines.runBlocking
 import java.util.UUID
 
 class ProfileFragment : Fragment() {
@@ -143,6 +146,8 @@ class ProfileFragment : Fragment() {
         btnLogout.setOnClickListener {
             if (Helper.currentUser != null) {//sign out
                 Helper.currentUser = null
+                val pref = UserPreference.getInstance(requireActivity().dataStore)
+                runBlocking { pref.logout() }
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
             } else {//sign out for user that has logged in with google
                 signOutAndStartSignInActivity()

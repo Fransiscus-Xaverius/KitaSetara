@@ -24,6 +24,9 @@ import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentLoginBinding
 import id.ac.istts.kitasetara.model.forum.User
+import id.ac.istts.kitasetara.pref.UserPreference
+import id.ac.istts.kitasetara.pref.dataStore
+import kotlinx.coroutines.runBlocking
 
 class LoginFragment : Fragment() {
     companion object {
@@ -53,14 +56,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
 
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            //user has logged in already, navigate to home fragment right away
-            view.findNavController().navigate(R.id.action_global_homeFragment)
-        }else{
-
-        }
 
         //handle onclick
 
@@ -137,6 +132,9 @@ class LoginFragment : Fragment() {
                             //login successful
                             //set currentuser
                             Helper.currentUser = userData
+                            //save session
+                            val pref = UserPreference.getInstance(requireActivity().dataStore)
+                            runBlocking { pref.saveSession(userData) }
                             Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT)
                                 .show()
                             userSnapshot.ref.child("loggedIn").setValue(true)
