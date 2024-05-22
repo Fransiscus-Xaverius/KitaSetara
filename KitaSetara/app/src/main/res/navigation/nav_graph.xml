@@ -64,6 +64,8 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
@@ -186,5 +188,22 @@
     <action
         android:id="@+id/action_global_quizFragment"
         app:destination="@id/quizFragment" />
+    <fragment
+        android:id="@+id/congratzFragment"
+        android:name="id.ac.istts.kitasetara.view.CongratzFragment"
+        android:label="fragment_congratz"
+        tools:layout="@layout/fragment_congratz" >
+        <argument
+            android:name="score"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_congratzFragment_to_coursesFragment"
+            app:popUpTo="@id/quizFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/coursesFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_congratzFragment"
+        app:destination="@id/congratzFragment" />
 
 </navigation>

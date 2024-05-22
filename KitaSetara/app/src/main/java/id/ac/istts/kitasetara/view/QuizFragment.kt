@@ -1,24 +1,17 @@
 package id.ac.istts.kitasetara.view
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.forEach
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentQuizBinding
-import id.ac.istts.kitasetara.model.quiz.Question
 import id.ac.istts.kitasetara.viewmodel.QuizViewModel
 
 class QuizFragment : Fragment() {
@@ -58,7 +51,6 @@ class QuizFragment : Fragment() {
             binding.tvQuizNumber.text = "$it of 10"
         }
         viewModel.startIndex.observe(viewLifecycleOwner) {
-//            viewModel.fetchQuestions() //fetch data from ROOM
             val questions = viewModel.getQuestions()
             if (questions.isNotEmpty()) {
                 binding.tvQuizQuestion.text = questions[it].question
@@ -87,7 +79,7 @@ class QuizFragment : Fragment() {
                     if (view is TextView && view.tag == "true") {
                         //cek jawaban benar
                         if (view.text == viewModel.getQuestions().get(startIndex ).answer) {
-                            score += 5
+                            score += 10
                             //update score UI
                             binding.tvQuizScore.text = "Score : $score"
                         }
@@ -95,13 +87,13 @@ class QuizFragment : Fragment() {
                 }
             }
 
-            if (startIndex < viewModel.getQuestions().size - 1) {
+            if (startIndex < 9) {
                 //check answer
                 binding.root.forEach { view ->
                     if (view is TextView && view.tag == "true") {
                         //cek jawaban benar
                         if (view.text == viewModel.getQuestions().get(startIndex ).answer) {
-                            score += 5
+                            score += 10
                             //update score UI
                             binding.tvQuizScore.text = "Score : $score"
                         }
@@ -109,28 +101,18 @@ class QuizFragment : Fragment() {
                 }
                 viewModel.setIndex() //update question index
                 viewModel.updateQNumber() //update question number
-                if (viewModel.getIndex() == viewModel.getQuestions().size - 1){
-                    binding.btnQuizNext.text = "Finish"
+                if (viewModel.getIndex() == 9){
+                    binding.btnQuizNext.text = getString(R.string.finish)
                     binding.btnQuizNext.setBackgroundColor(Color.RED)
                 }
 
             } else {
                 // Handle case when there are no more questions
-                //show alert dialog
-                val alertDialog = AlertDialog.Builder(requireActivity())
-                alertDialog.apply {
-                    setTitle("Congratulations")
-                    setMessage("Your score is $score")
-                    setCancelable(false)
-                    setNeutralButton("OK"){dialog,_->
-                        dialog.dismiss()
-                        requireActivity().supportFragmentManager.popBackStack()
-                    }
-                }
-                alertDialog.show()
+                val action = CongratzFragmentDirections.actionGlobalCongratzFragment(score)
+                findNavController().navigate(action)
             }
         }
-        
+
         binding.tvFirstAns.setOnClickListener {
             if (binding.tvFirstAns.tag == "false") {
                 //this option is yet to be selected

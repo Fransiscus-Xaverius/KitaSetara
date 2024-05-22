@@ -33,7 +33,7 @@ class QuestionsRepository(private val firebaseDatabase: FirebaseDatabase, privat
                 }
                 // Insert questions into Room Database
                 CoroutineScope(Dispatchers.IO).launch {
-                    localDatasource.questionDao().insertAll(questions.shuffled())
+                    localDatasource.questionDao().insertAll(questions.shuffled().take(10))
                 }
             }
 

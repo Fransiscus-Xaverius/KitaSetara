@@ -10,11 +10,9 @@
         android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="245dp"
+        android:layout_marginStart="8dp"
         android:text="Quotes of the Day"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/guideline41"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toTopOf="@id/guideline42" />
 
@@ -106,12 +104,10 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="285dp"
         android:text="Daily Term"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/guideline41"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/cl_quotes" />
 
@@ -186,12 +182,12 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="26dp"
-        android:layout_marginEnd="189dp"
+        android:layout_marginBottom="3dp"
         android:text="Most Recent Courses"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/guideline41"
+        app:layout_constraintBottom_toTopOf="@+id/guideline56"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/cl_term" />
 
@@ -224,13 +220,14 @@
         android:layout_width="163dp"
         android:layout_height="131dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/orange_base"
+        app:layout_constraintBottom_toTopOf="@+id/guideline55"
         app:layout_constraintEnd_toStartOf="@+id/cl_recent2"
         app:layout_constraintStart_toStartOf="@id/guideline33"
-        app:layout_constraintTop_toBottomOf="@+id/textView23">
+        app:layout_constraintTop_toTopOf="@+id/guideline56">
 
         <TextView
             android:id="@+id/tv_recentcourse1"
@@ -252,12 +249,13 @@
         android:id="@+id/cl_recent2"
         android:layout_width="163dp"
         android:layout_height="131dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/orange_base"
+        app:layout_constraintBottom_toTopOf="@+id/guideline55"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
-        app:layout_constraintTop_toBottomOf="@+id/textView23">
+        app:layout_constraintTop_toTopOf="@+id/guideline56">
 
         <TextView
             android:id="@+id/tv_recentcourse2"
@@ -278,31 +276,55 @@
     <TextView
         android:id="@+id/tv_desc1"
         android:layout_width="159dp"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="19dp"
         android:alpha="0.5"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="TextView"
         android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintEnd_toStartOf="@+id/tv_desc2"
         app:layout_constraintStart_toStartOf="@id/guideline33"
-        app:layout_constraintTop_toBottomOf="@+id/cl_recent1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
     <TextView
         android:id="@+id/tv_desc2"
         android:layout_width="161dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="3dp"
         android:alpha="0.5"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="TextView"
         android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
-        app:layout_constraintTop_toBottomOf="@+id/cl_recent2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.84"
+        app:layout_constraintGuide_begin="1dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.74"
+        app:layout_constraintGuide_begin="1dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline56"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.56"
+        app:layout_constraintGuide_begin="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

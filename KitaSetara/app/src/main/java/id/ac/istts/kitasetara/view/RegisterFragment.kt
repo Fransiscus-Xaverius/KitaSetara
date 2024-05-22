@@ -92,7 +92,7 @@ class RegisterFragment : Fragment() {
 
         }
         binding.btnToLogin.setOnClickListener {
-            it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 }
