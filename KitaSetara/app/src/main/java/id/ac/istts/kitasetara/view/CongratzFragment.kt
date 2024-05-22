@@ -1,5 +1,7 @@
 package id.ac.istts.kitasetara.view
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,7 +37,29 @@ class CongratzFragment : Fragment() {
         _binding = FragmentCongratzBinding.inflate(inflater, container, false)
         db = FirebaseDatabase.getInstance()
         auth = Firebase.auth
+        playAnimation()
         return binding.root
+    }
+
+    private fun playAnimation(){
+        val congratzTitle = ObjectAnimator.ofFloat(binding.tvCongrats, View.ALPHA,1f).setDuration(250)
+        val ivTrophy = ObjectAnimator.ofFloat(binding.ivTrophy,View.ALPHA,1f).setDuration(250)
+        val tvYouscore = ObjectAnimator.ofFloat(binding.tvYouscore,View.ALPHA,1f).setDuration(250)
+        val tvScore = ObjectAnimator.ofFloat(binding.tvScore,View.ALPHA,1f).setDuration(250)
+        val btnSave = ObjectAnimator.ofFloat(binding.btnSaveScore,View.ALPHA,1f).setDuration(250)
+        val btnBack = ObjectAnimator.ofFloat(binding.btnCongratzBack,View.ALPHA,1f).setDuration(250)
+        val together = AnimatorSet().apply {
+            playTogether(tvYouscore, tvScore)
+        }
+
+        val together2 = AnimatorSet().apply {
+            playTogether(btnSave, btnBack)
+        }
+        //start animation
+        AnimatorSet().apply {
+            playSequentially(congratzTitle,ivTrophy,together,together2)
+            start()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,15 +77,18 @@ class CongratzFragment : Fragment() {
                     //check user id
                     var userId = ""
                     var name = ""
+                    var photoUrl = ""
                     if (Helper.currentUser != null) {
                         //user logged in without google
                         userId = Helper.currentUser!!.id!!
                         name = Helper.currentUser!!.name
+                        photoUrl = Helper.currentUser!!.imageUrl!!
                     } else {
                         //user logged in with google
                         val currentUser = auth.currentUser
                         userId = currentUser!!.uid
                         name = currentUser.displayName!!
+                        photoUrl = currentUser.photoUrl.toString()
                     }
                     val newScore = args.score
                     val query = scoresRef.orderByChild("userid").equalTo(userId)
@@ -95,7 +122,7 @@ class CongratzFragment : Fragment() {
                                 }
                             } else {
                                 //insert a brand-new score
-                                val highscore = Highscore(newScore, userId, name)
+                                val highscore = Highscore(newScore, userId, name,photoUrl)
                                 scoresRef.push().setValue(highscore) { error, _ ->
                                     if (error != null) {
                                         Helper.showSnackbar(
