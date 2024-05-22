@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,13 +28,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
 
-class PostDetailsFragment : Fragment() {
+class PostDetailsFragment : Fragment () {
     private val model: DiscussFragmentViewModel by viewModels<DiscussFragmentViewModel>()
     private lateinit var authorUsernameTV:TextView
     private lateinit var postTitleTV:TextView
@@ -44,6 +43,7 @@ class PostDetailsFragment : Fragment() {
     private lateinit var commentPostEt:EditText
     private lateinit var commentPostBtn:Button
     private lateinit var goBackButton:ImageButton
+    private lateinit var scrollPostDetail: ScrollView
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var auth: FirebaseAuth
 
@@ -84,6 +84,7 @@ class PostDetailsFragment : Fragment() {
         commentPostEt = view.findViewById(R.id.et_post_comment)
         commentPostBtn = view.findViewById(R.id.btn_send_comment)
         goBackButton = view.findViewById(R.id.gobackBtn)
+        scrollPostDetail = view.findViewById(R.id.scrollPostDetail)
         authorUsernameTV.text = postAuthor
         postTitleTV.text = postTitle
         postContentTV.text = postContent
@@ -148,9 +149,12 @@ class PostDetailsFragment : Fragment() {
                 mainScope.launch {
                     val authorname: String = auth.currentUser?.displayName ?: Helper.currentUser?.name.toString()
                     model.createComment(newComment(postID.toString(), uid , authorname ,inputComment))
-                    postComments.add(Comment(postID.toString(), inputComment, uid, authorname, null))
+                    postComments.add(0, Comment(postID.toString(), inputComment, uid, authorname, null))
                     commentPostEt.text.clear()
                     commentAdapter.notifyDataSetChanged()
+                    scrollPostDetail.fullScroll(View.FOCUS_UP)
+                    val imm = context?.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
 
                     //Refresh the comments
 //                    model.getPostDetails()

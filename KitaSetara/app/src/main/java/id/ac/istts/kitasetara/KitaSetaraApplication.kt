@@ -13,6 +13,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import id.ac.istts.kitasetara.data.DefaultCoursesRepository
 import id.ac.istts.kitasetara.data.DefaultQuotesRepository
+import id.ac.istts.kitasetara.data.LeaderboardsRepository
 import id.ac.istts.kitasetara.data.QuestionsRepository
 import id.ac.istts.kitasetara.data.TermsRepository
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
@@ -82,6 +83,7 @@ class KitaSetaraApplication:Application() {
         lateinit var quotesRepository: DefaultQuotesRepository
         lateinit var termsRepository: TermsRepository
         lateinit var questionRepository : QuestionsRepository
+        lateinit var leaderboardsRepository: LeaderboardsRepository
         fun initRepository(context: Context) {
             //create room local database with the name of "kitasetara"
             val roomDb = Room.databaseBuilder(
@@ -100,6 +102,7 @@ class KitaSetaraApplication:Application() {
             coursesRepository = DefaultCoursesRepository(FirebaseDatabase.getInstance(),roomDb)
             termsRepository = TermsRepository(FirebaseDatabase.getInstance(),roomDb)
             questionRepository = QuestionsRepository(FirebaseDatabase.getInstance(),roomDb)
+            leaderboardsRepository = LeaderboardsRepository(FirebaseDatabase.getInstance(),roomDb)
         }
 
     }

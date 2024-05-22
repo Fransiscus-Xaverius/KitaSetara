@@ -23,7 +23,7 @@
         android:id="@+id/postTitleEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:ems="10"
         android:hint="Please enter title (required)"
@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline43"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline41"
@@ -58,10 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="28dp"
         android:backgroundTint="#00000000"
         android:src="@drawable/arrow_back"
-        app:layout_constraintBottom_toTopOf="@+id/postTitleEt"
         app:layout_constraintEnd_toStartOf="@+id/guideline41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -98,5 +96,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline43"
         app:layout_constraintTop_toBottomOf="@+id/postTitleEt" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="200dp"
+        android:text="POST NEW THREAD"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/postTitleEt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline43"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

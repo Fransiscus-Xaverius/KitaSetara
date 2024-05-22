@@ -24,17 +24,17 @@
             android:src="@drawable/arrow_back" />
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollPostDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout4"
         android:layout_above="@+id/linearLayout5"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical">
+        android:layout_marginTop="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -97,13 +97,24 @@
                 android:layout_marginBottom="10dp"
                 android:background="#000000" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_post_comment"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_post_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rv_post_comment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:nestedScrollingEnabled="false"/>-->
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout5"

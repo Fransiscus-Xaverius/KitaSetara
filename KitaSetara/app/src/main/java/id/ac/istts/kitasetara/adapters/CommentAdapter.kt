@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.model.forum.Comment
 
-class CommentAdapter(
+class CommentAdapter (
     val data:ArrayList<Comment>
 ): RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 

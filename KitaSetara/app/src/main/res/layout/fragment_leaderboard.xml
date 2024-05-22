@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rvLeaderboard"
         android:layout_width="350dp"
         android:layout_height="430dp"
         android:layout_marginStart="30dp"
@@ -122,7 +122,7 @@
                 android:paddingBottom="5dp">
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/tvLeaderBoardPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -131,7 +131,7 @@
                     android:textSize="16sp" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imageView8"
+                    android:id="@+id/ivLeaderboardProfile"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_marginRight="8dp"
@@ -140,7 +140,7 @@
                     tools:src="@drawable/quiz_logo" />
 
                 <TextView
-                    android:id="@+id/textView19"
+                    android:id="@+id/tvLeaderboardName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -149,7 +149,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/tvLeaderboardScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
