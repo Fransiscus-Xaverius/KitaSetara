@@ -1,14 +1,19 @@
 package id.ac.istts.kitasetara.data
 
-import androidx.lifecycle.LiveData
+import android.app.Activity
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.GenericTypeIndicator
 import com.google.firebase.database.ValueEventListener
+import id.ac.istts.kitasetara.Helper
+import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.data.source.local.AppDatabase
+import id.ac.istts.kitasetara.model.highscore.Highscore
 import id.ac.istts.kitasetara.model.quiz.Question
-import id.ac.istts.kitasetara.model.term.Term
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,8 +48,100 @@ class QuestionsRepository(private val firebaseDatabase: FirebaseDatabase, privat
         })
     }
 
+    fun saveScoreToFirebase(context: Context, auth: FirebaseAuth, newScore : Int,db:FirebaseDatabase,fragment: Fragment) {
+        val view = context as Activity
+        //check whether user has internet connection
+        if (Helper.isInternetAvailable(context)) {
+            //check user id
+            var userId = ""
+            var name = ""
+            var photoUrl = ""
+            if (Helper.currentUser != null) {
+                //user logged in without google
+                userId = Helper.currentUser!!.id!!
+                name = Helper.currentUser!!.name
+                photoUrl = Helper.currentUser!!.imageUrl!!
+            } else {
+                //user logged in with google
+                val currentUser = auth.currentUser
+                userId = currentUser!!.uid
+                name = currentUser.displayName!!
+                photoUrl = currentUser.photoUrl.toString()
+            }
+            val scoresRef = db.getReference("scores")
+            val query = scoresRef.orderByChild("userid").equalTo(userId)
+
+            query.addListenerForSingleValueEvent(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        for (scoreSnapshot in snapshot.children) {
+                            val scoreId = scoreSnapshot.key!!
+                            val existingScore =
+                                scoreSnapshot.child("score").getValue(Int::class.java)
+                            val totalScore = newScore + existingScore!!
+                            val scoreRef = scoresRef.child(scoreId)
+                            scoreRef.child("score").setValue(totalScore)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Helper.showSnackbar(
+                                            view.findViewById(android.R.id.content),
+                                            "Score successfully saved!"
+                                        )
+
+                                        fragment.findNavController().navigate(R.id.action_congratzFragment_to_coursesFragment)
+                                    } else {
+                                        task.exception?.let {
+                                            Helper.showSnackbar(
+                                                view.findViewById(android.R.id.content),
+                                                "Score could not be saved: ${it.message}"
+                                            )
+                                        }
+                                    }
+                                }
+                        }
+                    } else {
+                        //insert a brand-new score
+                        val highscore = Highscore(newScore, userId, name,photoUrl)
+                        scoresRef.push().setValue(highscore) { error, _ ->
+                            if (error != null) {
+                                Helper.showSnackbar(
+                                    view.findViewById(android.R.id.content),
+                                    "Something wrong happened!"
+                                )
+                            } else {
+                                Helper.showSnackbar(
+                                    view.findViewById(android.R.id.content),
+                                    "Score successfully saved!"
+                                )
+
+                                fragment.findNavController().navigate(R.id.action_congratzFragment_to_coursesFragment)
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Helper.showSnackbar(
+                        view.findViewById(android.R.id.content),
+                        "Database Error : ${error.message}"
+                    )
+                }
+            })
+
+        } else {
+            //call showsnackbar function which resides in Helper.kt
+            Helper.showSnackbar(
+                view.findViewById(android.R.id.content),
+                "No internet connection!"
+            )
+        }
+    }
+
+
     // Get all questions from room/local database
     fun getAllQuestions(): List<Question> {
         return localDatasource.questionDao().getAll()
     }
+
 }
