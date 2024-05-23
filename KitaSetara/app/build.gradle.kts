@@ -108,4 +108,8 @@ dependencies {
 
     //gemini
     implementation("com.google.ai.client.generativeai:generativeai:0.6.0")
+
+    //SwipeRefreshLayout
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
 }

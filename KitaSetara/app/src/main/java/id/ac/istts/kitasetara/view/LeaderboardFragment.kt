@@ -1,6 +1,7 @@
 package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -96,6 +97,10 @@ class LeaderboardFragment : Fragment() {
         }
         viewModel.currentPosition.observe(viewLifecycleOwner, userPositionObserver)
 
+        binding.swipeRefreshLayout.setOnRefreshListener{
+            refreshData()
+        }
+
         //handle onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
@@ -123,5 +128,17 @@ class LeaderboardFragment : Fragment() {
             }
         }
         binding.bottomNavigation.menu.findItem(R.id.bottom_leaderboard).isChecked = true
+    }
+
+    private fun refreshData() {
+        //Data refreshing with a delay
+        Handler().postDelayed({
+            //fetch latest leaderboard data from a server
+            viewModel.loadLeaderboards()
+            viewModel.getLeaderboards()
+            viewModel.getCurrentUserLeaderboardDetail()
+            // Once the data is updated, hide the refresh indicator
+            binding.swipeRefreshLayout.isRefreshing = false
+        }, 2000) // Delay for 2 seconds for data refresh process
     }
 }
