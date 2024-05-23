@@ -67,7 +67,9 @@ class HomeFragment : Fragment() {
                 binding.tvDesc2.text = recentCourses[1].description
             }
         }
-
+        binding.fabChatbot.setOnClickListener {
+            findNavController().navigate(R.id.action_global_chatbotFragment)
+        }
         //terms
         binding.clTerm.setOnClickListener{
             findNavController().navigate(R.id.action_global_termsFragment)

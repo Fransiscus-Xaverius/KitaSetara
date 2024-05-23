@@ -115,9 +115,11 @@
         android:id="@+id/cl_term"
         android:layout_width="@dimen/_270sdp"
         android:layout_height="135dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/guideline57"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/textView22">
@@ -183,13 +185,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="26dp"
         android:layout_marginBottom="3dp"
         android:text="Most Recent Courses"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline56"
         app:layout_constraintStart_toStartOf="@id/guideline33"
-        app:layout_constraintTop_toBottomOf="@+id/cl_term" />
+        app:layout_constraintTop_toTopOf="@+id/guideline57" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline33"
@@ -278,6 +279,7 @@
         android:layout_width="159dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="19dp"
         android:alpha="0.5"
         android:ellipsize="end"
@@ -293,6 +295,7 @@
         android:id="@+id/tv_desc2"
         android:layout_width="161dp"
         android:layout_height="80dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="3dp"
         android:alpha="0.5"
         android:ellipsize="end"
@@ -326,5 +329,25 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.56"
         app:layout_constraintGuide_begin="1dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline57"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52"
+        app:layout_constraintGuide_begin="1dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_chatbot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_chat_24"
+        app:backgroundTint="@android:color/holo_orange_light"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,9 @@ android {
 
         properties.load(localPropertiesFile.inputStream())
         clientId = properties.getProperty("CLIENT_ID")
-
+        val geminiApiKey = properties.getProperty("API_KEY")
         buildConfigField("String", "CLIENT_ID", clientId)
+        buildConfigField("String","API_KEY",geminiApiKey)
     }
 
     buildTypes {
@@ -105,4 +106,6 @@ dependencies {
     //datastore
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+    //gemini
+    implementation("com.google.ai.client.generativeai:generativeai:0.6.0")
 }
