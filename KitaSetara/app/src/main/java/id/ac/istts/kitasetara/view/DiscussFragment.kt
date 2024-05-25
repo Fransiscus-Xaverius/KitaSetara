@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +37,9 @@ class DiscussFragment : Fragment() {
     private lateinit var sortBtn:ImageButton
     private lateinit var discussRV: RecyclerView
     private lateinit var composeBtn: LinearLayout
+    private lateinit var rbNew: RadioButton
+    private lateinit var rbHot: RadioButton
+    private lateinit var rgSorting: RadioGroup
     private val ioScope = CoroutineScope(Dispatchers.IO)
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private val originalPosts = ArrayList<Post>()
@@ -53,6 +59,9 @@ class DiscussFragment : Fragment() {
         sortBtn = binding.sortDiscussBtn
         discussRV = binding.discussRV
         composeBtn = binding.ComposeBtn
+        rbNew = binding.rbNew
+        rbHot = binding.rbHot
+        rgSorting = binding.rgSorting
         val moshi = Moshi.Builder()
             .add(Date::class.java, object : JsonAdapter<Date>() {
                 @FromJson
@@ -91,7 +100,7 @@ class DiscussFragment : Fragment() {
             }
         }
 
-
+        binding.rbGeneral.isChecked = true
 
         discussRV.adapter = postAdapter
 
@@ -100,7 +109,44 @@ class DiscussFragment : Fragment() {
         }
 
         sortBtn.setOnClickListener{
+            if (rgSorting.isVisible == false){
+                rgSorting.visibility = View.VISIBLE
+            }else{
+                rgSorting.visibility = View.INVISIBLE
+            }
+        }
 
+        binding.rbGeneral.setOnClickListener(){
+            if (binding.rbGeneral.isChecked == true){
+                posts.clear()
+                posts.addAll(originalPosts)
+                postAdapter.notifyDataSetChanged()
+            }
+            rgSorting.visibility = View.INVISIBLE
+        }
+
+        rbNew.setOnClickListener(){
+            if (rbNew.isChecked == true){
+                posts.clear()
+                posts.addAll(originalPosts)
+                var sortedNewList = posts.sortedWith(compareByDescending { it.createdAt })
+                posts.clear()
+                posts.addAll(sortedNewList)
+                postAdapter.notifyDataSetChanged()
+            }
+            rgSorting.visibility = View.INVISIBLE
+        }
+
+        rbHot.setOnClickListener(){
+            if (rbHot.isChecked == true){
+                posts.clear()
+                posts.addAll(originalPosts)
+                var sortedHotList = posts.sortedWith(compareByDescending { it.amountOfComments })
+                posts.clear()
+                posts.addAll(sortedHotList)
+                postAdapter.notifyDataSetChanged()
+            }
+            rgSorting.visibility = View.INVISIBLE
         }
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
