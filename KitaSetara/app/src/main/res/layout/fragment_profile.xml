@@ -106,26 +106,20 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
         android:layout_marginTop="26dp"
-        android:layout_marginEnd="248dp"
         android:text="Account Info"
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <LinearLayout
         android:id="@+id/linear_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="78dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <ImageView
@@ -158,35 +152,27 @@
                 android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:src="@drawable/pencil" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="78dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/linear_name">
 
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:src="@drawable/baseline_alternate_email_24" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -195,6 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="top"
                 android:text="Username"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
@@ -207,42 +194,34 @@
                 android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:src="@drawable/pencil" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="78dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/linear_username">
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_height="35dp"
             android:layout_marginRight="15dp"
             android:src="@drawable/baseline_mail_outline_24" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="Email"
                 android:textSize="@dimen/_12ssp"
@@ -256,26 +235,17 @@
                 android:textSize="@dimen/_10ssp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="10dp"
-            android:src="@drawable/pencil" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
-        android:layout_marginEnd="264dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toBottomOf="@+id/linear_email">
 
         <ImageView
@@ -299,6 +269,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="43dp" />
+        app:layout_constraintGuide_percent="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

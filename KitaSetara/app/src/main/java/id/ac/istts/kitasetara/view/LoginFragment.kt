@@ -86,18 +86,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun playAnimation(){
-        val title = ObjectAnimator.ofFloat(binding.textView, View.ALPHA,1f).setDuration(220)
-        val iv = ObjectAnimator.ofFloat(binding.imageView,View.ALPHA,1f).setDuration(220)
-        val btnGoogle = ObjectAnimator.ofFloat(binding.signInButton,View.ALPHA,1f).setDuration(220)
-        val icGoogle = ObjectAnimator.ofFloat(binding.iconGoogle,View.ALPHA,1f).setDuration(220)
-        val linearGoogle = ObjectAnimator.ofFloat(binding.linearLayout,View.ALPHA,1f).setDuration(220)
-        val tvOr = ObjectAnimator.ofFloat(binding.textView7,View.ALPHA,1f).setDuration(220)
-        val tvUsername = ObjectAnimator.ofFloat(binding.textInputLayout4,View.ALPHA,1f).setDuration(220)
-        val tvPass = ObjectAnimator.ofFloat(binding.textInputLayout5,View.ALPHA,1f).setDuration(220)
-        val tvForgot = ObjectAnimator.ofFloat(binding.tvForgot,View.ALPHA,1f).setDuration(220)
-        val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin,View.ALPHA,1f).setDuration(220)
-        val tvNr = ObjectAnimator.ofFloat(binding.textView3,View.ALPHA,1f).setDuration(220)
-        val tvCreate = ObjectAnimator.ofFloat(binding.tvCreateAcc,View.ALPHA,1f).setDuration(220)
+        val title = ObjectAnimator.ofFloat(binding.textView, View.ALPHA,1f).setDuration(200)
+        val iv = ObjectAnimator.ofFloat(binding.imageView,View.ALPHA,1f).setDuration(200)
+        val btnGoogle = ObjectAnimator.ofFloat(binding.signInButton,View.ALPHA,1f).setDuration(200)
+        val icGoogle = ObjectAnimator.ofFloat(binding.iconGoogle,View.ALPHA,1f).setDuration(200)
+        val linearGoogle = ObjectAnimator.ofFloat(binding.linearLayout,View.ALPHA,1f).setDuration(200)
+        val tvOr = ObjectAnimator.ofFloat(binding.textView7,View.ALPHA,1f).setDuration(200)
+        val tvUsername = ObjectAnimator.ofFloat(binding.textInputLayout4,View.ALPHA,1f).setDuration(200)
+        val tvPass = ObjectAnimator.ofFloat(binding.textInputLayout5,View.ALPHA,1f).setDuration(200)
+        val tvForgot = ObjectAnimator.ofFloat(binding.tvForgot,View.ALPHA,1f).setDuration(200)
+        val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin,View.ALPHA,1f).setDuration(200)
+        val tvNr = ObjectAnimator.ofFloat(binding.textView3,View.ALPHA,1f).setDuration(200)
+        val tvCreate = ObjectAnimator.ofFloat(binding.tvCreateAcc,View.ALPHA,1f).setDuration(200)
 
         val together = AnimatorSet().apply {
             playTogether(btnGoogle,icGoogle,linearGoogle, tvOr,tvUsername,tvPass)

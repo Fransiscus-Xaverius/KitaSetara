@@ -9,6 +9,8 @@
 
     <TextView
         android:id="@+id/textView4"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
@@ -21,6 +23,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="186dp"
         android:layout_height="173dp"
         android:src="@drawable/register_logo"
@@ -32,6 +36,8 @@
 
     <Button
         android:id="@+id/btn_register"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -46,6 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:alpha="0"
+        tools:alpha="100"
         android:padding="8dp"
         android:text="Login"
         app:circularflow_defaultRadius="18dp"
@@ -128,6 +136,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout5"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -148,6 +158,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -170,6 +182,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout7"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -191,6 +205,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout8"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -210,6 +226,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
+        android:id="@+id/til1"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
