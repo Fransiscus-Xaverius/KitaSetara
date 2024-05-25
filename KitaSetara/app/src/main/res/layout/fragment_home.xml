@@ -279,7 +279,7 @@
         android:layout_width="159dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="19dp"
         android:alpha="0.5"
         android:ellipsize="end"
@@ -295,7 +295,7 @@
         android:id="@+id/tv_desc2"
         android:layout_width="161dp"
         android:layout_height="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="3dp"
         android:alpha="0.5"
         android:ellipsize="end"
@@ -346,7 +346,7 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         android:src="@drawable/baseline_chat_24"
-        app:backgroundTint="@android:color/holo_orange_light"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent" />
 

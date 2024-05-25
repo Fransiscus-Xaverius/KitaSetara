@@ -72,6 +72,11 @@ class ProfileFragment : Fragment() {
             binding.profileImage.setImageURI(uri)
             //save to firebase
             saveToFirebaseStorage(uri)
+
+            //update profilepic in preferences
+            val pref = UserPreference.getInstance(requireActivity().dataStore)
+            runBlocking { pref.editProfile(uri.toString()) }
+            Helper.currentUser?.imageUrl = uri.toString()
         }
     }
 
@@ -216,7 +221,6 @@ class ProfileFragment : Fragment() {
                         }
                     })
                     .into(binding.profileImage)
-
             }
         }
 

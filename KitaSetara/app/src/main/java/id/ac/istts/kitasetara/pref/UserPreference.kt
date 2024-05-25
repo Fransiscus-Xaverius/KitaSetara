@@ -30,6 +30,12 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    suspend fun editProfile(image : String){
+        dataStore.edit { preferences->
+            preferences[IMAGE] = image
+        }
+    }
+
     fun getSession(): Flow<User> {
         return dataStore.data.map { preferences ->
             User(

@@ -1,5 +1,7 @@
 package id.ac.istts.kitasetara.view
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -56,7 +58,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
 
-
+        playAnimation()
         //handle onclick
 
         binding.signInButton.setOnClickListener {
@@ -80,6 +82,34 @@ class LoginFragment : Fragment() {
             //handle forgot password
             //redirect to reset password fragment
             findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+        }
+    }
+
+    private fun playAnimation(){
+        val title = ObjectAnimator.ofFloat(binding.textView, View.ALPHA,1f).setDuration(220)
+        val iv = ObjectAnimator.ofFloat(binding.imageView,View.ALPHA,1f).setDuration(220)
+        val btnGoogle = ObjectAnimator.ofFloat(binding.signInButton,View.ALPHA,1f).setDuration(220)
+        val icGoogle = ObjectAnimator.ofFloat(binding.iconGoogle,View.ALPHA,1f).setDuration(220)
+        val linearGoogle = ObjectAnimator.ofFloat(binding.linearLayout,View.ALPHA,1f).setDuration(220)
+        val tvOr = ObjectAnimator.ofFloat(binding.textView7,View.ALPHA,1f).setDuration(220)
+        val tvUsername = ObjectAnimator.ofFloat(binding.textInputLayout4,View.ALPHA,1f).setDuration(220)
+        val tvPass = ObjectAnimator.ofFloat(binding.textInputLayout5,View.ALPHA,1f).setDuration(220)
+        val tvForgot = ObjectAnimator.ofFloat(binding.tvForgot,View.ALPHA,1f).setDuration(220)
+        val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin,View.ALPHA,1f).setDuration(220)
+        val tvNr = ObjectAnimator.ofFloat(binding.textView3,View.ALPHA,1f).setDuration(220)
+        val tvCreate = ObjectAnimator.ofFloat(binding.tvCreateAcc,View.ALPHA,1f).setDuration(220)
+
+        val together = AnimatorSet().apply {
+            playTogether(btnGoogle,icGoogle,linearGoogle, tvOr,tvUsername,tvPass)
+        }
+
+        val together2 = AnimatorSet().apply {
+            playTogether(tvNr, tvCreate)
+        }
+        //start animation
+        AnimatorSet().apply {
+            playSequentially(title,iv,together,tvForgot,btnLogin, together2)
+            start()
         }
     }
 

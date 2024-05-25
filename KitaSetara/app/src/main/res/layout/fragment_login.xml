@@ -9,6 +9,8 @@
 
     <TextView
         android:id="@+id/textView"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -22,6 +24,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="190dp"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_height="190dp"
         android:src="@drawable/loginlogo2"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
@@ -112,6 +116,8 @@
     <TextView
         android:id="@+id/tv_forgot"
         android:layout_width="wrap_content"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="26dp"
@@ -123,6 +129,8 @@
 
     <Button
         android:id="@+id/btn_login"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="LOGIN"
@@ -134,6 +142,8 @@
     <TextView
         android:id="@+id/tv_create_acc"
         android:layout_width="wrap_content"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -149,6 +159,8 @@
 
     <TextView
         android:id="@+id/textView3"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -180,6 +192,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="184dp"
         android:layout_height="37dp"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
         android:background="@drawable/border"
@@ -188,7 +202,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline11">
 
         <ImageView
+            android:id="@+id/iconGoogle"
             android:layout_width="20dp"
+            android:alpha="0"
+            tools:alpha="100"
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
@@ -200,6 +217,8 @@
 
         <Button
             android:id="@+id/signInButton"
+            android:alpha="0"
+            tools:alpha="100"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/blue"
@@ -214,6 +233,8 @@
 
     <TextView
         android:id="@+id/textView7"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
@@ -225,6 +246,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
         android:layout_width="0dp"
+        android:alpha="0"
+        tools:alpha="100"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
@@ -242,8 +265,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
+        android:id="@+id/textInputLayout5"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:alpha="0"
+        tools:alpha="100"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
