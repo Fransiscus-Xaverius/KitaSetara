@@ -1,5 +1,6 @@
 package id.ac.istts.kitasetara.services
 
+import RetryInterceptor
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonClass
@@ -12,6 +13,8 @@ import id.ac.istts.kitasetara.model.forum.Comment
 import id.ac.istts.kitasetara.model.forum.Post
 import id.ac.istts.kitasetara.model.forum.newComment
 import id.ac.istts.kitasetara.model.forum.newPost
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
@@ -22,6 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.concurrent.TimeUnit
 
 public interface apiService {
 
@@ -74,17 +78,31 @@ class DateAdapter : JsonAdapter<Long>() {
     }
 }
 
-object API{
-    val moshi = Moshi.Builder()
+object API {
+    private val logging = HttpLoggingInterceptor().apply {
+        setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    private val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(logging)
+        .addInterceptor(RetryInterceptor(3))
+        .build()
+
+    private val moshi = Moshi.Builder()
         .add(Date::class.java, DateAdapter())
+        .add(KotlinJsonAdapterFactory())
         .build()
 
-    val retrofit = Retrofit.Builder()
-        .baseUrl("http://kitasetara.api.fransiscus.dev/api/") //API URL
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://kitasetara.api.fransiscus.dev/api/")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(okHttpClient)
         .build()
 
-    val retrofitService:apiService by lazy{
+    val retrofitService: apiService by lazy {
         retrofit.create(apiService::class.java)
     }
 }

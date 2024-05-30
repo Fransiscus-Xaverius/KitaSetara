@@ -1,6 +1,9 @@
 package id.ac.istts.kitasetara.view
 
+import android.net.http.HttpException
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.SearchView
+import androidx.annotation.RequiresExtension
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +32,7 @@ import id.ac.istts.kitasetara.services.API
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.util.Date
 
 class DiscussFragment : Fragment() {
@@ -52,6 +57,7 @@ class DiscussFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //handle discussion onclick
@@ -89,14 +95,37 @@ class DiscussFragment : Fragment() {
         val posts = ArrayList<Post>()
         val postAdapter = postAdapter(posts, requireContext())
 
-        ioScope.launch { //access ke API
-            val tempPosts = API.retrofitService.getAllPosts()
-            mainScope.launch { //untuk update tampilan
-                posts.clear()
-                posts.addAll(tempPosts)
-                originalPosts.clear()
-                originalPosts.addAll(tempPosts)
-                postAdapter.notifyDataSetChanged()
+        ioScope.launch {
+            try {
+                // Make network call here
+                val tempPosts = API.retrofitService.getAllPosts()
+
+                // Update UI on the Main thread
+                mainScope.launch {
+                    posts.clear()
+                    posts.addAll(tempPosts)
+                    originalPosts.clear()
+                    originalPosts.addAll(tempPosts)
+                    postAdapter.notifyDataSetChanged()
+                }
+            } catch (e: IOException) {
+                // Handle IO exceptions (e.g., network issues)
+                e.message?.let { Log.e("IOException", it) }
+                mainScope.launch {
+
+                }
+            } catch (e: HttpException) {
+                // Handle HTTP exceptions (e.g., 404 Not Found, 500 Internal Server Error)
+                e.message?.let { Log.e("HTTP EXCEPTION", it) }
+                mainScope.launch {
+
+                }
+            } catch (e: Exception) {
+                // Handle other exceptions
+                e.message?.let { Log.e("Other Exceptions", it)}
+                mainScope.launch {
+
+                }
             }
         }
 

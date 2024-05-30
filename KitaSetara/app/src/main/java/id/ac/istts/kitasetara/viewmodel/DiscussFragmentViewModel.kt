@@ -1,6 +1,9 @@
-package id.ac.istts.kitasetara.viewmodel
+package id.ac.istts.kitasetara.viewModel
 
+import android.net.http.HttpException
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresExtension
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import id.ac.istts.kitasetara.model.forum.Comment
@@ -11,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class DiscussFragmentViewModel : ViewModel() {
     private val ioScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
@@ -28,17 +32,26 @@ class DiscussFragmentViewModel : ViewModel() {
         _selectedPost.value = post
     }
 
-    fun getPostDetails(){
-        try {
-            ioScope.launch {
-                _selectedPost.value?.id_post?.let {
-                    _selectedPost.postValue(API.retrofitService.getPostById(it))
-                    _comments.postValue(API.retrofitService.getAllComments(it))
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    fun getPostDetails() {
+        ioScope.launch {
+            try {
+                _selectedPost.value?.id_post?.let { postId ->
+                    val post = API.retrofitService.getPostById(postId)
+                    val comments = API.retrofitService.getAllComments(postId)
+                    _selectedPost.postValue(post)
+                    _comments.postValue(comments)
                 }
+            } catch (e: IOException) {
+                // Handle IO exceptions (e.g., network issues)
+                Log.e("DiscussFragmentViewModel", "IOException: ${e.message}")
+            } catch (e: HttpException) {
+                // Handle HTTP exceptions (e.g., 404 Not Found, 500 Internal Server Error)
+                Log.e("DiscussFragmentViewModel", "HttpException: ${e.message}")
+            } catch (e: Exception) {
+                // Handle other exceptions
+                Log.e("DiscussFragmentViewModel", "Exception: ${e.message}")
             }
-        }
-        catch (e: Exception){
-            Log.e("DiscussFragmentViewModel", "getPostDetails: ${e.message}")
         }
     }
 

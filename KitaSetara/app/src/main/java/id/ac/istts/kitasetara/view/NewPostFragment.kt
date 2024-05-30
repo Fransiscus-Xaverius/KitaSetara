@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import id.ac.istts.kitasetara.Helper
@@ -19,7 +18,7 @@ import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentNewPostBinding
 import id.ac.istts.kitasetara.model.forum.newPost
 import id.ac.istts.kitasetara.services.API
-import id.ac.istts.kitasetara.viewmodel.DiscussFragmentViewModel
+import id.ac.istts.kitasetara.viewModel.DiscussFragmentViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

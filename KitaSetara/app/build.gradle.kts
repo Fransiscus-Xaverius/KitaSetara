@@ -92,6 +92,9 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
 
+    //okhttp logging
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
     //circle image view
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
