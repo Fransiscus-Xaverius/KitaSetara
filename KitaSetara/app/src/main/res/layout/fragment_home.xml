@@ -53,6 +53,7 @@
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:maxLines="4"
+            android:text="Men and women were created equal from the beginning of time"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="italic"
@@ -64,13 +65,11 @@
             android:id="@+id/tv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="253dp"
             android:layout_marginEnd="42dp"
             android:layout_marginBottom="17dp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_aristotle"
@@ -130,9 +129,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="27dp"
-            android:text="TextView"
+            android:text="@string/gender_equality"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -146,9 +145,9 @@
             android:layout_marginBottom="19dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="TextView"
+            android:text="The principle of treating individuals of different genders equally in all aspects of society"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="13sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,13 +157,11 @@
             android:id="@+id/cl_equality"
             android:layout_width="104dp"
             android:layout_height="109dp"
-            android:layout_marginStart="6dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="11dp"
             android:layout_marginBottom="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_term_meaning"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -220,13 +217,11 @@
         android:id="@+id/cl_recent1"
         android:layout_width="163dp"
         android:layout_height="131dp"
-        android:layout_marginStart="2dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="18dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/orange_base"
         app:layout_constraintBottom_toTopOf="@+id/guideline55"
-        app:layout_constraintEnd_toStartOf="@+id/cl_recent2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline58"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toTopOf="@+id/guideline56">
 
@@ -256,6 +251,7 @@
         android:backgroundTint="@color/orange_base"
         app:layout_constraintBottom_toTopOf="@+id/guideline55"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
+        app:layout_constraintStart_toStartOf="@+id/guideline59"
         app:layout_constraintTop_toTopOf="@+id/guideline56">
 
         <TextView
@@ -278,16 +274,14 @@
         android:id="@+id/tv_desc1"
         android:layout_width="159dp"
         android:layout_height="80dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="19dp"
         android:alpha="0.5"
         android:ellipsize="end"
         android:maxLines="3"
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintEnd_toStartOf="@+id/tv_desc2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline58"
         app:layout_constraintStart_toStartOf="@id/guideline33"
         app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
@@ -304,6 +298,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintEnd_toEndOf="@id/guideline41"
+        app:layout_constraintStart_toStartOf="@+id/guideline59"
         app:layout_constraintTop_toTopOf="@+id/guideline55" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -349,5 +344,20 @@
         app:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline58"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.53"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

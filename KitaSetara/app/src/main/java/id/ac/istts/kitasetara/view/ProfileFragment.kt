@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -23,9 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import id.ac.istts.kitasetara.BuildConfig
@@ -34,8 +33,8 @@ import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentProfileBinding
 import id.ac.istts.kitasetara.pref.UserPreference
 import id.ac.istts.kitasetara.pref.dataStore
+import id.ac.istts.kitasetara.viewmodel.ProfileViewModel
 import kotlinx.coroutines.runBlocking
-import java.util.UUID
 
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
@@ -43,10 +42,9 @@ class ProfileFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
     private lateinit var dialog : Dialog
-    private val storage = FirebaseStorage.getInstance() //get firebase storage instance
-    private val firebaseDatabase = FirebaseDatabase.getInstance() //get firebase db instance
     private val auth = Firebase.auth
     private val user = auth.currentUser //get current user that has logged in with google
+    private val viewModel : ProfileViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,7 +69,7 @@ class ProfileFragment : Fragment() {
             //display image to imageview
             binding.profileImage.setImageURI(uri)
             //save to firebase
-            saveToFirebaseStorage(uri)
+            viewModel.saveToFirebaseStorage(uri, requireActivity(),binding,user)
 
             //update profilepic in preferences
             val pref = UserPreference.getInstance(requireActivity().dataStore)
@@ -80,57 +78,6 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun saveToFirebaseStorage(uri:Uri){
-        val imageName = UUID.randomUUID().toString() //random name using UUID for image name
-        val storageRef = storage.reference.child("images/$imageName")
-        binding.progressBar.visibility = View.VISIBLE
-        Toast.makeText(requireActivity(),"Updating...(May take a few seconds)",Toast.LENGTH_LONG).show()
-        storageRef.putFile(uri)
-            .addOnSuccessListener { _ ->
-                // Image uploaded successfully, get the URL of the uploaded image to be stored in realtime DB
-                storageRef.downloadUrl.addOnSuccessListener { imageUrl ->
-                    // Image URL retrieved, now save it to Firebase realtime DB
-                    binding.progressBar.visibility = View.GONE
-                    saveToDatabase(imageUrl.toString())
-
-                }.addOnFailureListener { _ ->
-                    // Handle unexpected error
-                    Toast.makeText(requireActivity(),"ERROR OCCURED",Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { _ ->
-                //handle unexpected error
-                Toast.makeText(requireActivity(),"ERROR OCCURED",Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun saveToDatabase(imageUrl : String){
-        //show loading indicator while trying to save new image
-
-        //get current user id
-        var uid  = ""
-
-        uid = if (Helper.currentUser != null){
-            Helper.currentUser!!.id!!
-        }else{
-            //login with google
-            user!!.uid
-        }
-        // Reference to the "users" node in the Realtime Database
-        val usersRef = firebaseDatabase.reference.child("users")
-        // Reference to the specific user's node using their user ID
-        val userRef = usersRef.child(uid)
-        // Update the "imageUrl" attribute of the user node with the new image URL
-        userRef.child("imageUrl").setValue(imageUrl)
-            .addOnSuccessListener {
-                // Image URL updated in Realtime Database successfully
-                Toast.makeText(requireActivity(),"Profile successfully updated!",Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { _ ->
-                // Handle any errors
-                Toast.makeText(requireActivity(),"Error when saving to database!",Toast.LENGTH_SHORT).show()
-            }
-    }
     private fun startGallery(){
         //access gallery without needing to request permission beforehand, image only
         launcherIntentGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
