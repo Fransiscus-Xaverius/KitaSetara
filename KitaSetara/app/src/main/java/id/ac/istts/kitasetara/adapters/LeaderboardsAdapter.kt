@@ -54,6 +54,7 @@ class LeaderboardsAdapter(
         }
 
         holder.medalIcon.visibility = View.GONE
+        holder.txtPosition.visibility = View.VISIBLE
 
         //set place position in leaderboard
         if(position+1 == 1){//1st place
