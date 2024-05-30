@@ -12,5 +12,5 @@ data class Leaderboard(
     @ColumnInfo(name = "score") val score : Int,
     @ColumnInfo(name = "userId") val userid : String,
     @ColumnInfo(name = "name") val name : String,
-    @ColumnInfo(name = "photoUrl") val photoUrl : String
+    @ColumnInfo(name = "photoUrl") val photoUrl : String,
 )

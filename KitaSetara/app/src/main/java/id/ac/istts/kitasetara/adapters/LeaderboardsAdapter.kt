@@ -1,5 +1,6 @@
 package id.ac.istts.kitasetara.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,20 +53,21 @@ class LeaderboardsAdapter(
             holder.profilePict.setImageResource(R.drawable.default_profile)
         }
 
-
+        holder.medalIcon.visibility = View.GONE
 
         //set place position in leaderboard
-        if(position == 0){//1st place
+        if(position+1 == 1){//1st place
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard1st)
             holder.medalIcon.visibility = View.VISIBLE
+            holder.medalIcon.setImageResource(R.drawable.icon_1st)
             holder.txtPosition.visibility = View.GONE
 //            holder.itemLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.leaderboardGold))
-        }else if(position == 1){//2nd place
+        }else if(position+1 == 2){//2nd place
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard2nd)
             holder.medalIcon.visibility = View.VISIBLE
             holder.medalIcon.setImageResource(R.drawable.icon_2nd)
             holder.txtPosition.visibility = View.GONE
-        }else if(position == 2){//3rd place
+        }else if(position+1 == 3){//3rd place
             holder.itemLayout.setBackgroundResource(R.drawable.background_leaderboard3nd)
             holder.medalIcon.visibility = View.VISIBLE
             holder.medalIcon.setImageResource(R.drawable.icon_3rd)

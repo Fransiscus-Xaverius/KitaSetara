@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
@@ -18,6 +20,9 @@ import id.ac.istts.kitasetara.adapters.LeaderboardsAdapter
 import id.ac.istts.kitasetara.databinding.FragmentLeaderboardBinding
 import id.ac.istts.kitasetara.model.leaderboard.Leaderboard
 import id.ac.istts.kitasetara.viewmodel.LeaderboardViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LeaderboardFragment : Fragment() {
 
@@ -53,6 +58,7 @@ class LeaderboardFragment : Fragment() {
             viewModel.getPlaceInLeaderboard(leaderboards)
         }
         viewModel.leaderboards.observe(viewLifecycleOwner, leaderboardsObserver)
+
         viewModel.loadLeaderboards()
         viewModel.getLeaderboards()
 
@@ -101,6 +107,37 @@ class LeaderboardFragment : Fragment() {
             refreshData()
         }
 
+        binding.rvLeaderboard.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                var showed = false
+                for (i in firstVisibleItemPosition..lastVisibleItemPosition) {
+                    // Check if the user's own profile is being showed
+                    if (leaderboards[i].userid == Helper.currentUser!!.id) {
+                        showed = true
+                        binding.leaderboardBottomFullLayout.visibility = View.GONE
+
+                        val layoutParams = binding.swipeRefreshLayout.layoutParams as ConstraintLayout.LayoutParams
+                        val guidelineId = R.id.bottom_navigation
+                        layoutParams.bottomToTop = guidelineId
+                        binding.swipeRefreshLayout.layoutParams = layoutParams
+                    }
+                }
+                if (!showed){
+                    binding.leaderboardBottomFullLayout.visibility = View.VISIBLE
+                    val layoutParams = binding.swipeRefreshLayout.layoutParams as ConstraintLayout.LayoutParams
+                    val guidelineId = R.id.guidelineLeaderboardHorizontal
+                    layoutParams.bottomToTop = guidelineId
+                    binding.swipeRefreshLayout.layoutParams = layoutParams
+                }
+            }
+        })
+
         //handle onclick
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
@@ -136,6 +173,7 @@ class LeaderboardFragment : Fragment() {
             //fetch latest leaderboard data from a server
             viewModel.loadLeaderboards()
             viewModel.getLeaderboards()
+
             viewModel.getCurrentUserLeaderboardDetail()
             // Once the data is updated, hide the refresh indicator
             binding.swipeRefreshLayout.isRefreshing = false

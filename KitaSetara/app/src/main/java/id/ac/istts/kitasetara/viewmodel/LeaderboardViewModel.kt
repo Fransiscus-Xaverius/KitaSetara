@@ -12,6 +12,7 @@ import id.ac.istts.kitasetara.model.leaderboard.Leaderboard
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LeaderboardViewModel: ViewModel() {
     private val leaderboardsRepository:LeaderboardsRepository = KitaSetaraApplication.leaderboardsRepository
@@ -37,7 +38,13 @@ class LeaderboardViewModel: ViewModel() {
     }
 
     fun loadLeaderboards(){
-        ioScope.launch {
+       ioScope.launch {
+           fetchLeaderboardsData()
+       }
+    }
+
+    private suspend fun fetchLeaderboardsData(){
+        val newData = withContext(Dispatchers.IO) {
             leaderboardsRepository.fetchLeaderboardScoreFromFirebaseAndInsertToRoom()
         }
     }
