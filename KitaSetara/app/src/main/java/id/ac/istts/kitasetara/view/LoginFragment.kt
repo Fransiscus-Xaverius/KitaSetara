@@ -4,31 +4,26 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import id.ac.istts.kitasetara.BuildConfig
 import id.ac.istts.kitasetara.Helper
 import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentLoginBinding
-import id.ac.istts.kitasetara.model.forum.User
-import id.ac.istts.kitasetara.pref.UserPreference
-import id.ac.istts.kitasetara.pref.dataStore
-import kotlinx.coroutines.runBlocking
+import id.ac.istts.kitasetara.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
     companion object {
@@ -41,6 +36,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    private val viewModel : LoginViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,9 +66,9 @@ class LoginFragment : Fragment() {
             val username = binding.etLoginUsername.text.toString()
             val pass = binding.etLoginPassword.text.toString()
             if (username.isNotEmpty() && pass.isNotEmpty()){
-                loginUser(view,username,pass)
-            }else Toast.makeText(context, "All inputs need to be filled!", Toast.LENGTH_SHORT)
-                .show()
+                viewModel.loginUser(view,username,pass,firebaseDatabase,databaseReference,requireActivity())
+            }else Helper.showSnackbar(view, "All inputs need to be filled!")
+
         }
         binding.tvCreateAcc.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -151,39 +147,6 @@ class LoginFragment : Fragment() {
                 }
             }
     }
-    private fun loginUser(view: View, username : String, password:String){
-        databaseReference.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    for (userSnapshot in snapshot.children){
-                        val userData = userSnapshot.getValue(User::class.java)
 
-                        if (userData != null && userData.password == password){
-                            //login successful
-                            //set currentuser
-                            Helper.currentUser = userData
-                            //save session
-                            val pref = UserPreference.getInstance(requireActivity().dataStore)
-                            runBlocking { pref.saveSession(userData) }
-                            Toast.makeText(context, "Login successful!", Toast.LENGTH_SHORT)
-                                .show()
-                            userSnapshot.ref.child("loggedIn").setValue(true)
-                            //redirect to home fragment
-                            view.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                        }else Toast.makeText(context, "Username or password is incorrect!", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }else{
-                    Toast.makeText(context, "Username or password is incorrect!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Database Error : ${error.message}", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
-    }
 
 }
