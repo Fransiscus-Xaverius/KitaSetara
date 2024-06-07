@@ -17,7 +17,7 @@ import id.ac.istts.kitasetara.viewmodel.CoursesFragmentViewModel
 import id.ac.istts.kitasetara.viewmodel.HomeViewModel
 
 
-class HomeFragment : Fragment() {
+class  HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

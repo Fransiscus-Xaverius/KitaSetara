@@ -1,6 +1,8 @@
 package id.ac.istts.kitasetara.view
 
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import id.ac.istts.kitasetara.R
 import id.ac.istts.kitasetara.databinding.FragmentDetailContentBinding
 import id.ac.istts.kitasetara.model.course.Content
 import id.ac.istts.kitasetara.viewmodel.DetailContentViewModel
+import kotlin.math.log
 
 
 class DetailContentFragment : Fragment() {
@@ -42,9 +45,11 @@ class DetailContentFragment : Fragment() {
         val maxContentNumber = navArgs.maxContentNumber
         val contentList = navArgs.contentsList
 
+
         val contentObserver:Observer<Content> = Observer{
             binding.tvContentTitle.text = it.name
-            binding.tvContent.text = it.content
+//            binding.tvContent.text = it.content
+            binding.tvContent.text = Html.fromHtml(it.content, Html.FROM_HTML_MODE_LEGACY)
             binding.tvContentTitle2.text = it.name
         }
         viewModel.content.observe(viewLifecycleOwner, contentObserver)
