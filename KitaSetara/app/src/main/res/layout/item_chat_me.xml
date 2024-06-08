@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingBottom="12dp"
-    android:layout_height="wrap_content">
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/boy_face_with_cap_svgrepo_com" />
+    android:layout_height="wrap_content"
+    android:gravity="right"
+    android:padding="@dimen/_12sdp">
 
     <TextView
         android:id="@+id/tv_msgbot"
-        android:layout_width="270dp"
-        android:textColor="@color/white"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/orange_base"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp"
+        android:paddingHorizontal="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_6sdp"
         android:text="Hello"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView10" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textColor="@color/white"
+        android:textSize="@dimen/_10ssp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_gravity="start"
+        android:src="@drawable/boy_face_with_cap_svgrepo_com" />
+</LinearLayout>

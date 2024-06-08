@@ -32,7 +32,7 @@
             android:name="id.ac.istts.kitasetara.view.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

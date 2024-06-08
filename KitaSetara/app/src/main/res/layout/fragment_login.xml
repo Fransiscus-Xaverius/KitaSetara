@@ -23,9 +23,13 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/_140sdp"
-        android:layout_height="@dimen/_140sdp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/loginlogo2"
+        android:layout_marginStart="@dimen/_9sdp"
+        android:layout_marginEnd="@dimen/_9sdp"
+        android:layout_marginBottom="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_9sdp"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toEndOf="@+id/guideline9"
@@ -280,6 +284,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:singleLine="true"
             android:inputType="text"
             android:hint="Username"
             android:textSize="@dimen/_10ssp"/>
@@ -303,6 +308,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:singleLine="true"
             android:inputType="textPassword"
             android:hint="Password"
             android:textSize="@dimen/_10ssp" />

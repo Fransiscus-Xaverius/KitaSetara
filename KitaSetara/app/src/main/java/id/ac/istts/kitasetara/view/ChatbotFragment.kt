@@ -53,6 +53,8 @@ class ChatbotFragment : Fragment() {
                 resetEt()
                 tempList.add(Message(result, "bot"))
                 adapter.notifyDataSetChanged()
+                val imm = context?.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
             }else{
                 Helper.showSnackbar(requireView(),"Try another message")
             }
