@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/moduleItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="108dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/rounded_corner"
     android:backgroundTint="#FFD9C4">
 
     <TextView
         android:id="@+id/tvModuleItemNumber"
         android:layout_width="0dp"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:text="Module 1"
-        android:textSize="16sp"
+        android:textSize="@dimen/_9ssp"
         app:layout_constraintLeft_toRightOf="@id/guideline35"
         app:layout_constraintRight_toLeftOf="@id/guideline34"
         app:layout_constraintTop_toBottomOf="@id/guideline36" />
@@ -21,11 +21,11 @@
     <TextView
         android:id="@+id/tvModuleItemName"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp"
         android:ellipsize="end"
         android:text="Introduction"
-        android:textSize="20sp"
+        android:textSize="@dimen/_13ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/guideline38"
         app:layout_constraintLeft_toRightOf="@id/guideline35"
@@ -34,8 +34,8 @@
 
     <ImageView
         android:id="@+id/ivModuleItemIconStatus"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:layout_gravity="center"
         app:layout_constraintBottom_toTopOf="@id/guideline38"
         app:layout_constraintLeft_toRightOf="@id/guideline34"
@@ -47,14 +47,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="59dp" />
+        app:layout_constraintGuide_percent="0.83"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp"
         app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -62,13 +61,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="14dp" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_percent="0.85"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

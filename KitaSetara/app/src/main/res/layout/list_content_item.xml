@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_8sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentItemLayout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#FFD9C4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,10 +21,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:text="Introduction"
             android:textAlignment="gravity"
-            android:textSize="20sp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/guideline38"
             app:layout_constraintLeft_toRightOf="@id/guideline35"
@@ -32,8 +35,8 @@
 
         <ImageView
             android:id="@+id/ivContentItemIconStatus"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"
             app:layout_constraintBottom_toTopOf="@id/guideline38"
             app:layout_constraintLeft_toRightOf="@id/guideline34"
@@ -45,14 +48,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="59dp" />
+            app:layout_constraintGuide_percent="0.85"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="16dp"
             app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -60,14 +62,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="14dp" />
+            app:layout_constraintGuide_percent="0.23"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_end="16dp" />
+            app:layout_constraintGuide_percent="0.77"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

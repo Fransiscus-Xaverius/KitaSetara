@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="27dp"
             app:layout_constraintGuide_percent="0.02" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -37,7 +36,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="0dp"
             app:layout_constraintGuide_percent="0.07" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -45,7 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="342dp"
             app:layout_constraintGuide_percent="0.12" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -53,7 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="31dp"
             app:layout_constraintGuide_percent="0.94" />
 
         <TextView
@@ -103,7 +99,7 @@
                     android:id="@+id/tvContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_13sdp"
                     android:text="TextView"
                     android:textSize="@dimen/_16ssp" />
             </LinearLayout>
@@ -156,7 +152,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_end="23dp"
             app:layout_constraintGuide_percent="0.96" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -164,7 +159,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="24dp"
             app:layout_constraintGuide_percent="0.05" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

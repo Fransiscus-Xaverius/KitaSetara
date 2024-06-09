@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/coursesItemLayout"
-    android:layout_width="190dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
+    android:layout_marginBottom="@dimen/_12sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
+    android:layout_marginStart="@dimen/_10sdp"
     android:orientation="vertical"
-    android:paddingEnd="20dp">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="@dimen/_80sdp"
         android:background="@drawable/background_courses_name"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtNameCourses"
-            android:layout_width="142dp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
             android:gravity="center_horizontal"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="@dimen/_12ssp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txtDetailCourses"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp"
         android:alpha="0.5"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="3"
-        android:padding="3dp"
+        android:padding="@dimen/_3sdp"
         android:text="TextView" />
 </LinearLayout>

@@ -9,7 +9,8 @@
 
     <TextView
         android:id="@+id/tv_msgbot"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_width="wrap_content"
+        android:maxWidth="@dimen/_200sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/_8sdp"

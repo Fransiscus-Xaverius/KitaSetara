@@ -13,33 +13,32 @@
             android:layout_height="0dp"
             android:layout_marginStart="5dp"
             android:text="Course Name"
-            android:textSize="24sp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@id/guideline39"
             app:layout_constraintEnd_toStartOf="@id/guideline36"
-            app:layout_constraintLeft_toRightOf="@id/guideline37"
             app:layout_constraintStart_toEndOf="@id/guideline37"
             app:layout_constraintTop_toBottomOf="@id/guideline40" />
 
         <ImageButton
             android:id="@+id/ibBackDetailModule"
-            android:layout_width="32dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:backgroundTint="#00FFFFFF"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintEnd_toStartOf="@id/guideline37"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline92"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@id/guideline38"
             app:layout_constraintEnd_toEndOf="@id/guideline36"
@@ -59,27 +58,25 @@
                     android:id="@+id/tvModuleName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/_6sdp"
                     android:text="Module 1 | Introduction"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtModuleDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-
                     android:layout_marginEnd="0dp"
                     android:text="TextView"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/_11ssp" />
 
                 <TextView
                     android:id="@+id/textView31"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     android:background="#9E9E9E"
                     android:text="TextView" />
 
@@ -87,9 +84,9 @@
                     android:id="@+id/textView29"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/_6sdp"
                     android:text="Module Content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
                 <ProgressBar
@@ -100,11 +97,15 @@
                     android:layout_gravity="center|center_vertical"
                     android:visibility="gone" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvContent"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp" />
+                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
 
@@ -113,7 +114,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="40dp"
             app:layout_constraintGuide_percent="0.06" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -121,14 +121,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="46dp" />
+            app:layout_constraintGuide_percent="0.065" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="371dp"
             app:layout_constraintGuide_percent="0.94" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -136,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="40dp" />
+            app:layout_constraintGuide_percent="0.12" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline38"
@@ -151,7 +150,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="52dp"
             app:layout_constraintGuide_percent="0.07" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -159,6 +157,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="13dp" />
+            app:layout_constraintGuide_percent="0.022" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline92"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.035"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
